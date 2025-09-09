@@ -1,11 +1,32 @@
 import { Button } from "@/components/ui/button";
-import { Brain, Menu } from "lucide-react";
+import { Brain, Menu, User, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut, loading } = useAuth();
+  const { toast } = useToast();
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: "Error signing out",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Signed out successfully",
+        description: "You have been signed out of your account.",
+      });
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -58,12 +79,33 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost">
-              Masuk
-            </Button>
-            <Button variant="hero">
-              Mulai Gratis
-            </Button>
+            {!loading && (
+              user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      {user.user_metadata?.full_name || user.email}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <>
+                  <Button variant="ghost" asChild>
+                    <Link to="/auth">Masuk</Link>
+                  </Button>
+                  <Button variant="hero" asChild>
+                    <Link to="/auth">Mulai Gratis</Link>
+                  </Button>
+                </>
+              )
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,12 +159,32 @@ const Header = () => {
                 Success Stories
               </Link>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
-                <Button variant="ghost" className="justify-start">
-                  Masuk
-                </Button>
-                <Button variant="hero" className="justify-start">
-                  Mulai Gratis
-                </Button>
+                {!loading && (
+                  user ? (
+                    <div className="space-y-2">
+                      <div className="px-2 py-1 text-sm text-muted-foreground">
+                        {user.user_metadata?.full_name || user.email}
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        className="justify-start text-destructive hover:text-destructive"
+                        onClick={handleSignOut}
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </div>
+                  ) : (
+                    <>
+                      <Button variant="ghost" className="justify-start" asChild>
+                        <Link to="/auth" onClick={() => setIsMenuOpen(false)}>Masuk</Link>
+                      </Button>
+                      <Button variant="hero" className="justify-start" asChild>
+                        <Link to="/auth" onClick={() => setIsMenuOpen(false)}>Mulai Gratis</Link>
+                      </Button>
+                    </>
+                  )
+                )}
               </div>
             </div>
           </div>
