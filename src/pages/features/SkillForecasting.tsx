@@ -1,9 +1,16 @@
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const features = [
   {
@@ -42,6 +49,59 @@ const aiImpactData = [
 ];
 
 const SkillForecasting = () => {
+  const { toast } = useToast();
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysis, setAnalysis] = useState(null);
+  const [formData, setFormData] = useState({
+    profession: "",
+    experience: "",
+    skills: ""
+  });
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handleAnalyze = async () => {
+    if (!formData.profession || !formData.skills) {
+      toast({
+        title: "Data Belum Lengkap",
+        description: "Mohon isi profesi dan skill Anda",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsAnalyzing(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('analyze-skills', {
+        body: {
+          profession: formData.profession,
+          experience: formData.experience || "0",
+          skills: formData.skills.split(',').map(s => s.trim()).filter(Boolean)
+        }
+      });
+
+      if (error) throw error;
+
+      setAnalysis(data);
+      toast({
+        title: "Analisis Berhasil",
+        description: "Hasil analisis AI telah tersedia",
+      });
+    } catch (error) {
+      console.error('Error analyzing skills:', error);
+      toast({
+        title: "Analisis Gagal",
+        description: "Terjadi kesalahan saat menganalisis. Coba lagi.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -65,10 +125,10 @@ const SkillForecasting = () => {
                   Berbasis analisis 50.000+ lowongan Indonesia dan tren global.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-gradient-hero">
+                  <Button size="lg" className="bg-gradient-hero" onClick={() => document.getElementById('analyzer')?.scrollIntoView({ behavior: 'smooth' })}>
                     Coba Prediksi Gratis
                   </Button>
-                  <Button size="lg" variant="outline">
+                  <Button size="lg" variant="outline" onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}>
                     Lihat Demo
                   </Button>
                 </div>
@@ -109,8 +169,166 @@ const SkillForecasting = () => {
           </div>
         </section>
 
+        {/* AI Skill Analyzer */}
+        <section id="analyzer" className="py-24 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+                Analisis AI Skill Anda
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Masukkan profesi dan skill Anda untuk mendapatkan analisis AI Impact Score dan rekomendasi karier masa depan.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+              <Card className="border-border/50">
+                <CardHeader>
+                  <CardTitle>Input Data Anda</CardTitle>
+                  <CardDescription>
+                    Berikan informasi tentang profesi dan skill Anda saat ini
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="profession">Profesi Saat Ini</Label>
+                    <Input
+                      id="profession"
+                      placeholder="e.g. Software Engineer, Marketing Manager"
+                      value={formData.profession}
+                      onChange={(e) => setFormData(prev => ({ ...prev, profession: e.target.value }))}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="experience">Pengalaman (Tahun)</Label>
+                    <Select onValueChange={(value) => setFormData(prev => ({ ...prev, experience: value }))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih pengalaman" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="0">Fresh Graduate</SelectItem>
+                        <SelectItem value="1">1-2 tahun</SelectItem>
+                        <SelectItem value="3">3-5 tahun</SelectItem>
+                        <SelectItem value="6">6-10 tahun</SelectItem>
+                        <SelectItem value="10">10+ tahun</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="skills">Skill Anda (pisahkan dengan koma)</Label>
+                    <Textarea
+                      id="skills"
+                      placeholder="e.g. JavaScript, React, Python, Project Management, Data Analysis"
+                      value={formData.skills}
+                      onChange={(e) => setFormData(prev => ({ ...prev, skills: e.target.value }))}
+                      rows={4}
+                    />
+                  </div>
+
+                  <Button 
+                    onClick={handleAnalyze} 
+                    className="w-full bg-gradient-hero" 
+                    disabled={isAnalyzing}
+                  >
+                    {isAnalyzing ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Menganalisis...
+                      </>
+                    ) : (
+                      'Analisis Sekarang'
+                    )}
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <div className="space-y-6">
+                {analysis ? (
+                  <>
+                    <Card className="border-border/50">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Brain className="w-5 h-5 text-primary" />
+                          AI Impact Score
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-center">
+                          <div className={`text-6xl font-bold mb-4 ${
+                            analysis.aiImpactScore > 70 ? 'text-red-500' : 
+                            analysis.aiImpactScore > 40 ? 'text-orange-500' : 
+                            'text-green-500'
+                          }`}>
+                            {analysis.aiImpactScore}%
+                          </div>
+                          <Badge variant={analysis.riskLevel === 'High' ? 'destructive' : analysis.riskLevel === 'Medium' ? 'secondary' : 'default'}>
+                            Risk Level: {analysis.riskLevel}
+                          </Badge>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="border-border/50">
+                      <CardHeader>
+                        <CardTitle>Future Outlook</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold text-sm">1 Tahun ke Depan:</h4>
+                          <p className="text-sm text-muted-foreground">{analysis.futureOutlook.nextYear}</p>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-sm">3 Tahun ke Depan:</h4>
+                          <p className="text-sm text-muted-foreground">{analysis.futureOutlook.next3Years}</p>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-sm">5 Tahun ke Depan:</h4>
+                          <p className="text-sm text-muted-foreground">{analysis.futureOutlook.next5Years}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="border-border/50">
+                      <CardHeader>
+                        <CardTitle>Rekomendasi Skill</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold text-sm mb-2">Skill Baru yang Harus Dipelajari:</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {analysis.recommendations.skillsToLearn.map((skill, index) => (
+                              <Badge key={index} variant="secondary">{skill}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-sm mb-2">AI-Proof Skills:</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {analysis.recommendations.aiProofSkills.map((skill, index) => (
+                              <Badge key={index} variant="default">{skill}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </>
+                ) : (
+                  <Card className="border-border/50">
+                    <CardContent className="p-8 text-center text-muted-foreground">
+                      <Brain className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                      <p>Isi form di sebelah kiri untuk mendapatkan analisis AI Impact Score Anda</p>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Features */}
-        <section className="py-24">
+        <section id="demo" className="py-24">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
