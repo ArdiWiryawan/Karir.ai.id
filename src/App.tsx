@@ -17,6 +17,7 @@ import InterviewCoach from "./pages/features/InterviewCoach";
 import FutureJobProjects from "./pages/features/FutureJobProjects";
 import AICoPilot from "./pages/features/AICoPilot";
 import TransitionPaths from "./pages/features/TransitionPaths";
+import DynamicSkillBlueprint from "./pages/DynamicSkillBlueprint";
 import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/features/future-job-projects" element={<FutureJobProjects />} />
             <Route path="/features/ai-copilot" element={<AICoPilot />} />
             <Route path="/features/transition-paths" element={<TransitionPaths />} />
+            <Route path="/dynamic-skill-blueprint" element={<DynamicSkillBlueprint />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
