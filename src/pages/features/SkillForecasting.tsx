@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, Bot, Users } from "lucide-react";
 import { allJobs, jobsByCategory, emergingJobs, riskJobs } from "@/data/jobDatabase";
 import { assessmentQuestions } from "@/data/assessmentQuestions";
+import { Job, AssessmentResult, JobMatch } from "@/data/skillForecastingTypes";
 
 const features = [
   {
@@ -47,8 +48,9 @@ const aiImpactData = [
 
 const SkillForecasting = () => {
   const [currentView, setCurrentView] = useState<'landing' | 'selection' | 'personal-assessment' | 'job-results' | 'direct-exploration' | 'roadmap-view'>('landing');
-  const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
-  const [assessmentAnswers, setAssessmentAnswers] = useState<Record<string, any>>({});
+  const [selectedJobs, setSelectedJobs] = useState<Job[]>([]);
+  const [assessmentAnswers, setAssessmentAnswers] = useState<Record<string, string | number | string[]>>({});
+  const [jobMatches, setJobMatches] = useState<JobMatch[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const handleStartForecasting = () => {
