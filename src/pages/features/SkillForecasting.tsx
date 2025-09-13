@@ -1,9 +1,13 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, Bot, Users } from "lucide-react";
+import { allJobs, jobsByCategory, emergingJobs, riskJobs } from "@/data/jobDatabase";
+import { assessmentQuestions } from "@/data/assessmentQuestions";
 
 const features = [
   {
@@ -42,6 +46,178 @@ const aiImpactData = [
 ];
 
 const SkillForecasting = () => {
+  const [currentView, setCurrentView] = useState<'landing' | 'selection' | 'personal-assessment' | 'job-results' | 'direct-exploration' | 'roadmap-view'>('landing');
+  const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
+  const [assessmentAnswers, setAssessmentAnswers] = useState<Record<string, any>>({});
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+  const handleStartForecasting = () => {
+    setCurrentView('selection');
+  };
+
+  const handlePersonalPath = () => {
+    setCurrentView('personal-assessment');
+  };
+
+  const handleDirectPath = () => {
+    setCurrentView('direct-exploration');
+  };
+
+  // Selection Interface Component
+  const SelectionInterface = () => (
+    <section className="py-24 bg-gradient-subtle min-h-screen flex items-center">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <span className="bg-gradient-hero bg-clip-text text-transparent">
+              Pilih Jalur
+            </span>{" "}
+            Prediksi Anda
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Dapatkan rekomendasi karier yang tepat dengan dua cara berbeda
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* Personal Assessment Path */}
+          <Card 
+            className="p-8 border-2 hover:border-primary/50 transition-all duration-300 cursor-pointer group"
+            onClick={handlePersonalPath}
+            data-testid="button-personal-path"
+          >
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <User className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">AI-Powered Personal Assessment</h3>
+              <p className="text-muted-foreground mb-6">
+                Jawab pertanyaan yang dipersonalisasi untuk mendapatkan rekomendasi pekerjaan yang paling sesuai dengan kepribadian, minat, dan keahlian Anda
+              </p>
+              <div className="space-y-2 text-sm text-left">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-primary" />
+                  <span>Analisis kepribadian & minat mendalam</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-primary" />
+                  <span>Matching dengan 500+ profesi masa depan</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-primary" />
+                  <span>Roadmap pembelajaran yang dipersonalisasi</span>
+                </div>
+              </div>
+              <Button className="w-full mt-6 bg-gradient-hero group-hover:scale-105 transition-transform">
+                Mulai Assessment <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </Card>
+
+          {/* Direct Job Exploration Path */}
+          <Card 
+            className="p-8 border-2 hover:border-secondary/50 transition-all duration-300 cursor-pointer group"
+            onClick={handleDirectPath}
+            data-testid="button-direct-path"
+          >
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-r from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <Search className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Eksplorasi Pekerjaan Langsung</h3>
+              <p className="text-muted-foreground mb-6">
+                Jelajahi langsung database lengkap pekerjaan masa depan, lihat prediksi gaji, risiko AI, dan roadmap pembelajaran untuk setiap profesi
+              </p>
+              <div className="space-y-2 text-sm text-left">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-secondary" />
+                  <span>500+ pekerjaan dengan data lengkap</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-secondary" />
+                  <span>Filter berdasarkan kategori & risiko AI</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-secondary" />
+                  <span>Roadmap & rekomendasi kursus detail</span>
+                </div>
+              </div>
+              <Button variant="secondary" className="w-full mt-6 group-hover:scale-105 transition-transform">
+                Mulai Eksplorasi <Search className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </Card>
+        </div>
+
+        <div className="text-center mt-12">
+          <Button 
+            variant="ghost" 
+            onClick={() => setCurrentView('landing')}
+            data-testid="button-back-to-landing"
+          >
+            ← Kembali ke Halaman Utama
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+
+  if (currentView === 'selection') {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-20">
+          <SelectionInterface />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (currentView === 'personal-assessment') {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-20">
+          <div className="py-24 min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold mb-6">Personal Assessment (Coming Soon)</h2>
+              <p className="text-muted-foreground mb-8">
+                Fitur assessment personal sedang dalam pengembangan
+              </p>
+              <Button onClick={() => setCurrentView('selection')}>
+                Kembali ke Pilihan
+              </Button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (currentView === 'direct-exploration') {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-20">
+          <div className="py-24 min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold mb-6">Direct Job Exploration (Coming Soon)</h2>
+              <p className="text-muted-foreground mb-8">
+                Fitur eksplorasi pekerjaan langsung sedang dalam pengembangan
+              </p>
+              <Button onClick={() => setCurrentView('selection')}>
+                Kembali ke Pilihan
+              </Button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -65,7 +241,12 @@ const SkillForecasting = () => {
                   Berbasis analisis 50.000+ lowongan Indonesia dan tren global.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-gradient-hero">
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-hero"
+                    onClick={handleStartForecasting}
+                    data-testid="button-start-forecasting"
+                  >
                     Coba Prediksi Gratis
                   </Button>
                   <Button size="lg" variant="outline">

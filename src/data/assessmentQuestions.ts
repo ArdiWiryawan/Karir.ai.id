@@ -25,7 +25,7 @@ export const assessmentQuestions: AssessmentQuestion[] = [
         id: 'q1-c',
         text: 'Menciptakan konten, desain, atau karya seni',
         value: 'creative_work',
-        jobCategories: ['Kreatif & Media', 'Design & UX']
+        jobCategories: ['Kreatif & Media']
       },
       {
         id: 'q1-d',
