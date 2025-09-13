@@ -580,6 +580,263 @@ const SkillForecasting = () => {
     );
   }
 
+  if (currentView === 'roadmap-view') {
+    const selectedJob = selectedJobs[0];
+    if (!selectedJob || !selectedJob.roadmap) {
+      return (
+        <div className="min-h-screen">
+          <Header />
+          <main className="pt-20">
+            <div className="py-24 text-center">
+              <h2 className="text-3xl font-bold mb-4">Roadmap tidak tersedia</h2>
+              <p className="text-muted-foreground mb-8">
+                Maaf, roadmap untuk pekerjaan ini belum tersedia.
+              </p>
+              <Button onClick={() => setCurrentView('job-results')} data-testid="button-back-to-results">
+                Kembali ke Hasil
+              </Button>
+            </div>
+          </main>
+          <Footer />
+        </div>
+      );
+    }
+
+    const roadmap = selectedJob.roadmap;
+    const totalDuration = roadmap.totalDuration;
+    const difficulty = roadmap.difficulty;
+
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-20">
+          <div className="py-12">
+            <div className="max-w-6xl mx-auto px-4">
+              {/* Header */}
+              <div className="text-center mb-12">
+                <Badge variant="outline" className="mb-4">
+                  {selectedJob.category}
+                </Badge>
+                <h1 className="text-4xl font-bold mb-4" data-testid="roadmap-job-title">
+                  Learning Roadmap: {selectedJob.title}
+                </h1>
+                <p className="text-xl text-muted-foreground mb-6">
+                  {selectedJob.description}
+                </p>
+                
+                {/* Key metrics */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <Card className="p-4">
+                    <div className="text-sm text-muted-foreground">Total Durasi</div>
+                    <div className="text-2xl font-bold text-blue-600">{totalDuration}</div>
+                  </Card>
+                  <Card className="p-4">
+                    <div className="text-sm text-muted-foreground">Tingkat Kesulitan</div>
+                    <div className={`text-2xl font-bold ${
+                      difficulty === 'Pemula' ? 'text-green-600' :
+                      difficulty === 'Menengah' ? 'text-yellow-600' : 'text-red-600'
+                    }`}>
+                      {difficulty}
+                    </div>
+                  </Card>
+                  <Card className="p-4">
+                    <div className="text-sm text-muted-foreground">Jumlah Phase</div>
+                    <div className="text-2xl font-bold text-purple-600">{roadmap.phases.length} Fase</div>
+                  </Card>
+                </div>
+
+                {/* Salary and AI Risk */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <Card className="p-6">
+                    <div className="text-sm text-muted-foreground mb-2">Prediksi Gaji (per tahun)</div>
+                    <div className="text-3xl font-bold text-green-600 mb-2">
+                      Rp {Math.round(selectedJob.salaryRange.min / 1000000)}-{Math.round(selectedJob.salaryRange.max / 1000000)} juta
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Proyeksi: {selectedJob.growthProjection}
+                    </div>
+                  </Card>
+                  <Card className="p-6">
+                    <div className="text-sm text-muted-foreground mb-2">AI Replacement Risk</div>
+                    <div className="flex items-center space-x-4 mb-2">
+                      <div className={`w-6 h-6 rounded-full ${
+                        selectedJob.aiReplacementRisk <= 20 ? 'bg-green-500' :
+                        selectedJob.aiReplacementRisk <= 50 ? 'bg-yellow-500' : 'bg-red-500'
+                      }`}></div>
+                      <span className="text-3xl font-bold">
+                        {selectedJob.aiReplacementRisk}%
+                      </span>
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {selectedJob.aiReplacementRisk <= 20 ? 'Risiko Rendah - Aman untuk masa depan' :
+                       selectedJob.aiReplacementRisk <= 50 ? 'Risiko Sedang - Butuh adaptasi' : 
+                       'Risiko Tinggi - Perlu strategi khusus'}
+                    </div>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Roadmap Timeline */}
+              <div className="mb-12">
+                <h2 className="text-2xl font-bold mb-6 text-center">Learning Roadmap</h2>
+                <div className="space-y-8">
+                  {roadmap.phases
+                    .sort((a, b) => a.order - b.order)
+                    .map((phase, index) => (
+                    <Card key={phase.id} className="p-6">
+                      <div className="flex items-start space-x-6">
+                        {/* Phase number */}
+                        <div className="flex-shrink-0">
+                          <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                            {phase.order}
+                          </div>
+                          {index < roadmap.phases.length - 1 && (
+                            <div className="w-0.5 h-16 bg-gray-300 mx-auto mt-4"></div>
+                          )}
+                        </div>
+
+                        {/* Phase content */}
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="text-xl font-semibold" data-testid={`phase-title-${phase.id}`}>
+                              {phase.title}
+                            </h3>
+                            <Badge variant="outline">{phase.duration}</Badge>
+                          </div>
+                          
+                          <p className="text-muted-foreground mb-4">{phase.description}</p>
+
+                          {/* Skills in this phase */}
+                          {phase.skills && phase.skills.length > 0 && (
+                            <div className="mb-4">
+                              <div className="text-sm font-medium mb-2">Skills yang akan dipelajari:</div>
+                              <div className="flex flex-wrap gap-2">
+                                {phase.skills.map((skill) => (
+                                  <Badge key={skill.id} variant="secondary" className="text-xs">
+                                    {skill.name}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Learning materials */}
+                          {phase.materials && phase.materials.length > 0 && (
+                            <div>
+                              <div className="text-sm font-medium mb-3">Materi pembelajaran:</div>
+                              <div className="grid gap-3">
+                                {phase.materials.map((material) => (
+                                  <div 
+                                    key={material.id} 
+                                    className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                  >
+                                    <div className="flex items-center space-x-3">
+                                      <Badge variant="outline" className="text-xs">
+                                        {material.type}
+                                      </Badge>
+                                      <div>
+                                        <div className="font-medium text-sm">{material.title}</div>
+                                        <div className="text-xs text-muted-foreground">
+                                          {material.provider} • {material.duration} • {material.difficulty}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                      {material.rating && (
+                                        <div className="text-xs text-yellow-600">★ {material.rating}</div>
+                                      )}
+                                      <div className="text-xs font-medium">
+                                        {material.price?.isFree ? 'Gratis' : `$${material.price?.amount}`}
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Prerequisites */}
+                          {phase.prerequisites && phase.prerequisites.length > 0 && (
+                            <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                              <div className="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-1">
+                                Prerequisites:
+                              </div>
+                              <div className="text-xs text-yellow-700 dark:text-yellow-300">
+                                Selesaikan phase: {phase.prerequisites.join(', ')}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* AI-Proof Skills */}
+              {selectedJob.aiProofSkills && selectedJob.aiProofSkills.length > 0 && (
+                <Card className="mb-8 p-6">
+                  <h3 className="text-xl font-semibold mb-4">🔮 Skills yang Aman dari AI</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Skills ini sulit digantikan AI dan akan tetap bernilai tinggi:
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {selectedJob.aiProofSkills.map((skill, index) => (
+                      <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg">
+                        <Shield className="w-5 h-5 text-green-600" />
+                        <span className="font-medium">{skill}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              )}
+
+              {/* Interesting Facts */}
+              {selectedJob.interestingFacts && selectedJob.interestingFacts.length > 0 && (
+                <Card className="mb-8 p-6">
+                  <h3 className="text-xl font-semibold mb-4">💡 Fakta Menarik</h3>
+                  <div className="space-y-3">
+                    {selectedJob.interestingFacts.map((fact, index) => (
+                      <div key={index} className="flex items-start space-x-3">
+                        <div className="w-2 h-2 rounded-full bg-blue-500 mt-2"></div>
+                        <span className="text-muted-foreground">{fact}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              )}
+
+              {/* Actions */}
+              <div className="flex justify-center space-x-4">
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentView('job-results')}
+                  data-testid="button-back-to-results"
+                >
+                  Kembali ke Hasil
+                </Button>
+                <Button
+                  onClick={() => setCurrentView('direct-exploration')}
+                  data-testid="button-explore-more-jobs"
+                >
+                  Jelajahi Pekerjaan Lain
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentView('selection')}
+                  data-testid="button-back-to-main-menu"
+                >
+                  Menu Utama
+                </Button>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen">
       <Header />
