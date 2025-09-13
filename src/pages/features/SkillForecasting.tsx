@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, Bot, Users } from "lucide-react";
+import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, Bot, Users, CheckCircle, Clock, Star, Trophy, PlayCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { allJobs, jobsByCategory, emergingJobs, riskJobs } from "@/data/jobDatabase";
 import { assessmentQuestions, categoryWeights } from "@/data/assessmentQuestions";
 import { Job, AssessmentResult, JobMatch, JobCategory } from "@/data/skillForecastingTypes";
@@ -59,6 +59,20 @@ const SkillForecasting = () => {
   const [selectedRiskLevel, setSelectedRiskLevel] = useState<'all' | 'low' | 'medium' | 'high'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showNewJobs, setShowNewJobs] = useState(false);
+  
+  // Roadmap interaction states for gamification with persistence
+  const [expandedPhases, setExpandedPhases] = useState<Set<string>>(new Set());
+  const [completedPhases, setCompletedPhases] = useState<Set<string>>(() => {
+    // Load completed phases from localStorage on init
+    const saved = localStorage.getItem('completedPhases');
+    return saved ? new Set(JSON.parse(saved)) : new Set();
+  });
+  const [hoveredPhase, setHoveredPhase] = useState<string | null>(null);
+
+  // Persist completed phases to localStorage
+  useEffect(() => {
+    localStorage.setItem('completedPhases', JSON.stringify([...completedPhases]));
+  }, [completedPhases]);
 
   // Assessment scoring function
   const calculateJobMatches = (answers: Record<string, string | number | string[]>): JobMatch[] => {
@@ -73,6 +87,7 @@ const SkillForecasting = () => {
       'Manufaktur & Produksi': 0,
       'Layanan & Hospitality': 0,
       'Pendidikan & Pelatihan': 0,
+      'Pemerintahan & Publik': 0,
       'Penelitian & Sains': 0
     };
 
@@ -122,7 +137,7 @@ const SkillForecasting = () => {
       return {
         job,
         matchScore: Math.min(normalizedScore, 1), // Cap at 100%
-        matchReasons: [
+        reasoning: [
           `Sesuai dengan minat di ${job.category}`,
           ...(normalizedScore > 0.6 ? ['Match score tinggi dengan preferensi Anda'] : []),
           ...(job.isNewProfession ? ['Profesi masa depan dengan prospek cerah'] : []),
@@ -142,7 +157,7 @@ const SkillForecasting = () => {
       return completeJobs.slice(0, 5).map(job => ({
         job,
         matchScore: 0.3, // Give a baseline score
-        matchReasons: [
+        reasoning: [
           'Profesi populer dengan prospek bagus',
           'Cocok untuk eksplorasi karier baru'
         ]
@@ -478,7 +493,7 @@ const SkillForecasting = () => {
                         <div className="mb-4">
                           <div className="text-sm font-medium mb-2">Mengapa cocok untuk Anda:</div>
                           <div className="flex flex-wrap gap-2">
-                            {match.matchReasons.map((reason, idx) => (
+                            {match.reasoning.map((reason, idx) => (
                               <Badge key={idx} variant="secondary" className="text-xs">
                                 {reason}
                               </Badge>
@@ -788,7 +803,7 @@ const SkillForecasting = () => {
                             setJobMatches([{
                               job,
                               matchScore: 0.8,
-                              matchReasons: ['Dipilih dari eksplorasi langsung', 'Profesi dengan prospek bagus']
+                              reasoning: ['Dipilih dari eksplorasi langsung', 'Profesi dengan prospek bagus']
                             }]);
                             setCurrentView('job-results');
                           }}
@@ -943,100 +958,308 @@ const SkillForecasting = () => {
                 </div>
               </div>
 
-              {/* Roadmap Timeline */}
+              {/* Gamified Interactive Roadmap Timeline */}
               <div className="mb-12">
-                <h2 className="text-2xl font-bold mb-6 text-center">Learning Roadmap</h2>
-                <div className="space-y-8">
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl font-bold mb-4">🗺️ Interactive Learning Journey</h2>
+                  <p className="text-muted-foreground mb-6">
+                    Klik setiap fase untuk melihat detail pembelajaran dan materials lengkap
+                  </p>
+                  
+                  {/* Progress Overview */}
+                  <div className="max-w-2xl mx-auto mb-8">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium">Progress Keseluruhan</span>
+                      <span className="text-sm text-muted-foreground">
+                        {completedPhases.size} dari {roadmap.phases.length} fase selesai
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div 
+                        className="bg-gradient-to-r from-green-500 to-blue-500 h-3 rounded-full transition-all duration-500 ease-out"
+                        style={{ width: `${(completedPhases.size / roadmap.phases.length) * 100}%` }}
+                      />
+                    </div>
+                    {completedPhases.size > 0 && (
+                      <div className="flex items-center justify-center mt-2 space-x-2">
+                        <Trophy className="w-4 h-4 text-yellow-500" />
+                        <span className="text-sm font-medium text-yellow-600">
+                          Great progress! Keep learning! 🎉
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Strategic CTA - Not sure where to start */}
+                  <div className="max-w-lg mx-auto p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border-2 border-dashed border-blue-200 dark:border-blue-800 mb-8">
+                    <div className="text-center">
+                      <Brain className="w-8 h-8 mx-auto mb-3 text-blue-600" />
+                      <h3 className="font-semibold mb-2">Tidak yakin mulai dari mana?</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Dapatkan rekomendasi jalur pembelajaran yang dipersonalisasi berdasarkan skill dan minat Anda saat ini
+                      </p>
+                      <Button 
+                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium"
+                        onClick={() => setCurrentView('personal-assessment')}
+                        data-testid="cta-personal-assessment-roadmap"
+                      >
+                        <Target className="w-4 h-4 mr-2" />
+                        Analisis Skill Saya Gratis
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Interactive Phase Timeline */}
+                <div className="space-y-6">
                   {roadmap.phases
                     .sort((a, b) => a.order - b.order)
-                    .map((phase, index) => (
-                    <Card key={phase.id} className="p-6">
-                      <div className="flex items-start space-x-6">
-                        {/* Phase number */}
-                        <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                            {phase.order}
-                          </div>
-                          {index < roadmap.phases.length - 1 && (
-                            <div className="w-0.5 h-16 bg-gray-300 mx-auto mt-4"></div>
-                          )}
-                        </div>
-
-                        {/* Phase content */}
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-3">
-                            <h3 className="text-xl font-semibold" data-testid={`phase-title-${phase.id}`}>
-                              {phase.title}
-                            </h3>
-                            <Badge variant="outline">{phase.duration}</Badge>
-                          </div>
-                          
-                          <p className="text-muted-foreground mb-4">{phase.description}</p>
-
-                          {/* Skills in this phase */}
-                          {phase.skills && phase.skills.length > 0 && (
-                            <div className="mb-4">
-                              <div className="text-sm font-medium mb-2">Skills yang akan dipelajari:</div>
-                              <div className="flex flex-wrap gap-2">
-                                {phase.skills.map((skill) => (
-                                  <Badge key={skill.id} variant="secondary" className="text-xs">
-                                    {skill.name}
-                                  </Badge>
-                                ))}
+                    .map((phase, index) => {
+                      const isCompleted = completedPhases.has(phase.id);
+                      const isExpanded = expandedPhases.has(phase.id);
+                      const isHovered = hoveredPhase === phase.id;
+                      const canStart = phase.prerequisites.length === 0 || 
+                        phase.prerequisites.every(req => completedPhases.has(req));
+                      
+                      return (
+                        <Card 
+                          key={phase.id} 
+                          className={`transition-all duration-300 cursor-pointer ${
+                            isHovered ? 'shadow-lg scale-102' : 'hover:shadow-md'
+                          } ${isCompleted ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800' : ''}`}
+                          onMouseEnter={() => setHoveredPhase(phase.id)}
+                          onMouseLeave={() => setHoveredPhase(null)}
+                          onClick={() => {
+                            setExpandedPhases(prev => {
+                              const newSet = new Set(prev);
+                              if (newSet.has(phase.id)) {
+                                newSet.delete(phase.id);
+                              } else {
+                                newSet.add(phase.id);
+                              }
+                              return newSet;
+                            });
+                          }}
+                          data-testid={`phase-card-${phase.id}`}
+                        >
+                          <div className="p-6">
+                            <div className="flex items-start space-x-6">
+                              {/* Enhanced Phase indicator */}
+                              <div className="flex-shrink-0">
+                                <div className={`relative w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
+                                  isCompleted 
+                                    ? 'bg-gradient-to-r from-green-500 to-emerald-600' 
+                                    : canStart 
+                                      ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
+                                      : 'bg-gray-400'
+                                }`}>
+                                  {isCompleted ? (
+                                    <CheckCircle className="w-8 h-8" />
+                                  ) : (
+                                    <span>{phase.order}</span>
+                                  )}
+                                  
+                                  {/* Completion badge */}
+                                  {isCompleted && (
+                                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center">
+                                      <Star className="w-3 h-3 text-white" />
+                                    </div>
+                                  )}
+                                </div>
+                                
+                                {/* Connection line */}
+                                {index < roadmap.phases.length - 1 && (
+                                  <div className={`w-1 h-12 mx-auto mt-4 transition-colors duration-300 ${
+                                    isCompleted ? 'bg-green-400' : 'bg-gray-300'
+                                  }`}></div>
+                                )}
                               </div>
-                            </div>
-                          )}
 
-                          {/* Learning materials */}
-                          {phase.materials && phase.materials.length > 0 && (
-                            <div>
-                              <div className="text-sm font-medium mb-3">Materi pembelajaran:</div>
-                              <div className="grid gap-3">
-                                {phase.materials.map((material) => (
-                                  <div 
-                                    key={material.id} 
-                                    className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                                  >
-                                    <div className="flex items-center space-x-3">
-                                      <Badge variant="outline" className="text-xs">
-                                        {material.type}
+                              {/* Phase content */}
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between mb-3">
+                                  <div className="flex items-center space-x-3">
+                                    <h3 className="text-xl font-semibold" data-testid={`phase-title-${phase.id}`}>
+                                      {phase.title}
+                                    </h3>
+                                    {isCompleted && (
+                                      <Badge variant="default" className="bg-green-100 text-green-800 border-green-200">
+                                        ✓ Selesai
                                       </Badge>
+                                    )}
+                                    {!canStart && (
+                                      <Badge variant="outline" className="border-orange-200 text-orange-600">
+                                        <Clock className="w-3 h-3 mr-1" />
+                                        Terkunci
+                                      </Badge>
+                                    )}
+                                  </div>
+                                  
+                                  <div className="flex items-center space-x-3">
+                                    <Badge variant="outline">{phase.duration}</Badge>
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="p-1"
+                                      data-testid={`toggle-phase-${phase.id}`}
+                                    >
+                                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                                    </Button>
+                                  </div>
+                                </div>
+                                
+                                <p className="text-muted-foreground mb-4">{phase.description}</p>
+
+                                {/* Phase action buttons */}
+                                <div className="flex items-center space-x-3 mb-4">
+                                  {!isCompleted && canStart && (
+                                    <Button 
+                                      size="sm" 
+                                      className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        // Mark as completed for demo
+                                        setCompletedPhases(prev => new Set([...prev, phase.id]));
+                                      }}
+                                      data-testid={`start-phase-${phase.id}`}
+                                    >
+                                      <PlayCircle className="w-4 h-4 mr-2" />
+                                      Mulai Fase Ini
+                                    </Button>
+                                  )}
+                                  
+                                  {canStart && (
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      className="border-blue-500 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setCurrentView('personal-assessment');
+                                      }}
+                                      data-testid={`analisis-skill-${phase.id}`}
+                                    >
+                                      <Brain className="w-4 h-4 mr-2" />
+                                      Analisis Skill Saya Gratis
+                                    </Button>
+                                  )}
+                                </div>
+
+                                {/* Expandable content */}
+                                {isExpanded && (
+                                  <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 space-y-6 animate-in slide-in-from-top-2 duration-300">
+                                    {/* Skills in this phase */}
+                                    {phase.skills && phase.skills.length > 0 && (
                                       <div>
-                                        <div className="font-medium text-sm">{material.title}</div>
-                                        <div className="text-xs text-muted-foreground">
-                                          {material.provider} • {material.duration} • {material.difficulty}
+                                        <div className="text-sm font-medium mb-3 flex items-center">
+                                          <Target className="w-4 h-4 mr-2 text-blue-600" />
+                                          Skills yang akan Anda kuasai:
+                                        </div>
+                                        <div className="flex flex-wrap gap-2">
+                                          {phase.skills.map((skill) => (
+                                            <Badge key={skill.id} variant="secondary" className="text-xs">
+                                              {skill.name}
+                                            </Badge>
+                                          ))}
                                         </div>
                                       </div>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                      {material.rating && (
-                                        <div className="text-xs text-yellow-600">★ {material.rating}</div>
-                                      )}
-                                      <div className="text-xs font-medium">
-                                        {material.price?.isFree ? 'Gratis' : `$${material.price?.amount}`}
-                                      </div>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
+                                    )}
 
-                          {/* Prerequisites */}
-                          {phase.prerequisites && phase.prerequisites.length > 0 && (
-                            <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
-                              <div className="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-1">
-                                Prerequisites:
-                              </div>
-                              <div className="text-xs text-yellow-700 dark:text-yellow-300">
-                                Selesaikan phase: {phase.prerequisites.join(', ')}
+                                    {/* Learning materials */}
+                                    {phase.materials && phase.materials.length > 0 && (
+                                      <div>
+                                        <div className="text-sm font-medium mb-3 flex items-center">
+                                          <Zap className="w-4 h-4 mr-2 text-purple-600" />
+                                          Materi pembelajaran tersedia:
+                                        </div>
+                                        <div className="grid gap-3">
+                                          {phase.materials.map((material) => (
+                                            <div 
+                                              key={material.id} 
+                                              className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                            >
+                                              <div className="flex items-center space-x-3">
+                                                <Badge variant="outline" className="text-xs">
+                                                  {material.type}
+                                                </Badge>
+                                                <div>
+                                                  <div className="font-medium text-sm">{material.title}</div>
+                                                  <div className="text-xs text-muted-foreground">
+                                                    {material.provider} • {material.duration} • {material.difficulty}
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div className="flex items-center space-x-3">
+                                                {material.rating && (
+                                                  <div className="text-xs text-yellow-600 flex items-center">
+                                                    <Star className="w-3 h-3 mr-1" />
+                                                    {material.rating}
+                                                  </div>
+                                                )}
+                                                <div className="text-xs font-medium">
+                                                  {material.price?.isFree ? 'Gratis' : `$${material.price?.amount}`}
+                                                </div>
+                                                <Button size="sm" variant="outline">
+                                                  Akses
+                                                </Button>
+                                              </div>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
+
+                                    {/* Prerequisites */}
+                                    {phase.prerequisites && phase.prerequisites.length > 0 && (
+                                      <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                                        <div className="text-sm font-medium text-orange-800 dark:text-orange-200 mb-2 flex items-center">
+                                          <AlertTriangle className="w-4 h-4 mr-2" />
+                                          Prerequisites:
+                                        </div>
+                                        <div className="text-sm text-orange-700 dark:text-orange-300">
+                                          Selesaikan fase: {phase.prerequisites.join(', ')}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
                               </div>
                             </div>
-                          )}
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
+                          </div>
+                        </Card>
+                      );
+                    })}
+                </div>
+
+                {/* Bottom CTA Section */}
+                <div className="mt-12 text-center">
+                  <div className="max-w-2xl mx-auto p-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl border border-purple-200 dark:border-purple-800">
+                    <Trophy className="w-12 h-12 mx-auto mb-4 text-purple-600" />
+                    <h3 className="text-2xl font-bold mb-3">Siap Memulai Journey Anda?</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Roadmap ini dirancang khusus untuk {selectedJob.title}. Ingin path yang lebih personal?
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Button 
+                        size="lg"
+                        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium"
+                        onClick={() => setCurrentView('personal-assessment')}
+                        data-testid="cta-custom-assessment"
+                      >
+                        <Brain className="w-5 h-5 mr-2" />
+                        Dapatkan Roadmap Personal Saya
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="lg"
+                        onClick={() => setCurrentView('direct-exploration')}
+                        data-testid="cta-explore-more"
+                      >
+                        <Search className="w-5 h-5 mr-2" />
+                        Jelajahi Profesi Lain
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1072,6 +1295,35 @@ const SkillForecasting = () => {
                   </div>
                 </Card>
               )}
+
+              {/* Sticky Floating CTA - Strategic placement for conversion */}
+              <div className="fixed bottom-6 right-6 z-50">
+                <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-2xl shadow-2xl p-4 max-w-sm border border-purple-300">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                        <Brain className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium">
+                        Butuh roadmap yang lebih personal?
+                      </p>
+                      <p className="text-xs text-white/80">
+                        Disesuaikan dengan skill Anda
+                      </p>
+                    </div>
+                  </div>
+                  <Button 
+                    className="w-full mt-3 bg-white text-purple-600 hover:bg-white/90 font-medium text-sm"
+                    onClick={() => setCurrentView('personal-assessment')}
+                    data-testid="sticky-cta-analisis-skill"
+                  >
+                    <Target className="w-4 h-4 mr-2" />
+                    Analisis Skill Saya Gratis
+                  </Button>
+                </div>
+              </div>
 
               {/* Actions */}
               <div className="flex justify-center space-x-4">
