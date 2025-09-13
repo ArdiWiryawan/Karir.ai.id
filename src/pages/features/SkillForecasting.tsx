@@ -53,6 +53,12 @@ const SkillForecasting = () => {
   const [assessmentAnswers, setAssessmentAnswers] = useState<Record<string, string | number | string[]>>({});
   const [jobMatches, setJobMatches] = useState<JobMatch[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  
+  // Direct exploration filters - moved to top level to follow Rules of Hooks
+  const [selectedCategory, setSelectedCategory] = useState<JobCategory | 'all'>('all');
+  const [selectedRiskLevel, setSelectedRiskLevel] = useState<'all' | 'low' | 'medium' | 'high'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showNewJobs, setShowNewJobs] = useState(false);
 
   // Assessment scoring function
   const calculateJobMatches = (answers: Record<string, string | number | string[]>): JobMatch[] => {
@@ -559,19 +565,280 @@ const SkillForecasting = () => {
   }
 
   if (currentView === 'direct-exploration') {
+    // Combine all jobs for exploration
+    const allJobsForExploration = [...completeJobs, ...allJobs]
+      .filter((job, index, self) => index === self.findIndex(j => j.id === job.id)); // Deduplicate
+
+    // Filter jobs based on selected filters
+    const filteredJobs = allJobsForExploration.filter(job => {
+      // Category filter
+      if (selectedCategory !== 'all' && job.category !== selectedCategory) {
+        return false;
+      }
+
+      // Risk level filter
+      if (selectedRiskLevel !== 'all') {
+        if (selectedRiskLevel === 'low' && job.aiReplacementRisk > 20) return false;
+        if (selectedRiskLevel === 'medium' && (job.aiReplacementRisk <= 20 || job.aiReplacementRisk > 50)) return false;
+        if (selectedRiskLevel === 'high' && job.aiReplacementRisk <= 50) return false;
+      }
+
+      // New jobs filter
+      if (showNewJobs && !job.isNewProfession) {
+        return false;
+      }
+
+      // Search query filter
+      if (searchQuery && !job.title.toLowerCase().includes(searchQuery.toLowerCase()) && 
+          !job.description.toLowerCase().includes(searchQuery.toLowerCase())) {
+        return false;
+      }
+
+      return true;
+    });
+
+    // Get unique categories for filter
+    const uniqueCategories = Array.from(new Set(allJobsForExploration.map(job => job.category))) as JobCategory[];
+
     return (
       <div className="min-h-screen">
         <Header />
         <main className="pt-20">
-          <div className="py-24 min-h-screen flex items-center justify-center">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mb-6">Direct Job Exploration (Coming Soon)</h2>
-              <p className="text-muted-foreground mb-8">
-                Fitur eksplorasi pekerjaan langsung sedang dalam pengembangan
-              </p>
-              <Button onClick={() => setCurrentView('selection')}>
-                Kembali ke Pilihan
-              </Button>
+          <div className="py-12">
+            <div className="max-w-7xl mx-auto px-4">
+              {/* Header */}
+              <div className="text-center mb-12">
+                <h1 className="text-4xl font-bold mb-4">Eksplorasi Pekerjaan Masa Depan</h1>
+                <p className="text-xl text-muted-foreground">
+                  Jelajahi {allJobsForExploration.length}+ pekerjaan dengan prediksi AI, salary, dan roadmap lengkap
+                </p>
+              </div>
+
+              {/* Filters */}
+              <Card className="mb-8 p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {/* Search */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Cari Pekerjaan</label>
+                    <input
+                      type="text"
+                      placeholder="Cari berdasarkan nama atau deskripsi..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      data-testid="input-job-search"
+                    />
+                  </div>
+
+                  {/* Category Filter */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Kategori</label>
+                    <select
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value as JobCategory | 'all')}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      data-testid="select-job-category"
+                    >
+                      <option value="all">Semua Kategori</option>
+                      {uniqueCategories.map(category => (
+                        <option key={category} value={category}>{category}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* AI Risk Filter */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">AI Risk Level</label>
+                    <select
+                      value={selectedRiskLevel}
+                      onChange={(e) => setSelectedRiskLevel(e.target.value as 'all' | 'low' | 'medium' | 'high')}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      data-testid="select-ai-risk"
+                    >
+                      <option value="all">Semua Risk Level</option>
+                      <option value="low">Rendah (maksimal 20%)</option>
+                      <option value="medium">Sedang (21-50%)</option>
+                      <option value="high">Tinggi (lebih dari 50%)</option>
+                    </select>
+                  </div>
+
+                  {/* New Jobs Toggle */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Filter Tambahan</label>
+                    <label className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        checked={showNewJobs}
+                        onChange={(e) => setShowNewJobs(e.target.checked)}
+                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        data-testid="checkbox-new-jobs"
+                      />
+                      <span className="text-sm">Hanya Profesi Baru</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Active filters count */}
+                <div className="mt-4 flex items-center justify-between">
+                  <div className="text-sm text-muted-foreground">
+                    Menampilkan {filteredJobs.length} dari {allJobsForExploration.length} pekerjaan
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedCategory('all');
+                      setSelectedRiskLevel('all');
+                      setSearchQuery('');
+                      setShowNewJobs(false);
+                    }}
+                    data-testid="button-clear-filters"
+                  >
+                    Reset Filter
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Jobs Grid */}
+              {filteredJobs.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredJobs.map((job) => (
+                    <Card key={job.id} className="p-6 hover:shadow-lg transition-shadow">
+                      <div className="mb-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <Badge variant="outline" className="text-xs">
+                            {job.category}
+                          </Badge>
+                          {job.isNewProfession && (
+                            <Badge variant="default" className="text-xs">
+                              Profesi Baru
+                            </Badge>
+                          )}
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2" data-testid={`job-card-title-${job.id}`}>
+                          {job.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground line-clamp-3">
+                          {job.description}
+                        </p>
+                      </div>
+
+                      {/* Key metrics */}
+                      <div className="space-y-3 mb-4">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-muted-foreground">Gaji (per tahun)</span>
+                          <span className="text-sm font-medium text-green-600">
+                            Rp {Math.round(job.salaryRange.min / 1000000)}-{Math.round(job.salaryRange.max / 1000000)}jt
+                          </span>
+                        </div>
+                        
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-muted-foreground">AI Risk</span>
+                          <div className="flex items-center space-x-2">
+                            <div className={`w-2 h-2 rounded-full ${
+                              job.aiReplacementRisk <= 20 ? 'bg-green-500' :
+                              job.aiReplacementRisk <= 50 ? 'bg-yellow-500' : 'bg-red-500'
+                            }`}></div>
+                            <span className="text-sm font-medium">{job.aiReplacementRisk}%</span>
+                          </div>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-muted-foreground">Pertumbuhan</span>
+                          <span className="text-sm font-medium text-blue-600">{job.growthProjection}</span>
+                        </div>
+                      </div>
+
+                      {/* Skills preview */}
+                      {job.requiredSkills && job.requiredSkills.length > 0 && (
+                        <div className="mb-4">
+                          <div className="text-xs text-muted-foreground mb-2">Top Skills:</div>
+                          <div className="flex flex-wrap gap-1">
+                            {job.requiredSkills.slice(0, 3).map((skill) => (
+                              <Badge key={skill.id} variant="secondary" className="text-xs">
+                                {skill.name}
+                              </Badge>
+                            ))}
+                            {job.requiredSkills.length > 3 && (
+                              <Badge variant="secondary" className="text-xs">
+                                +{job.requiredSkills.length - 3}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Actions */}
+                      <div className="flex space-x-2">
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            setSelectedJobs([job]);
+                            setCurrentView('roadmap-view');
+                          }}
+                          className="flex-1"
+                          data-testid={`button-view-roadmap-${job.id}`}
+                        >
+                          Lihat Roadmap
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            setJobMatches([{
+                              job,
+                              matchScore: 0.8,
+                              matchReasons: ['Dipilih dari eksplorasi langsung', 'Profesi dengan prospek bagus']
+                            }]);
+                            setCurrentView('job-results');
+                          }}
+                          data-testid={`button-view-details-${job.id}`}
+                        >
+                          Detail
+                        </Button>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <div className="text-6xl mb-4">🔍</div>
+                  <h3 className="text-xl font-semibold mb-2">Tidak ada pekerjaan ditemukan</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Coba ubah filter atau kata kunci pencarian Anda
+                  </p>
+                  <Button
+                    onClick={() => {
+                      setSelectedCategory('all');
+                      setSelectedRiskLevel('all');
+                      setSearchQuery('');
+                      setShowNewJobs(false);
+                    }}
+                    data-testid="button-reset-search"
+                  >
+                    Reset Semua Filter
+                  </Button>
+                </div>
+              )}
+
+              {/* Navigation */}
+              <div className="flex justify-center mt-12">
+                <div className="flex space-x-4">
+                  <Button
+                    variant="outline"
+                    onClick={() => setCurrentView('selection')}
+                    data-testid="button-back-to-selection"
+                  >
+                    Kembali ke Pilihan
+                  </Button>
+                  <Button
+                    onClick={() => setCurrentView('personal-assessment')}
+                    data-testid="button-try-assessment"
+                  >
+                    Coba Personal Assessment
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </main>
