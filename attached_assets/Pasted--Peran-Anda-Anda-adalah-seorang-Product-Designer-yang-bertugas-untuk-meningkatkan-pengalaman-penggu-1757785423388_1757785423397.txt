@@ -1,0 +1,33 @@
+"Peran Anda: Anda adalah seorang Product Designer yang bertugas untuk meningkatkan pengalaman pengguna pada platform ed-tech kami.
+
+Latar Belakang & Masalah:
+Halaman roadmap kami saat ini memiliki bounce rate yang tinggi. Tampilannya statis, kurang menarik, dan tidak efektif dalam menunjukkan nilai fitur unggulan kami, yaitu "Jalur Prediksi Karier". Tombol CTA "Analisis Skill Saya Gratis" sering terlewatkan atau diabaikan oleh pengguna.
+
+Tugas Utama & Objektif:
+Rancang ulang halaman roadmap untuk mencapai dua tujuan utama:
+
+Meningkatkan Keterlibatan Pengguna: Buat pengguna merasa tertarik dan termotivasi untuk mengikuti jalur pembelajaran yang kami tawarkan.
+
+Meningkatkan Konversi ke Fitur Prediksi: Secara signifikan menaikkan jumlah klik pada tombol "Analisis Skill Saya Gratis" dan memastikan pengguna memulai proses analisis.
+
+Instruksi Spesifik:
+
+Untuk Tampilan Roadmap:
+
+Jadikan Visual & Interaktif: Gantikan daftar teks yang monoton dengan representasi visual yang dinamis (misalnya, gamified timeline, pohon skill, atau peta konstelasi).
+
+Berikan Umpan Balik Progres: Visualisasikan pencapaian pengguna (misalnya, modul selesai, skill dikuasai) untuk memberikan rasa kepuasan dan mendorong mereka untuk terus maju.
+
+Pastikan Kejelasan Informasi: Meskipun visual, informasi inti seperti judul modul, deskripsi singkat, dan status (selesai/belum) harus tetap mudah diakses.
+
+Untuk Tombol CTA & Alurnya:
+
+Desain & Penempatan: Tombol harus menonjol secara visual (stand out) dan ditempatkan pada konteks yang tepat. Pertimbangkan untuk menggunakan microcopy yang meyakinkan di sekitarnya, seperti "Tidak yakin mulai dari mana? Dapatkan rekomendasi jalur yang dipersonalisasi."
+
+Transisi Mulus: Pastikan pengalaman setelah mengklik tombol terasa instan dan relevan. Pengguna harus langsung masuk ke antarmuka fitur prediksi karier tanpa langkah tambahan yang membingungkan.
+
+Output yang Diharapkan:
+
+High-fidelity mockup atau prototipe interaktif dari desain halaman roadmap yang baru.
+
+Sebuah user flow diagram sederhana yang menggambarkan alur dari halaman roadmap hingga pengguna menyelesaikan langkah pertama di fitur prediksi karier."
