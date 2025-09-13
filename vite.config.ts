@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => ({
     port: 5000,
     strictPort: true,
     origin: "http://0.0.0.0:5000",
+    allowedHosts: true,
   },
   preview: {
     host: "0.0.0.0",
