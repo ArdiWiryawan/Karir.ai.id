@@ -7,8 +7,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, Bot, Users } from "lucide-react";
 import { allJobs, jobsByCategory, emergingJobs, riskJobs } from "@/data/jobDatabase";
-import { assessmentQuestions } from "@/data/assessmentQuestions";
-import { Job, AssessmentResult, JobMatch } from "@/data/skillForecastingTypes";
+import { assessmentQuestions, categoryWeights } from "@/data/assessmentQuestions";
+import { Job, AssessmentResult, JobMatch, JobCategory } from "@/data/skillForecastingTypes";
+import completeJobs from "@/data/completeJobsData";
 
 const features = [
   {
@@ -52,6 +53,98 @@ const SkillForecasting = () => {
   const [assessmentAnswers, setAssessmentAnswers] = useState<Record<string, string | number | string[]>>({});
   const [jobMatches, setJobMatches] = useState<JobMatch[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+  // Assessment scoring function
+  const calculateJobMatches = (answers: Record<string, string | number | string[]>): JobMatch[] => {
+    const categoryScores: Record<JobCategory, number> = {
+      'Teknologi & AI': 0,
+      'Data & Analytics': 0,
+      'Kreatif & Media': 0,
+      'Bisnis & Manajemen': 0,
+      'Kesehatan & Medis': 0,
+      'Keuangan & Fintech': 0,
+      'Energi & Lingkungan': 0,
+      'Manufaktur & Produksi': 0,
+      'Layanan & Hospitality': 0,
+      'Pendidikan & Pelatihan': 0,
+      'Penelitian & Sains': 0
+    };
+
+    let totalPossibleScore = 0;
+
+    // Calculate scores based on answers
+    assessmentQuestions.forEach(question => {
+      const answer = answers[question.id];
+      if (!answer) return;
+
+      const selectedOption = question.options.find(opt => 
+        opt.value === answer || opt.id === answer
+      );
+      
+      if (selectedOption && selectedOption.jobCategories) {
+        const questionWeight = question.weight || 1;
+        const categoryWeight = categoryWeights[question.category] || 0.1;
+        
+        // For scale questions, use the numeric value as intensity multiplier
+        let intensityMultiplier = 1;
+        if (question.type === 'scale' && typeof selectedOption.value === 'number') {
+          intensityMultiplier = selectedOption.value / 5; // Normalize 1-5 scale to 0.2-1.0
+        }
+        
+        const score = questionWeight * categoryWeight * intensityMultiplier;
+        totalPossibleScore += questionWeight * categoryWeight; // For normalization
+        
+        selectedOption.jobCategories.forEach(category => {
+          if (category in categoryScores) {
+            categoryScores[category as JobCategory] += score;
+          }
+        });
+      }
+    });
+
+    // Use complete jobs for matching with deduplication
+    const jobsToMatch = [...completeJobs, ...allJobs];
+    const uniqueJobs = jobsToMatch.filter((job, index, self) => 
+      index === self.findIndex(j => j.id === job.id)
+    );
+    
+    // Calculate job matches with normalized scores
+    const matches: JobMatch[] = uniqueJobs.map(job => {
+      const rawScore = categoryScores[job.category as JobCategory] || 0;
+      const normalizedScore = totalPossibleScore > 0 ? (rawScore / totalPossibleScore) : 0;
+      
+      return {
+        job,
+        matchScore: Math.min(normalizedScore, 1), // Cap at 100%
+        matchReasons: [
+          `Sesuai dengan minat di ${job.category}`,
+          ...(normalizedScore > 0.6 ? ['Match score tinggi dengan preferensi Anda'] : []),
+          ...(job.isNewProfession ? ['Profesi masa depan dengan prospek cerah'] : []),
+          ...(job.aiReplacementRisk <= 20 ? ['Aman dari penggantian AI'] : [])
+        ]
+      };
+    });
+
+    // Sort by match score and return top 10
+    const sortedMatches = matches
+      .sort((a, b) => b.matchScore - a.matchScore)
+      .slice(0, 10);
+
+    // Ensure we have at least some matches even if scores are low
+    if (sortedMatches.length === 0 || sortedMatches[0].matchScore === 0) {
+      // Fallback: return jobs from complete jobs with basic reasons
+      return completeJobs.slice(0, 5).map(job => ({
+        job,
+        matchScore: 0.3, // Give a baseline score
+        matchReasons: [
+          'Profesi populer dengan prospek bagus',
+          'Cocok untuk eksplorasi karier baru'
+        ]
+      }));
+    }
+
+    return sortedMatches;
+  };
 
   const handleStartForecasting = () => {
     setCurrentView('selection');
@@ -177,19 +270,286 @@ const SkillForecasting = () => {
   }
 
   if (currentView === 'personal-assessment') {
+    const currentQuestion = assessmentQuestions[currentQuestionIndex];
+    const isLastQuestion = currentQuestionIndex === assessmentQuestions.length - 1;
+    
+    const handleAnswerSelect = (value: string | number) => {
+      setAssessmentAnswers(prev => ({
+        ...prev,
+        [currentQuestion.id]: value
+      }));
+    };
+
+    const handleNext = () => {
+      // Validation: ensure question is answered
+      if (!currentAnswer) {
+        return; // Don't proceed if no answer selected
+      }
+
+      if (isLastQuestion) {
+        // Calculate matches and show results
+        const matches = calculateJobMatches(assessmentAnswers);
+        setJobMatches(matches);
+        setCurrentView('job-results');
+      } else {
+        setCurrentQuestionIndex(prev => prev + 1);
+      }
+    };
+
+    const handlePrevious = () => {
+      if (currentQuestionIndex > 0) {
+        setCurrentQuestionIndex(prev => prev - 1);
+      }
+    };
+
+    const currentAnswer = assessmentAnswers[currentQuestion.id];
+
     return (
       <div className="min-h-screen">
         <Header />
         <main className="pt-20">
-          <div className="py-24 min-h-screen flex items-center justify-center">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mb-6">Personal Assessment (Coming Soon)</h2>
-              <p className="text-muted-foreground mb-8">
-                Fitur assessment personal sedang dalam pengembangan
-              </p>
-              <Button onClick={() => setCurrentView('selection')}>
-                Kembali ke Pilihan
-              </Button>
+          <div className="py-12">
+            <div className="max-w-4xl mx-auto px-4">
+              {/* Progress bar */}
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium">
+                    Pertanyaan {currentQuestionIndex + 1} dari {assessmentQuestions.length}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {Math.round(((currentQuestionIndex + 1) / assessmentQuestions.length) * 100)}%
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${((currentQuestionIndex + 1) / assessmentQuestions.length) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Question */}
+              <Card className="mb-8">
+                <CardHeader>
+                  <CardTitle className="text-xl">{currentQuestion.question}</CardTitle>
+                  <CardDescription>
+                    Pilih jawaban yang paling sesuai dengan preferensi Anda
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {currentQuestion.options.map((option) => (
+                      <div
+                        key={option.id}
+                        className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                          currentAnswer === option.value || currentAnswer === option.id
+                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-950'
+                            : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                        }`}
+                        onClick={() => handleAnswerSelect(option.value || option.id)}
+                        data-testid={`option-${option.id}`}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className={`w-4 h-4 rounded-full border-2 ${
+                            currentAnswer === option.value || currentAnswer === option.id
+                              ? 'border-blue-500 bg-blue-500'
+                              : 'border-gray-300'
+                          }`}>
+                            {(currentAnswer === option.value || currentAnswer === option.id) && (
+                              <div className="w-2 h-2 bg-white rounded-full mx-auto mt-0.5" />
+                            )}
+                          </div>
+                          <span className="text-sm font-medium">{option.text}</span>
+                          {currentQuestion.type === 'scale' && typeof option.value === 'number' && (
+                            <Badge variant="outline">{option.value}</Badge>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Navigation */}
+              <div className="flex justify-between">
+                <Button
+                  variant="outline"
+                  onClick={handlePrevious}
+                  disabled={currentQuestionIndex === 0}
+                  data-testid="button-previous"
+                >
+                  Sebelumnya
+                </Button>
+                <div className="flex space-x-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setCurrentView('selection')}
+                    data-testid="button-back-to-selection"
+                  >
+                    Kembali ke Pilihan
+                  </Button>
+                  <Button
+                    onClick={handleNext}
+                    disabled={!currentAnswer}
+                    data-testid="button-next"
+                  >
+                    {isLastQuestion ? 'Lihat Hasil' : 'Selanjutnya'}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (currentView === 'job-results') {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-20">
+          <div className="py-12">
+            <div className="max-w-6xl mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold mb-4">Hasil Assessment Anda</h2>
+                <p className="text-xl text-muted-foreground">
+                  Kami telah menganalisis jawaban Anda dan menemukan {jobMatches.length} pekerjaan yang cocok
+                </p>
+              </div>
+
+              {/* Job matches grid */}
+              <div className="grid gap-6 mb-8">
+                {jobMatches.slice(0, 5).map((match, index) => (
+                  <Card key={match.job.id} className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-4 mb-2">
+                          <h3 className="text-xl font-semibold" data-testid={`job-title-${match.job.id}`}>
+                            {match.job.title}
+                          </h3>
+                          <Badge variant="outline" className="text-xs">
+                            #{index + 1} Match
+                          </Badge>
+                          <Badge 
+                            variant={match.job.isNewProfession ? "default" : "secondary"}
+                            className="text-xs"
+                          >
+                            {match.job.isNewProfession ? "Profesi Baru" : "Profesi Established"}
+                          </Badge>
+                        </div>
+                        <p className="text-muted-foreground mb-3">{match.job.description}</p>
+                        
+                        {/* Key metrics */}
+                        <div className="grid grid-cols-3 gap-4 mb-4">
+                          <div>
+                            <div className="text-sm text-muted-foreground">Gaji (per tahun)</div>
+                            <div className="font-semibold text-green-600">
+                              Rp {Math.round(match.job.salaryRange.min / 1000000)}-{Math.round(match.job.salaryRange.max / 1000000)} juta
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground">AI Risk Level</div>
+                            <div className="flex items-center space-x-2">
+                              <div className={`w-3 h-3 rounded-full ${
+                                match.job.aiReplacementRisk <= 20 ? 'bg-green-500' :
+                                match.job.aiReplacementRisk <= 50 ? 'bg-yellow-500' : 'bg-red-500'
+                              }`}></div>
+                              <span className="text-sm font-medium">
+                                {match.job.aiReplacementRisk <= 20 ? 'Rendah' :
+                                 match.job.aiReplacementRisk <= 50 ? 'Sedang' : 'Tinggi'} ({match.job.aiReplacementRisk}%)
+                              </span>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-muted-foreground">Proyeksi Pertumbuhan</div>
+                            <div className="font-semibold text-blue-600">{match.job.growthProjection}</div>
+                          </div>
+                        </div>
+
+                        {/* Match reasons */}
+                        <div className="mb-4">
+                          <div className="text-sm font-medium mb-2">Mengapa cocok untuk Anda:</div>
+                          <div className="flex flex-wrap gap-2">
+                            {match.matchReasons.map((reason, idx) => (
+                              <Badge key={idx} variant="secondary" className="text-xs">
+                                {reason}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Skills preview */}
+                        {match.job.requiredSkills && match.job.requiredSkills.length > 0 && (
+                          <div className="mb-4">
+                            <div className="text-sm font-medium mb-2">Skills yang dibutuhkan:</div>
+                            <div className="flex flex-wrap gap-2">
+                              {match.job.requiredSkills.slice(0, 4).map((skill) => (
+                                <Badge key={skill.id} variant="outline" className="text-xs">
+                                  {skill.name}
+                                </Badge>
+                              ))}
+                              {match.job.requiredSkills.length > 4 && (
+                                <Badge variant="outline" className="text-xs">
+                                  +{match.job.requiredSkills.length - 4} lainnya
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="flex flex-col space-y-2 ml-4">
+                        <Button 
+                          size="sm"
+                          onClick={() => {
+                            setSelectedJobs([match.job]);
+                            setCurrentView('roadmap-view');
+                          }}
+                          data-testid={`button-view-roadmap-${match.job.id}`}
+                        >
+                          Lihat Roadmap
+                        </Button>
+                        <div className="text-center">
+                          <div className="text-xs text-muted-foreground">Match Score</div>
+                          <div className="text-lg font-bold text-blue-600">
+                            {Math.round(match.matchScore * 100)}%
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Actions */}
+              <div className="flex justify-center space-x-4">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setCurrentQuestionIndex(0);
+                    setAssessmentAnswers({});
+                    setCurrentView('personal-assessment');
+                  }}
+                  data-testid="button-retake-assessment"
+                >
+                  Ulangi Assessment
+                </Button>
+                <Button
+                  onClick={() => setCurrentView('direct-exploration')}
+                  data-testid="button-explore-all-jobs"
+                >
+                  Jelajahi Semua Pekerjaan
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentView('selection')}
+                  data-testid="button-back-to-main"
+                >
+                  Kembali ke Menu Utama
+                </Button>
+              </div>
             </div>
           </div>
         </main>
