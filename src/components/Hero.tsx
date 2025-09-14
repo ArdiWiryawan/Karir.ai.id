@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Brain, ChevronRight, Sparkles, Target, TrendingUp } from "lucide-react";
-import heroImage from "@/assets/hero-ai-career.jpg";
 
 const Hero = () => {
+  const heroImage = "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-future">
       {/* Background Effects */}
