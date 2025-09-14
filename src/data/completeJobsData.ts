@@ -12,7 +12,9 @@ import {
   solarPanelInstallerRoadmap,
   geriatricTechSpecialistRoadmap,
   futureWorkStrategistRoadmap,
-  ecosystemRestorationSpecialistRoadmap
+  ecosystemRestorationSpecialistRoadmap,
+  aiWorkforceTrainerRoadmap,
+  humanMachineTeamManagerRoadmap
 } from './comprehensiveRoadmaps';
 
 // Complete job data with detailed roadmaps, skills, and learning materials
