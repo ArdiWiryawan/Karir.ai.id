@@ -1,7 +1,7 @@
 import { Job, JobCategory } from './skillForecastingTypes';
 
-// Pekerjaan yang berisiko tinggi tergantikan AI (berdasarkan dokumen)
-export const riskJobs: Job[] = [
+// PEKERJAAN YANG AKAN HILANG - Pekerjaan yang berisiko tinggi tergantikan AI
+export const disappearingJobs: Job[] = [
   {
     id: 'data-entry-clerk',
     title: 'Data Entry Clerk',
@@ -64,8 +64,8 @@ export const riskJobs: Job[] = [
   }
 ];
 
-// Pekerjaan baru yang akan muncul (berdasarkan dokumen "Profesi Baru")
-export const emergingJobs: Job[] = [
+// PEKERJAAN MASA DEPAN - Pekerjaan baru yang akan muncul dan berkembang
+export const futureJobs: Job[] = [
   {
     id: 'ai-ml-specialist',
     title: 'AI/Machine Learning Specialist',
@@ -259,7 +259,12 @@ export const emergingJobs: Job[] = [
 ];
 
 // Gabungkan semua jobs
-export const allJobs: Job[] = [...riskJobs, ...emergingJobs];
+export const allJobs: Job[] = [...disappearingJobs, ...futureJobs];
+
+// EXPORTS DENGAN NAMA YANG LEBIH JELAS
+// Untuk backward compatibility, export dengan nama lama juga
+export const riskJobs: Job[] = disappearingJobs;
+export const emergingJobs: Job[] = futureJobs;
 
 // Kategorisasi jobs berdasarkan tingkat risiko AI
 export const jobsByRiskLevel = {
@@ -281,3 +286,15 @@ export const jobsByCategory = allJobs.reduce((acc, job) => {
 export const highGrowthJobs = allJobs.filter(job => 
   job.growthProjection === 'Sangat Tinggi' || job.growthProjection === 'Tinggi'
 );
+
+// KATEGORISASI UTAMA - PEKERJAAN YANG AKAN HILANG VS MASA DEPAN
+export const jobSeparation = {
+  disappearing: disappearingJobs, // Pekerjaan yang akan hilang/tergantikan AI
+  future: futureJobs, // Pekerjaan masa depan yang akan berkembang
+  // Filter berdasarkan status
+  byStatus: {
+    willDisappear: disappearingJobs.filter(job => job.growthProjection === 'Menurun'),
+    willEmerge: futureJobs.filter(job => job.isNewProfession === true),
+    willGrow: futureJobs.filter(job => job.growthProjection === 'Sangat Tinggi' || job.growthProjection === 'Tinggi')
+  }
+};

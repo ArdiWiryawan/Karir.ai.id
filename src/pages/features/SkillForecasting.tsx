@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, ArrowLeft, Bot, Users, CheckCircle, Clock, Star, Trophy, PlayCircle, ChevronDown, ChevronUp, HardDrive, Filter, BookOpen } from "lucide-react";
-import { allJobs, jobsByCategory, emergingJobs, riskJobs } from "@/data/jobDatabase";
+import { allJobs, jobsByCategory, futureJobs, disappearingJobs, jobSeparation } from "@/data/jobDatabase";
 import { assessmentQuestions, categoryWeights } from "@/data/assessmentQuestions";
 import { Job, AssessmentResult, JobMatch, JobCategory } from "@/data/skillForecastingTypes";
 import completeJobs from "@/data/completeJobsData";
