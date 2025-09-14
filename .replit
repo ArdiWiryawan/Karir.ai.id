@@ -7,8 +7,8 @@ channel = "stable-25_05"
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["bun", "run", "preview"]
-build = ["bun", "run", "build"]
+run = ["npm", "run", "preview"]
+build = ["npm", "run", "build"]
 
 [workflows]
 runButton = "Project"
