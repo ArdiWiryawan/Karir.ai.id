@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, Bot, Users, CheckCircle, Clock, Star, Trophy, PlayCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, ArrowLeft, Bot, Users, CheckCircle, Clock, Star, Trophy, PlayCircle, ChevronDown, ChevronUp, HardDrive, Filter, BookOpen } from "lucide-react";
 import { allJobs, jobsByCategory, emergingJobs, riskJobs } from "@/data/jobDatabase";
 import { assessmentQuestions, categoryWeights } from "@/data/assessmentQuestions";
 import { Job, AssessmentResult, JobMatch, JobCategory } from "@/data/skillForecastingTypes";
@@ -181,97 +181,217 @@ const SkillForecasting = () => {
 
   // Selection Interface Component
   const SelectionInterface = () => (
-    <section className="py-24 bg-gradient-subtle min-h-screen flex items-center">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+    <section className="relative py-24 bg-gradient-future min-h-screen flex items-center overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" style={{animationDelay: '1s'}}></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header Section */}
+        <div className="text-center mb-20 space-y-6 animate-fade-in-up">
+          <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 px-4 py-2">
+            <Brain className="w-4 h-4 mr-2" />
+            Dua Jalur Prediksi Karier Masa Depan
+          </Badge>
+          
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             <span className="bg-gradient-hero bg-clip-text text-transparent">
               Pilih Jalur
             </span>{" "}
             Prediksi Anda
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Dapatkan rekomendasi karier yang tepat dengan dua cara berbeda
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Dapatkan rekomendasi karier yang tepat dengan AI-powered analysis
+            yang disesuaikan dengan kepribadian dan tren masa depan Indonesia
           </p>
+
+          {/* Quick Stats */}
+          <div className="flex justify-center gap-8 pt-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary">500+</div>
+              <div className="text-sm text-muted-foreground">Profesi Masa Depan</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-secondary">95%</div>
+              <div className="text-sm text-muted-foreground">Akurasi Prediksi</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-accent">3-5 Tahun</div>
+              <div className="text-sm text-muted-foreground">Roadmap Karier</div>
+            </div>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {/* Selection Cards */}
+        <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
           {/* Personal Assessment Path */}
           <Card 
-            className="p-8 border-2 hover:border-primary/50 transition-all duration-300 cursor-pointer group"
+            className="group relative overflow-hidden border-2 hover:border-primary/30 hover:shadow-future transition-all duration-500 cursor-pointer hover:-translate-y-2 animate-fade-in-up bg-card/80 backdrop-blur-sm"
             onClick={handlePersonalPath}
             data-testid="button-personal-path"
+            style={{animationDelay: '0.2s'}}
           >
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <User className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">AI-Powered Personal Assessment</h3>
-              <p className="text-muted-foreground mb-6">
-                Jawab pertanyaan yang dipersonalisasi untuk mendapatkan rekomendasi pekerjaan yang paling sesuai dengan kepribadian, minat, dan keahlian Anda
-              </p>
-              <div className="space-y-2 text-sm text-left">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-primary" />
-                  <span>Analisis kepribadian & minat mendalam</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-primary" />
-                  <span>Matching dengan 500+ profesi masa depan</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-primary" />
-                  <span>Roadmap pembelajaran yang dipersonalisasi</span>
+            {/* Card Glow Effect */}
+            <div className="absolute inset-0 bg-gradient-hero opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+            
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between mb-4">
+                <Badge className="bg-primary/10 text-primary border-primary/20">
+                  Direkomendasikan
+                </Badge>
+                <div className="w-16 h-16 bg-gradient-hero rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-ai-glow">
+                  <User className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <Button className="w-full mt-6 bg-gradient-hero group-hover:scale-105 transition-transform">
-                Mulai Assessment <ArrowRight className="w-4 h-4 ml-2" />
+              <CardTitle className="text-2xl md:text-3xl font-bold">
+                AI-Powered Personal Assessment
+              </CardTitle>
+              <CardDescription className="text-base text-muted-foreground leading-relaxed">
+                Jawab pertanyaan yang dipersonalisasi untuk mendapatkan rekomendasi 
+                pekerjaan yang paling sesuai dengan kepribadian, minat, dan keahlian Anda
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              {/* Benefits */}
+              <div className="space-y-3">
+                {[
+                  { icon: Brain, text: "Analisis kepribadian & minat mendalam" },
+                  { icon: Target, text: "Matching dengan 500+ profesi masa depan" },
+                  { icon: TrendingUp, text: "Roadmap pembelajaran yang dipersonalisasi" }
+                ].map((benefit, index) => {
+                  const Icon = benefit.icon;
+                  return (
+                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <Icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium">{benefit.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* CTA Button */}
+              <Button 
+                variant="hero" 
+                size="lg" 
+                className="w-full group-hover:scale-105 transition-all duration-300 text-base font-semibold"
+              >
+                Mulai Assessment Gratis
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </div>
+
+              {/* Additional Info */}
+              <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground pt-2">
+                <Clock className="w-3 h-3" />
+                <span>Estimasi waktu: 10-15 menit</span>
+              </div>
+            </CardContent>
           </Card>
 
           {/* Direct Job Exploration Path */}
           <Card 
-            className="p-8 border-2 hover:border-secondary/50 transition-all duration-300 cursor-pointer group"
+            className="group relative overflow-hidden border-2 hover:border-secondary/30 hover:shadow-future transition-all duration-500 cursor-pointer hover:-translate-y-2 animate-fade-in-up bg-card/80 backdrop-blur-sm"
             onClick={handleDirectPath}
             data-testid="button-direct-path"
+            style={{animationDelay: '0.4s'}}
           >
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Search className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Eksplorasi Pekerjaan Langsung</h3>
-              <p className="text-muted-foreground mb-6">
-                Jelajahi langsung database lengkap pekerjaan masa depan, lihat prediksi gaji, risiko AI, dan roadmap pembelajaran untuk setiap profesi
-              </p>
-              <div className="space-y-2 text-sm text-left">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-secondary" />
-                  <span>500+ pekerjaan dengan data lengkap</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-secondary" />
-                  <span>Filter berdasarkan kategori & risiko AI</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-secondary" />
-                  <span>Roadmap & rekomendasi kursus detail</span>
+            {/* Card Glow Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-secondary to-accent opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+            
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between mb-4">
+                <Badge variant="secondary" className="bg-secondary/10 text-secondary border-secondary/20">
+                  Eksplorasi Bebas
+                </Badge>
+                <div className="w-16 h-16 bg-gradient-to-r from-secondary to-accent rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-future">
+                  <Search className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <Button variant="secondary" className="w-full mt-6 group-hover:scale-105 transition-transform">
-                Mulai Eksplorasi <Search className="w-4 h-4 ml-2" />
+              <CardTitle className="text-2xl md:text-3xl font-bold">
+                Eksplorasi Pekerjaan Langsung
+              </CardTitle>
+              <CardDescription className="text-base text-muted-foreground leading-relaxed">
+                Jelajahi langsung database lengkap pekerjaan masa depan, lihat prediksi gaji, 
+                risiko AI, dan roadmap pembelajaran untuk setiap profesi
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              {/* Benefits */}
+              <div className="space-y-3">
+                {[
+                  { icon: HardDrive, text: "500+ pekerjaan dengan data lengkap" },
+                  { icon: Filter, text: "Filter berdasarkan kategori & risiko AI" },
+                  { icon: BookOpen, text: "Roadmap & rekomendasi kursus detail" }
+                ].map((benefit, index) => {
+                  const Icon = benefit.icon;
+                  return (
+                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-secondary/5 hover:bg-secondary/10 transition-colors">
+                      <div className="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center">
+                        <Icon className="w-4 h-4 text-secondary" />
+                      </div>
+                      <span className="text-sm font-medium">{benefit.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* CTA Button */}
+              <Button 
+                variant="future" 
+                size="lg" 
+                className="w-full group-hover:scale-105 transition-all duration-300 text-base font-semibold"
+              >
+                Mulai Eksplorasi
+                <Search className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </div>
+
+              {/* Additional Info */}
+              <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground pt-2">
+                <Zap className="w-3 h-3" />
+                <span>Akses langsung, tanpa perlu assessment</span>
+              </div>
+            </CardContent>
           </Card>
         </div>
 
-        <div className="text-center mt-12">
+        {/* Bottom Section */}
+        <div className="text-center mt-16 space-y-6 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+          {/* Additional Info */}
+          <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 max-w-4xl mx-auto">
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              <strong className="text-foreground">Tidak yakin mana yang lebih cocok?</strong><br />
+              Assessment AI-Powered memberikan hasil yang lebih personal dan akurat, 
+              sementara Eksplorasi Langsung cocok untuk Anda yang sudah tahu minat spesifik.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-primary"></div>
+                <span>100% Gratis</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-secondary"></div>
+                <span>Data Ter-update</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-accent"></div>
+                <span>Khusus Indonesia</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Back Button */}
           <Button 
             variant="ghost" 
             onClick={() => setCurrentView('landing')}
             data-testid="button-back-to-landing"
+            className="group"
           >
-            ← Kembali ke Halaman Utama
+            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+            Kembali ke Halaman Utama
           </Button>
         </div>
       </div>
