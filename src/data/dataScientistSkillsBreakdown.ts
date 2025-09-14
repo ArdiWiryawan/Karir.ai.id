@@ -550,7 +550,7 @@ export const dataScientistLearningMaterials: LearningMaterial[] = [
 
 // Roadmap lengkap untuk Data Scientist
 export const comprehensiveDataScientistRoadmap: Roadmap = {
-  id: 'comprehensive-data-scientist-roadmap',
+  id: 'data-scientist-roadmap',
   jobId: 'data-scientist',
   totalDuration: '12-18 bulan',
   difficulty: 'Lanjutan',

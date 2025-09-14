@@ -16,6 +16,7 @@ import {
   aiWorkforceTrainerRoadmap,
   humanMachineTeamManagerRoadmap
 } from './comprehensiveRoadmaps';
+import { allDataScientistSkills } from './dataScientistSkillsBreakdown';
 
 // Complete job data with detailed roadmaps, skills, and learning materials
 
@@ -235,50 +236,10 @@ export const completeJobs: Job[] = [
     growthProjection: 'Sangat Tinggi',
     isNewProfession: false,
     requiredSkills: [
-      skills[0], // Python Programming
-      skills[1], // Machine Learning
-      skills[2], // Data Analysis
-      skills[4], // Critical Thinking
-      skills[5]  // Communication
+      // Mengambil skills dari comprehensive roadmap
+      ...allDataScientistSkills.slice(0, 6) // Top 6 most important skills
     ],
-    roadmap: {
-      id: 'data-scientist-roadmap',
-      jobId: 'data-scientist',
-      totalDuration: '9-15 bulan',
-      difficulty: 'Lanjutan',
-      phases: [
-        {
-          id: 'ds-phase-1',
-          title: 'Programming & Statistics',
-          description: 'Menguasai Python/R dan statistik untuk analisis data',
-          duration: '3-4 bulan',
-          order: 1,
-          skills: [skills[0], skills[2]],
-          materials: [learningMaterials[1], learningMaterials[4]],
-          prerequisites: []
-        },
-        {
-          id: 'ds-phase-2',
-          title: 'Machine Learning',
-          description: 'Belajar algoritma ML untuk predictive analytics',
-          duration: '3-4 bulan',
-          order: 2,
-          skills: [skills[1]],
-          materials: [learningMaterials[0]],
-          prerequisites: ['ds-phase-1']
-        },
-        {
-          id: 'ds-phase-3',
-          title: 'Business Intelligence',
-          description: 'Mengaplikasikan data science untuk business problems',
-          duration: '3-6 bulan',
-          order: 3,
-          skills: [skills[4], skills[5]],
-          materials: [learningMaterials[4]],
-          prerequisites: ['ds-phase-2']
-        }
-      ]
-    },
+    roadmap: dataScientistRoadmap,
     interestingFacts: [
       'Disebut sebagai "Sexiest Job of 21st Century" oleh Harvard Business Review',
       'Median salary $126,830 di US (2023)',

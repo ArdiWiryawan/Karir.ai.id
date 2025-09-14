@@ -1,4 +1,9 @@
 import { Job, Skill, Roadmap, RoadmapPhase, LearningMaterial } from './skillForecastingTypes';
+import { 
+  allDataScientistSkills, 
+  dataScientistLearningMaterials, 
+  comprehensiveDataScientistRoadmap 
+} from './dataScientistSkillsBreakdown';
 
 // =============================================
 // COMPREHENSIVE SKILLS DATABASE
@@ -493,6 +498,8 @@ export const comprehensiveSkills: Skill[] = [
 // =============================================
 
 export const comprehensiveLearningMaterials: LearningMaterial[] = [
+  // Include Data Scientist learning materials first
+  ...dataScientistLearningMaterials,
   // Data Science Learning Materials
   {
     id: 'andrew-ng-ml-course',
@@ -827,96 +834,8 @@ export const comprehensiveLearningMaterials: LearningMaterial[] = [
 // DETAILED ROADMAPS FOR EACH PROFESSION
 // =============================================
 
-// Data Scientist Roadmap (sesuai contoh user)
-export const dataScientistRoadmap: Roadmap = {
-  id: 'data-scientist-roadmap',
-  jobId: 'data-scientist',
-  difficulty: 'Lanjutan',
-  totalDuration: '9-15 bulan',
-  phases: [
-    {
-      id: 'foundation-math-stats',
-      title: '🧠 Fondasi Matematika & Statistika',
-      description: 'Membangun landasan matematika yang kuat sebagai tulang punggung analisis data',
-      duration: '2-3 bulan',
-      order: 1,
-      prerequisites: [],
-      skills: [
-        comprehensiveSkills.find(s => s.id === 'statistics-inferential')!,
-        comprehensiveSkills.find(s => s.id === 'linear-algebra')!,
-        comprehensiveSkills.find(s => s.id === 'calculus-optimization')!
-      ],
-      materials: [
-        comprehensiveLearningMaterials.find(m => m.id === 'statistics-khan-academy')!,
-        comprehensiveLearningMaterials.find(m => m.id === 'andrew-ng-ml-course')!
-      ]
-    },
-    {
-      id: 'programming-data-management',
-      title: '💻 Pemrograman & Pengelolaan Data',
-      description: 'Menguasai tools untuk manipulasi dan analisis data',
-      duration: '3-4 bulan',
-      order: 2,
-      prerequisites: ['foundation-math-stats'],
-      skills: [
-        comprehensiveSkills.find(s => s.id === 'python-data-science')!,
-        comprehensiveSkills.find(s => s.id === 'sql-advanced')!,
-        comprehensiveSkills.find(s => s.id === 'data-visualization')!
-      ],
-      materials: [
-        comprehensiveLearningMaterials.find(m => m.id === 'python-data-science-handbook')!,
-        comprehensiveLearningMaterials.find(m => m.id === 'kaggle-learn')!
-      ]
-    },
-    {
-      id: 'machine-learning-core',
-      title: '🤖 Machine Learning Inti',
-      description: 'Membangun dan evaluasi model machine learning untuk prediksi dan insights',
-      duration: '4-6 bulan',
-      order: 3,
-      prerequisites: ['programming-data-management'],
-      skills: [
-        comprehensiveSkills.find(s => s.id === 'machine-learning-algorithms')!,
-        comprehensiveSkills.find(s => s.id === 'deep-learning')!
-      ],
-      materials: [
-        comprehensiveLearningMaterials.find(m => m.id === 'andrew-ng-ml-course')!,
-        comprehensiveLearningMaterials.find(m => m.id === 'deep-learning-specialization')!
-      ]
-    },
-    {
-      id: 'advanced-big-data',
-      title: '☁️ Big Data & Cloud (Opsional)',
-      description: 'Teknologi untuk menangani data skala besar',
-      duration: '2-3 bulan',
-      order: 4,
-      prerequisites: ['machine-learning-core'],
-      skills: [
-        comprehensiveSkills.find(s => s.id === 'big-data-technologies')!
-      ],
-      materials: []
-    },
-    {
-      id: 'soft-skills-business',
-      title: '🤝 Soft Skills & Business Acumen',
-      description: 'Kemampuan komunikasi dan pemahaman bisnis untuk impact maksimal',
-      duration: '3-4 bulan (paralel dengan technical skills)',
-      order: 5,
-      prerequisites: [],
-      skills: [
-        comprehensiveSkills.find(s => s.id === 'problem-solving-structured')!,
-        comprehensiveSkills.find(s => s.id === 'communication-technical')!,
-        comprehensiveSkills.find(s => s.id === 'business-acumen')!,
-        comprehensiveSkills.find(s => s.id === 'lifelong-learning')!,
-        comprehensiveSkills.find(s => s.id === 'collaboration-cross-functional')!
-      ],
-      materials: [
-        comprehensiveLearningMaterials.find(m => m.id === 'critical-thinking-course')!,
-        comprehensiveLearningMaterials.find(m => m.id === 'technical-communication')!
-      ]
-    }
-  ]
-};
+// Data Scientist Roadmap - menggunakan breakdown komprehensif
+export const dataScientistRoadmap: Roadmap = comprehensiveDataScientistRoadmap;
 
 // AI/ML Specialist Roadmap
 export const aiMLSpecialistRoadmap: Roadmap = {
