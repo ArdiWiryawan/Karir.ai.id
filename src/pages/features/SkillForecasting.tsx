@@ -40,12 +40,12 @@ const features = [
 ];
 
 const aiImpactData = [
-  { profession: "Data Entry", risk: 95, color: "text-red-500" },
-  { profession: "Kasir", risk: 87, color: "text-red-500" },
-  { profession: "Content Writer", risk: 73, color: "text-orange-500" },
-  { profession: "Graphic Designer", risk: 45, color: "text-yellow-500" },
-  { profession: "Sales Representative", risk: 32, color: "text-green-500" },
-  { profession: "Psychologist", risk: 12, color: "text-green-500" }
+  { profession: "Data Entry", risk: 95, color: "text-destructive" },
+  { profession: "Kasir", risk: 87, color: "text-destructive" },
+  { profession: "Content Writer", risk: 73, color: "text-accent" },
+  { profession: "Graphic Designer", risk: 45, color: "text-accent" },
+  { profession: "Sales Representative", risk: 32, color: "text-secondary" },
+  { profession: "Psychologist", risk: 12, color: "text-secondary" }
 ];
 
 const SkillForecasting = () => {
@@ -465,9 +465,9 @@ const SkillForecasting = () => {
                     {Math.round(((currentQuestionIndex + 1) / assessmentQuestions.length) * 100)}%
                   </span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-muted rounded-full h-2">
                   <div 
-                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    className="bg-gradient-hero h-2 rounded-full transition-all duration-300"
                     style={{ width: `${((currentQuestionIndex + 1) / assessmentQuestions.length) * 100}%` }}
                   />
                 </div>
@@ -488,8 +488,8 @@ const SkillForecasting = () => {
                         key={option.id}
                         className={`p-4 border rounded-lg cursor-pointer transition-all ${
                           currentAnswer === option.value || currentAnswer === option.id
-                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-950'
-                            : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            ? 'border-primary bg-primary/10'
+                            : 'border-border hover:border-border/80 hover:bg-muted/50'
                         }`}
                         onClick={() => handleAnswerSelect(option.value || option.id)}
                         data-testid={`option-${option.id}`}
@@ -497,8 +497,8 @@ const SkillForecasting = () => {
                         <div className="flex items-center space-x-3">
                           <div className={`w-4 h-4 rounded-full border-2 ${
                             currentAnswer === option.value || currentAnswer === option.id
-                              ? 'border-blue-500 bg-blue-500'
-                              : 'border-gray-300'
+                              ? 'border-primary bg-primary'
+                              : 'border-muted-foreground/30'
                           }`}>
                             {(currentAnswer === option.value || currentAnswer === option.id) && (
                               <div className="w-2 h-2 bg-white rounded-full mx-auto mt-0.5" />
@@ -775,7 +775,7 @@ const SkillForecasting = () => {
                       placeholder="Cari berdasarkan nama atau deskripsi..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
                       data-testid="input-job-search"
                     />
                   </div>
@@ -786,7 +786,7 @@ const SkillForecasting = () => {
                     <select
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value as JobCategory | 'all')}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
                       data-testid="select-job-category"
                     >
                       <option value="all">Semua Kategori</option>
@@ -802,7 +802,7 @@ const SkillForecasting = () => {
                     <select
                       value={selectedRiskLevel}
                       onChange={(e) => setSelectedRiskLevel(e.target.value as 'all' | 'low' | 'medium' | 'high')}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
                       data-testid="select-ai-risk"
                     >
                       <option value="all">Semua Risk Level</option>
@@ -818,7 +818,7 @@ const SkillForecasting = () => {
                     <select
                       value={jobTypeFilter}
                       onChange={(e) => setJobTypeFilter(e.target.value as 'all' | 'disappearing' | 'future')}
-                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full p-2 border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-ring bg-background"
                       data-testid="select-job-type"
                     >
                       <option value="all">🔍 Semua Pekerjaan</option>
@@ -832,7 +832,7 @@ const SkillForecasting = () => {
                           type="checkbox"
                           checked={showNewJobs}
                           onChange={(e) => setShowNewJobs(e.target.checked)}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-input text-primary focus:ring-ring"
                           data-testid="checkbox-new-jobs"
                         />
                         <span className="text-sm">Hanya Profesi Baru</span>
@@ -1060,20 +1060,20 @@ const SkillForecasting = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <Card className="p-4">
                     <div className="text-sm text-muted-foreground">Total Durasi</div>
-                    <div className="text-2xl font-bold text-blue-600">{totalDuration}</div>
+                    <div className="text-2xl font-bold text-primary">{totalDuration}</div>
                   </Card>
                   <Card className="p-4">
                     <div className="text-sm text-muted-foreground">Tingkat Kesulitan</div>
                     <div className={`text-2xl font-bold ${
-                      difficulty === 'Pemula' ? 'text-green-600' :
-                      difficulty === 'Menengah' ? 'text-yellow-600' : 'text-red-600'
+                      difficulty === 'Pemula' ? 'text-secondary' :
+                      difficulty === 'Menengah' ? 'text-orange-500' : 'text-destructive'
                     }`}>
                       {difficulty}
                     </div>
                   </Card>
                   <Card className="p-4">
                     <div className="text-sm text-muted-foreground">Jumlah Phase</div>
-                    <div className="text-2xl font-bold text-purple-600">{roadmap.phases.length} Fase</div>
+                    <div className="text-2xl font-bold text-accent">{roadmap.phases.length} Fase</div>
                   </Card>
                 </div>
 
@@ -1081,7 +1081,7 @@ const SkillForecasting = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <Card className="p-6">
                     <div className="text-sm text-muted-foreground mb-2">Prediksi Gaji (per tahun)</div>
-                    <div className="text-3xl font-bold text-green-600 mb-2">
+                    <div className="text-3xl font-bold text-secondary mb-2">
                       Rp {Math.round(selectedJob.salaryRange.min / 1000000)}-{Math.round(selectedJob.salaryRange.max / 1000000)} juta
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -1092,8 +1092,8 @@ const SkillForecasting = () => {
                     <div className="text-sm text-muted-foreground mb-2">AI Replacement Risk</div>
                     <div className="flex items-center space-x-4 mb-2">
                       <div className={`w-6 h-6 rounded-full ${
-                        selectedJob.aiReplacementRisk <= 20 ? 'bg-green-500' :
-                        selectedJob.aiReplacementRisk <= 50 ? 'bg-yellow-500' : 'bg-red-500'
+                        selectedJob.aiReplacementRisk <= 20 ? 'bg-secondary' :
+                        selectedJob.aiReplacementRisk <= 50 ? 'bg-orange-500' : 'bg-destructive'
                       }`}></div>
                       <span className="text-3xl font-bold">
                         {selectedJob.aiReplacementRisk}%
@@ -1124,16 +1124,16 @@ const SkillForecasting = () => {
                         {completedPhases.size} dari {roadmap.phases.length} fase selesai
                       </span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
+                    <div className="w-full bg-muted rounded-full h-3">
                       <div 
-                        className="bg-gradient-to-r from-green-500 to-blue-500 h-3 rounded-full transition-all duration-500 ease-out"
+                        className="bg-gradient-hero h-3 rounded-full transition-all duration-500 ease-out"
                         style={{ width: `${(completedPhases.size / roadmap.phases.length) * 100}%` }}
                       />
                     </div>
                     {completedPhases.size > 0 && (
                       <div className="flex items-center justify-center mt-2 space-x-2">
-                        <Trophy className="w-4 h-4 text-yellow-500" />
-                        <span className="text-sm font-medium text-yellow-600">
+                        <Trophy className="w-4 h-4 text-orange-500" />
+                        <span className="text-sm font-medium text-orange-600">
                           Great progress! Keep learning! 🎉
                         </span>
                       </div>
@@ -1176,7 +1176,7 @@ const SkillForecasting = () => {
                           key={phase.id} 
                           className={`transition-all duration-300 cursor-pointer ${
                             isHovered ? 'shadow-lg scale-102' : 'hover:shadow-md'
-                          } ${isCompleted ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800' : ''}`}
+                          } ${isCompleted ? 'bg-secondary/10 border-secondary/30' : ''}`}
                           onMouseEnter={() => setHoveredPhase(phase.id)}
                           onMouseLeave={() => setHoveredPhase(null)}
                           onClick={() => {
@@ -1198,10 +1198,10 @@ const SkillForecasting = () => {
                               <div className="flex-shrink-0">
                                 <div className={`relative w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
                                   isCompleted 
-                                    ? 'bg-gradient-to-r from-green-500 to-emerald-600' 
+                                    ? 'bg-gradient-success' 
                                     : canStart 
-                                      ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
-                                      : 'bg-gray-400'
+                                      ? 'bg-gradient-hero' 
+                                      : 'bg-muted'
                                 }`}>
                                   {isCompleted ? (
                                     <CheckCircle className="w-8 h-8" />
@@ -1211,7 +1211,7 @@ const SkillForecasting = () => {
                                   
                                   {/* Completion badge */}
                                   {isCompleted && (
-                                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center">
+                                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
                                       <Star className="w-3 h-3 text-white" />
                                     </div>
                                   )}
@@ -1220,7 +1220,7 @@ const SkillForecasting = () => {
                                 {/* Connection line */}
                                 {index < roadmap.phases.length - 1 && (
                                   <div className={`w-1 h-12 mx-auto mt-4 transition-colors duration-300 ${
-                                    isCompleted ? 'bg-green-400' : 'bg-gray-300'
+                                    isCompleted ? 'bg-secondary' : 'bg-muted'
                                   }`}></div>
                                 )}
                               </div>
@@ -1233,12 +1233,12 @@ const SkillForecasting = () => {
                                       {phase.title}
                                     </h3>
                                     {isCompleted && (
-                                      <Badge variant="default" className="bg-green-100 text-green-800 border-green-200">
+                                      <Badge variant="default" className="bg-secondary/20 text-secondary border-secondary/30">
                                         ✓ Selesai
                                       </Badge>
                                     )}
                                     {!canStart && (
-                                      <Badge variant="outline" className="border-orange-200 text-orange-600">
+                                      <Badge variant="outline" className="border-orange-500/30 text-orange-600">
                                         <Clock className="w-3 h-3 mr-1" />
                                         Terkunci
                                       </Badge>
@@ -1507,7 +1507,7 @@ const SkillForecasting = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-gradient-future">
       <Header />
       <main className="pt-20 relative overflow-hidden">
         {/* Background Effects */}
