@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, ArrowLeft, Bot, Users, CheckCircle, Clock, Star, Trophy, PlayCircle, ChevronDown, ChevronUp, HardDrive, Filter, BookOpen } from "lucide-react";
+import { Brain, TrendingUp, AlertTriangle, Shield, Target, Zap, User, Search, ArrowRight, ArrowLeft, Bot, Users, CheckCircle, Clock, Star, Trophy, PlayCircle, ChevronDown, ChevronUp, HardDrive, Filter, BookOpen, Database, Sparkles, Rocket } from "lucide-react";
 import { allJobs, jobsByCategory, futureJobs, disappearingJobs, jobSeparation } from "@/data/jobDatabase";
 import { assessmentQuestions, categoryWeights } from "@/data/assessmentQuestions";
 import { Job, AssessmentResult, JobMatch, JobCategory } from "@/data/skillForecastingTypes";
@@ -1742,43 +1742,113 @@ const SkillForecasting = () => {
         </section>
 
         {/* How It Works */}
-        <section className="py-24 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
-              Cara Kerja Teknologi AI
-            </h2>
+        <section className="py-32 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background"></div>
+          <div className="absolute top-0 right-1/3 w-72 h-72 bg-primary/3 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-accent/3 rounded-full blur-3xl"></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center mb-20 animate-fade-in-up">
+              <Badge variant="secondary" className="bg-secondary/10 text-secondary border-secondary/20 mb-6">
+                🔬 AI Process
+              </Badge>
+              <h2 className="text-heading-1 mb-8">
+                <span className="bg-gradient-to-r from-secondary via-primary to-accent bg-clip-text text-transparent">
+                  Cara Kerja
+                </span>
+                <br />
+                Teknologi AI
+              </h2>
+              <p className="text-body-large text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                ⚡ Proses berbasis AI yang menganalisis data real-time untuk memberikan prediksi akurat 
+                tentang masa depan karier dan kebutuhan skill.
+              </p>
+            </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
-                  1
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="text-center group animate-fade-in-up" style={{animationDelay: '0s'}}>
+                <div className="relative mb-8">
+                  <div className="w-20 h-20 bg-gradient-hero rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-future">
+                    <Database className="w-10 h-10" />
+                  </div>
+                  <Badge 
+                    variant="secondary" 
+                    className="absolute -top-2 -right-2 w-8 h-8 rounded-full p-0 flex items-center justify-center bg-gradient-hero text-white border-0 font-bold"
+                  >
+                    1
+                  </Badge>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Data Collection</h3>
-                <p className="text-muted-foreground">
-                  Mengumpulkan data dari 50.000+ lowongan kerja Indonesia, trend global, 
-                  dan laporan industri terpercaya.
+                <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  🗂️ Data Collection
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Mengumpulkan data dari <span className="font-semibold text-primary">50.000+</span> lowongan kerja Indonesia, 
+                  trend global, dan laporan industri terpercaya.
                 </p>
+                <div className="mt-6 w-full h-1 bg-muted rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-hero progress-ai" style={{animationDelay: '0.5s'}} />
+                </div>
               </div>
               
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
-                  2
+              <div className="text-center group animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                <div className="relative mb-8">
+                  <div className="w-20 h-20 bg-gradient-hero rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-future">
+                    <Brain className="w-10 h-10" />
+                  </div>
+                  <Badge 
+                    variant="secondary" 
+                    className="absolute -top-2 -right-2 w-8 h-8 rounded-full p-0 flex items-center justify-center bg-gradient-hero text-white border-0 font-bold"
+                  >
+                    2
+                  </Badge>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">AI Analysis</h3>
-                <p className="text-muted-foreground">
-                  LSTM neural networks menganalisis pola dan memprediksi perubahan 
-                  pasar kerja dalam 3-5 tahun ke depan.
+                <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  🧠 AI Analysis
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  <span className="font-semibold text-secondary">LSTM neural networks</span> menganalisis pola dan memprediksi 
+                  perubahan pasar kerja dalam 3-5 tahun ke depan.
                 </p>
+                <div className="mt-6 w-full h-1 bg-muted rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-hero progress-ai" style={{animationDelay: '0.7s'}} />
+                </div>
               </div>
               
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">
-                  3
+              <div className="text-center group animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+                <div className="relative mb-8">
+                  <div className="w-20 h-20 bg-gradient-hero rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-future">
+                    <User className="w-10 h-10" />
+                  </div>
+                  <Badge 
+                    variant="secondary" 
+                    className="absolute -top-2 -right-2 w-8 h-8 rounded-full p-0 flex items-center justify-center bg-gradient-hero text-white border-0 font-bold"
+                  >
+                    3
+                  </Badge>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Personal Insights</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  🎯 Personal Insights
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
                   Memberikan rekomendasi personal berdasarkan skill, minat, 
-                  dan goals karier individu.
+                  dan <span className="font-semibold text-accent">goals karier</span> individu.
+                </p>
+                <div className="mt-6 w-full h-1 bg-muted rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-hero progress-ai" style={{animationDelay: '0.9s'}} />
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom insight */}
+            <div className="text-center mt-20 animate-fade-in-up" style={{animationDelay: '1s'}}>
+              <div className="p-8 glass-effect rounded-2xl border border-primary/10 max-w-3xl mx-auto">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <Bot className="w-6 h-6 text-primary" />
+                  <h3 className="text-xl font-bold">🚀 AI-Powered Intelligence</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed">
+                  Sistem kami dilatih dengan <span className="font-semibold text-primary">machine learning</span> terdepan 
+                  dan terus belajar dari data terbaru untuk memberikan prediksi yang semakin akurat.
                 </p>
               </div>
             </div>
