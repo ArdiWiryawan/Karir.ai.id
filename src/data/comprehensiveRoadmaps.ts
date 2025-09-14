@@ -363,6 +363,78 @@ export const comprehensiveSkills: Skill[] = [
     timeToLearn: '4-8 bulan'
   },
 
+  // Future Skills 2030 Core Skills
+  {
+    id: 'futures-thinking',
+    name: 'Futures Thinking',
+    type: 'soft',
+    category: 'Problem Solving',
+    description: 'Kemampuan mengeksplorasi berbagai kemungkinan masa depan dan mengantisipasi perubahan',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '6-12 bulan'
+  },
+  {
+    id: 'growth-mindset',
+    name: 'Growth Mindset',
+    type: 'soft',
+    category: 'Soft Skills',
+    description: 'Keyakinan bahwa kemampuan dan keterampilan dapat dikembangkan melalui usaha dan dedikasi',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+  {
+    id: 'ai-literacy',
+    name: 'AI Literacy',
+    type: 'hard',
+    category: 'AI & Machine Learning',
+    description: 'Pemahaman tentang kapabilitas, batasan, dan implikasi etis AI dalam kehidupan sehari-hari',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+  {
+    id: 'systems-thinking',
+    name: 'Systems Thinking',
+    type: 'soft',
+    category: 'Problem Solving',
+    description: 'Kemampuan memahami bagaimana berbagai sistem saling terkait dan memengaruhi satu sama lain',
+    importance: 9,
+    learnability: 'Sulit',
+    timeToLearn: '6-12 bulan'
+  },
+  {
+    id: 'adaptability-resilience',
+    name: 'Adaptability & Resilience',
+    type: 'soft',
+    category: 'Soft Skills',
+    description: 'Kemampuan merespons dan menyesuaikan diri dengan cepat terhadap perubahan dengan ketahanan mental',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '6-12 bulan'
+  },
+  {
+    id: 'creative-thinking-innovation',
+    name: 'Creative Thinking & Innovation',
+    type: 'soft',
+    category: 'Problem Solving',
+    description: 'Kemampuan berpikir di luar kotak dan menciptakan solusi inovatif untuk masalah kompleks',
+    importance: 9,
+    learnability: 'Sulit',
+    timeToLearn: '8-15 bulan'
+  },
+  {
+    id: 'human-ai-collaboration',
+    name: 'Human-AI Collaboration',
+    type: 'hard',
+    category: 'AI & Machine Learning',
+    description: 'Kemampuan bekerja efektif dengan sistem AI untuk meningkatkan produktivitas dan kreativitas',
+    importance: 9,
+    learnability: 'Sedang',
+    timeToLearn: '4-8 bulan'
+  },
+
   // Universal Soft Skills
   {
     id: 'problem-solving-structured',
@@ -664,6 +736,54 @@ export const comprehensiveLearningMaterials: LearningMaterial[] = [
     difficulty: 'Menengah',
     price: { amount: 300000, currency: 'IDR', isFree: false },
     rating: 4.7
+  },
+
+  // Future Skills 2030 Learning Materials
+  {
+    id: 'future-skills-2030-course',
+    title: 'Future Skills 2030 by Thomas Karl PhD',
+    type: 'course',
+    provider: 'Udemy',
+    description: 'Kursus komprehensif tentang keterampilan masa depan dan revolusi industri 4.0',
+    duration: '12-16 minggu',
+    difficulty: 'Menengah',
+    price: { amount: 650000, currency: 'IDR', isFree: false },
+    rating: 4.8
+  },
+  {
+    id: 'futures-thinking-workshop',
+    title: 'Futures Thinking Workshop',
+    type: 'course',
+    provider: 'Institute for the Future',
+    url: 'https://iftf.org',
+    description: 'Workshop praktis untuk mengembangkan kemampuan futures thinking dan scenario planning',
+    duration: '4-6 minggu',
+    difficulty: 'Menengah',
+    price: { amount: 850000, currency: 'IDR', isFree: false },
+    rating: 4.7
+  },
+  {
+    id: 'ai-literacy-course',
+    title: 'AI for Everyone',
+    type: 'course',
+    provider: 'Coursera (Andrew Ng)',
+    url: 'https://coursera.org/learn/ai-for-everyone',
+    description: 'Pemahaman dasar AI untuk profesional non-teknis',
+    duration: '4 minggu',
+    difficulty: 'Pemula',
+    price: { amount: 390000, currency: 'IDR', isFree: false },
+    rating: 4.8
+  },
+  {
+    id: 'growth-mindset-book',
+    title: 'Mindset: The New Psychology of Success',
+    type: 'book',
+    provider: 'Carol Dweck',
+    description: 'Buku fundamental tentang growth mindset dan fixed mindset',
+    duration: '2-3 minggu',
+    difficulty: 'Pemula',
+    price: { amount: 250000, currency: 'IDR', isFree: false },
+    rating: 4.6
   },
 
   // Universal Skills Learning Materials
@@ -1279,6 +1399,121 @@ export const ecosystemRestorationSpecialistRoadmap: Roadmap = {
   ]
 };
 
+// AI Workforce Trainer Roadmap (Berdasarkan dokumen Future Skills 2030)
+export const aiWorkforceTrainerRoadmap: Roadmap = {
+  id: 'ai-workforce-trainer-roadmap',
+  jobId: 'ai-workforce-trainer',
+  difficulty: 'Menengah',
+  totalDuration: '8-12 bulan',
+  phases: [
+    {
+      id: 'ai-literacy-foundation',
+      title: '🤖 Fondasi AI Literacy',
+      description: 'Memahami dasar-dasar AI, kemampuan, dan batasan untuk dapat mengajar orang lain',
+      duration: '3-4 bulan',
+      order: 1,
+      prerequisites: [],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'ai-literacy')!,
+        comprehensiveSkills.find(s => s.id === 'human-ai-collaboration')!
+      ],
+      materials: [
+        comprehensiveLearningMaterials.find(m => m.id === 'ai-literacy-course')!,
+        comprehensiveLearningMaterials.find(m => m.id === 'future-skills-2030-course')!
+      ]
+    },
+    {
+      id: 'training-pedagogy',
+      title: '👨‍🏫 Pedagogi & Metodologi Pelatihan',
+      description: 'Mengembangkan kemampuan mengajar dan merancang kurikulum pelatihan AI',
+      duration: '2-3 bulan',
+      order: 2,
+      prerequisites: ['ai-literacy-foundation'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'communication-technical')!,
+        comprehensiveSkills.find(s => s.id === 'lifelong-learning')!
+      ],
+      materials: [
+        comprehensiveLearningMaterials.find(m => m.id === 'technical-communication')!
+      ]
+    },
+    {
+      id: 'change-management-skills',
+      title: '🔄 Change Management untuk AI Adoption',
+      description: 'Membantu organisasi mengatasi resistensi dan mengadopsi AI secara efektif',
+      duration: '3-5 bulan',
+      order: 3,
+      prerequisites: ['training-pedagogy'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'change-management')!,
+        comprehensiveSkills.find(s => s.id === 'adaptability-resilience')!
+      ],
+      materials: [
+        comprehensiveLearningMaterials.find(m => m.id === 'change-management-kotter')!
+      ]
+    }
+  ]
+};
+
+// Human-Machine Team Manager Roadmap (Berdasarkan dokumen Future Skills 2030)
+export const humanMachineTeamManagerRoadmap: Roadmap = {
+  id: 'human-machine-team-manager-roadmap',
+  jobId: 'human-machine-team-manager',
+  difficulty: 'Lanjutan',
+  totalDuration: '10-15 bulan',
+  phases: [
+    {
+      id: 'futures-thinking-systems',
+      title: '🔮 Futures Thinking & Systems Thinking',
+      description: 'Mengembangkan kemampuan berpikir strategis tentang masa depan kerja dan sistem yang kompleks',
+      duration: '3-4 bulan',
+      order: 1,
+      prerequisites: [],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'futures-thinking')!,
+        comprehensiveSkills.find(s => s.id === 'systems-thinking')!,
+        comprehensiveSkills.find(s => s.id === 'strategic-thinking')!
+      ],
+      materials: [
+        comprehensiveLearningMaterials.find(m => m.id === 'futures-thinking-workshop')!,
+        comprehensiveLearningMaterials.find(m => m.id === 'strategic-thinking-course')!
+      ]
+    },
+    {
+      id: 'ai-human-collaboration',
+      title: '🤝 AI-Human Collaboration Design',
+      description: 'Merancang workflow yang optimal antara manusia dan AI dalam team environment',
+      duration: '3-4 bulan',
+      order: 2,
+      prerequisites: ['futures-thinking-systems'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'human-ai-collaboration')!,
+        comprehensiveSkills.find(s => s.id === 'ai-literacy')!
+      ],
+      materials: [
+        comprehensiveLearningMaterials.find(m => m.id === 'ai-literacy-course')!
+      ]
+    },
+    {
+      id: 'team-leadership-innovation',
+      title: '👥 Team Leadership & Innovation Management',
+      description: 'Memimpin tim hybrid manusia-AI dan mendorong inovasi berkelanjutan',
+      duration: '4-7 bulan',
+      order: 3,
+      prerequisites: ['ai-human-collaboration'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'creative-thinking-innovation')!,
+        comprehensiveSkills.find(s => s.id === 'collaboration-cross-functional')!,
+        comprehensiveSkills.find(s => s.id === 'adaptability-resilience')!
+      ],
+      materials: [
+        comprehensiveLearningMaterials.find(m => m.id === 'change-management-kotter')!,
+        comprehensiveLearningMaterials.find(m => m.id === 'project-management-pmp')!
+      ]
+    }
+  ]
+};
+
 // Export comprehensive roadmaps
 export const comprehensiveRoadmaps: Record<string, Roadmap> = {
   'data-scientist': dataScientistRoadmap,
@@ -1290,5 +1525,7 @@ export const comprehensiveRoadmaps: Record<string, Roadmap> = {
   'solar-panel-installer': solarPanelInstallerRoadmap,
   'geriatric-tech-specialist': geriatricTechSpecialistRoadmap,
   'future-work-strategist': futureWorkStrategistRoadmap,
-  'ecosystem-restoration-specialist': ecosystemRestorationSpecialistRoadmap
+  'ecosystem-restoration-specialist': ecosystemRestorationSpecialistRoadmap,
+  'ai-workforce-trainer': aiWorkforceTrainerRoadmap,
+  'human-machine-team-manager': humanMachineTeamManagerRoadmap
 };

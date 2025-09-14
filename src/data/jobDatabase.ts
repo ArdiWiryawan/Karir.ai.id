@@ -255,6 +255,44 @@ export const futureJobs: Job[] = [
     ],
     aiProofSkills: ['Blockchain Development', 'Smart Contracts', 'Cryptography', 'DeFi Protocols'],
     timeline: '2025-2040'
+  },
+  {
+    id: 'ai-workforce-trainer',
+    title: 'AI Workforce Trainer',
+    category: 'Teknologi & AI',
+    description: 'Melatih karyawan dan organisasi untuk mengadopsi dan menggunakan AI secara efektif dalam pekerjaan mereka.',
+    aiReplacementRisk: 8,
+    salaryRange: { min: 85000000, max: 150000000, currency: 'IDR' },
+    growthProjection: 'Sangat Tinggi',
+    isNewProfession: true,
+    requiredSkills: [],
+    roadmap: { id: '', jobId: '', phases: [], totalDuration: '8-12 bulan', difficulty: 'Menengah' },
+    interestingFacts: [
+      '75% pekerja menggunakan AI tanpa pelatihan formal',
+      'Kesenjangan antara adopsi AI (75%) dan pelatihan (39%)',
+      'Menjembatani teknologi dan human resources'
+    ],
+    aiProofSkills: ['AI Literacy', 'Training Design', 'Change Management', 'Communication'],
+    timeline: '2025-2035'
+  },
+  {
+    id: 'human-machine-team-manager',
+    title: 'Human-Machine Team Manager',
+    category: 'Teknologi & AI',
+    description: 'Memimpin tim hybrid yang terdiri dari manusia dan AI, mengoptimalkan kolaborasi untuk produktivitas maksimal.',
+    aiReplacementRisk: 5,
+    salaryRange: { min: 130000000, max: 220000000, currency: 'IDR' },
+    growthProjection: 'Tinggi',
+    isNewProfession: true,
+    requiredSkills: [],
+    roadmap: { id: '', jobId: '', phases: [], totalDuration: '10-15 bulan', difficulty: 'Lanjutan' },
+    interestingFacts: [
+      'Masa depan kerja adalah kolaborasi manusia-AI',
+      'Memadukan kepemimpinan tradisional dengan AI literacy',
+      'Mengoptimalkan kekuatan unik manusia dan mesin'
+    ],
+    aiProofSkills: ['Leadership', 'Systems Thinking', 'Human-AI Collaboration', 'Innovation Management'],
+    timeline: '2025-2040'
   }
 ];
 
