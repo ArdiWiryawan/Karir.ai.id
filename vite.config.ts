@@ -12,8 +12,10 @@ export default defineConfig(({ mode }) => ({
     port: 5000,
     strictPort: true,
     origin: "http://0.0.0.0:5000",
+    allowedHosts: "all",
     hmr: {
-      port: 5000
+      port: 5000,
+      clientPort: 443
     }
   },
   preview: {
@@ -30,3 +32,5 @@ export default defineConfig(({ mode }) => ({
     },
   },
 }));
+
+
