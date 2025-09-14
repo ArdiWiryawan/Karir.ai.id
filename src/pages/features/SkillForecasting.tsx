@@ -61,6 +61,8 @@ const SkillForecasting = () => {
   const [selectedRiskLevel, setSelectedRiskLevel] = useState<'all' | 'low' | 'medium' | 'high'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showNewJobs, setShowNewJobs] = useState(false);
+  // NEW: Filter untuk memisahkan jenis pekerjaan
+  const [jobTypeFilter, setJobTypeFilter] = useState<'all' | 'disappearing' | 'future'>('all');
   
   // Roadmap interaction states for gamification with persistence
   const [expandedPhases, setExpandedPhases] = useState<Set<string>>(new Set());
@@ -713,6 +715,17 @@ const SkillForecasting = () => {
         return false;
       }
 
+      // NEW: Job type filter - pisahkan pekerjaan yang akan hilang vs masa depan
+      if (jobTypeFilter === 'disappearing') {
+        // Tampilkan hanya pekerjaan yang akan hilang (risiko tinggi, pertumbuhan menurun)
+        const isDisappearingJob = disappearingJobs.some(disappearingJob => disappearingJob.id === job.id);
+        if (!isDisappearingJob) return false;
+      } else if (jobTypeFilter === 'future') {
+        // Tampilkan hanya pekerjaan masa depan (risiko rendah, pertumbuhan tinggi)
+        const isFutureJob = futureJobs.some(futureJob => futureJob.id === job.id);
+        if (!isFutureJob) return false;
+      }
+
       // Risk level filter
       if (selectedRiskLevel !== 'all') {
         if (selectedRiskLevel === 'low' && job.aiReplacementRisk > 20) return false;
@@ -799,19 +812,32 @@ const SkillForecasting = () => {
                     </select>
                   </div>
 
-                  {/* New Jobs Toggle */}
+                  {/* Job Type Filter - NEW: Pisahkan pekerjaan yang akan hilang vs masa depan */}
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Filter Tambahan</label>
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={showNewJobs}
-                        onChange={(e) => setShowNewJobs(e.target.checked)}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        data-testid="checkbox-new-jobs"
-                      />
-                      <span className="text-sm">Hanya Profesi Baru</span>
-                    </label>
+                    <label className="text-sm font-medium mb-2 block">Jenis Pekerjaan</label>
+                    <select
+                      value={jobTypeFilter}
+                      onChange={(e) => setJobTypeFilter(e.target.value as 'all' | 'disappearing' | 'future')}
+                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      data-testid="select-job-type"
+                    >
+                      <option value="all">🔍 Semua Pekerjaan</option>
+                      <option value="disappearing">⚠️ Pekerjaan yang Akan Hilang</option>
+                      <option value="future">🚀 Pekerjaan Masa Depan</option>
+                    </select>
+                    {/* Keep the new jobs toggle as additional filter */}
+                    <div className="mt-2">
+                      <label className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={showNewJobs}
+                          onChange={(e) => setShowNewJobs(e.target.checked)}
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          data-testid="checkbox-new-jobs"
+                        />
+                        <span className="text-sm">Hanya Profesi Baru</span>
+                      </label>
+                    </div>
                   </div>
                 </div>
 
@@ -828,6 +854,7 @@ const SkillForecasting = () => {
                       setSelectedRiskLevel('all');
                       setSearchQuery('');
                       setShowNewJobs(false);
+                      setJobTypeFilter('all'); // Reset job type filter
                     }}
                     data-testid="button-clear-filters"
                   >
@@ -950,6 +977,7 @@ const SkillForecasting = () => {
                       setSelectedRiskLevel('all');
                       setSearchQuery('');
                       setShowNewJobs(false);
+                      setJobTypeFilter('all'); // Reset job type filter
                     }}
                     data-testid="button-reset-search"
                   >
