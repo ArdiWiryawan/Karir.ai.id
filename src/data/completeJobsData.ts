@@ -1,70 +1,70 @@
 import { Job, Skill, Roadmap, RoadmapPhase, LearningMaterial } from './skillForecastingTypes';
+import { 
+  comprehensiveSkills, 
+  comprehensiveLearningMaterials, 
+  comprehensiveRoadmaps,
+  dataScientistRoadmap,
+  aiMLSpecialistRoadmap,
+  cybersecurityAnalystRoadmap,
+  web3DeveloperRoadmap,
+  aiEthicsOfficerRoadmap,
+  windTurbineTechnicianRoadmap,
+  solarPanelInstallerRoadmap,
+  geriatricTechSpecialistRoadmap,
+  futureWorkStrategistRoadmap,
+  ecosystemRestorationSpecialistRoadmap
+} from './comprehensiveRoadmaps';
 
 // Complete job data with detailed roadmaps, skills, and learning materials
 
-// Skills data
-const skills: Skill[] = [
-  {
-    id: 'python-programming',
-    name: 'Python Programming',
-    type: 'hard',
-    category: 'Programming & Development',
-    description: 'Bahasa pemrograman serbaguna untuk AI, data science, dan web development',
-    importance: 9,
-    learnability: 'Sedang',
-    timeToLearn: '3-6 bulan'
-  },
-  {
-    id: 'machine-learning',
-    name: 'Machine Learning',
-    type: 'hard',
-    category: 'AI & Machine Learning',
-    description: 'Teknik untuk membuat model prediktif dan sistem yang dapat belajar dari data',
-    importance: 10,
-    learnability: 'Sulit',
-    timeToLearn: '6-12 bulan'
-  },
-  {
-    id: 'data-analysis',
-    name: 'Data Analysis',
-    type: 'hard',
-    category: 'Data & Analytics',
-    description: 'Kemampuan menganalisis, menginterpretasi, dan mengextract insights dari data',
-    importance: 8,
-    learnability: 'Sedang',
-    timeToLearn: '3-6 bulan'
-  },
-  {
-    id: 'tensorflow-pytorch',
-    name: 'TensorFlow/PyTorch',
-    type: 'hard',
-    category: 'AI & Machine Learning',
-    description: 'Framework deep learning untuk membangun dan training neural networks',
-    importance: 9,
-    learnability: 'Sulit',
-    timeToLearn: '4-8 bulan'
-  },
-  {
-    id: 'critical-thinking',
-    name: 'Critical Thinking',
-    type: 'soft',
-    category: 'Problem Solving',
-    description: 'Kemampuan menganalisis informasi secara objektif dan membuat keputusan yang rasional',
-    importance: 9,
-    learnability: 'Sedang',
-    timeToLearn: '6-12 bulan'
-  },
-  {
-    id: 'communication',
-    name: 'Communication',
-    type: 'soft',
-    category: 'Communication',
-    description: 'Kemampuan menyampaikan ide teknis kepada audience yang beragam',
-    importance: 8,
-    learnability: 'Sedang',
-    timeToLearn: '3-6 bulan'
+// Function to get skills for a specific job
+export function getJobSkills(jobId: string): Skill[] {
+  const roadmap = comprehensiveRoadmaps[jobId];
+  if (!roadmap) return [];
+  
+  const allSkills: Skill[] = [];
+  roadmap.phases.forEach(phase => {
+    allSkills.push(...phase.skills);
+  });
+  
+  return allSkills;
+}
+
+// Function to get complete job data with comprehensive roadmaps
+export function getCompleteJobData(jobId: string): {
+  skills: Skill[];
+  roadmap: Roadmap | null;
+  learningMaterials: LearningMaterial[];
+} {
+  const skills = getJobSkills(jobId);
+  const roadmap = comprehensiveRoadmaps[jobId] || null;
+  
+  // Get all learning materials for this job
+  const learningMaterials: LearningMaterial[] = [];
+  if (roadmap) {
+    roadmap.phases.forEach(phase => {
+      learningMaterials.push(...phase.materials);
+    });
   }
-];
+  
+  return {
+    skills,
+    roadmap,
+    learningMaterials: learningMaterials.filter((material, index, self) => 
+      index === self.findIndex(m => m.id === material.id)
+    ) // Remove duplicates
+  };
+}
+
+// Export all comprehensive data
+export { 
+  comprehensiveSkills as allSkills, 
+  comprehensiveLearningMaterials as allLearningMaterials,
+  comprehensiveRoadmaps as allRoadmaps
+};
+
+// Legacy compatibility - keeping original structure but using comprehensive data
+const skills: Skill[] = comprehensiveSkills.slice(0, 6); // First 6 for backward compatibility
 
 // Learning materials
 const learningMaterials: LearningMaterial[] = [

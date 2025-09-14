@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RoadmapDetail from "@/components/RoadmapDetail";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,6 +51,7 @@ const aiImpactData = [
 const SkillForecasting = () => {
   const [currentView, setCurrentView] = useState<'landing' | 'selection' | 'personal-assessment' | 'job-results' | 'direct-exploration' | 'roadmap-view'>('landing');
   const [selectedJobs, setSelectedJobs] = useState<Job[]>([]);
+  const [selectedJobForRoadmap, setSelectedJobForRoadmap] = useState<Job | null>(null);
   const [assessmentAnswers, setAssessmentAnswers] = useState<Record<string, string | number | string[]>>({});
   const [jobMatches, setJobMatches] = useState<JobMatch[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -983,8 +985,8 @@ const SkillForecasting = () => {
   }
 
   if (currentView === 'roadmap-view') {
-    const selectedJob = selectedJobs[0];
-    if (!selectedJob || !selectedJob.roadmap) {
+    const selectedJob = selectedJobForRoadmap;
+    if (!selectedJob) {
       return (
         <div className="min-h-screen">
           <Header />

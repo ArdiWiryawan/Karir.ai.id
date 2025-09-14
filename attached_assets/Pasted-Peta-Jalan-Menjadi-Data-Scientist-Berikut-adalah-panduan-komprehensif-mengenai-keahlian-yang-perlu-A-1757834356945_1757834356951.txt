@@ -1,0 +1,137 @@
+Peta Jalan Menjadi Data Scientist
+Berikut adalah panduan komprehensif mengenai keahlian yang perlu Anda kuasai dalam perjalanan menjadi seorang data scientist yang kompeten. Peta jalan ini dibagi menjadi dua area utama: Hard Skill (kemampuan teknis) dan Soft Skill (kemampuan interpersonal dan non-teknis).
+
+🧠 Hard Skills (Kemampuan Teknis)
+Ini adalah fondasi teknis yang memungkinkan Anda untuk mengolah, menganalisis, dan mengekstrak wawasan dari data.
+
+1. Dasar-dasar Matematika & Statistika
+Merupakan tulang punggung dari semua model dan analisis data. Tanpa pemahaman yang kuat di area ini, mustahil untuk memahami "mengapa" di balik algoritma.
+
+Statistika Deskriptif & Inferensial: Memahami konsep seperti mean, median, modus, varians, standar deviasi, distribusi probabilitas, pengujian hipotesis (A/B testing), dan interval kepercayaan.
+
+Aljabar Linier: Penting untuk memahami cara kerja banyak algoritma machine learning. Fokus pada vektor, matriks, dan dekomposisi nilai eigen.
+
+Kalkulus: Terutama turunan dan gradien, yang menjadi dasar untuk optimisasi model machine learning.
+
+2. Pemrograman & Pengelolaan Data
+Kemampuan untuk "berbicara" dengan komputer untuk memanipulasi data.
+
+Bahasa Pemrograman:
+
+Python: Wajib dikuasai. Bahasa paling populer di dunia data science karena ekosistemnya yang kaya (Pandas, NumPy, Scikit-learn, Matplotlib).
+
+R: Alternatif yang sangat kuat, terutama di lingkungan akademis dan riset statistika.
+
+SQL (Structured Query Language): Keterampilan fundamental untuk mengambil dan mengelola data dari basis data relasional. Kuasai perintah SELECT, JOIN, GROUP BY, dan window functions.
+
+Tools & Libraries:
+
+Pandas: Untuk manipulasi dan pembersihan data.
+
+NumPy: Untuk operasi numerik yang efisien.
+
+Scikit-learn: Pustaka utama untuk machine learning klasik.
+
+3. Visualisasi Data
+Mengubah data mentah menjadi cerita visual yang dapat dipahami oleh audiens teknis maupun non-teknis.
+
+Libraries:
+
+Matplotlib: Pustaka dasar untuk membuat plot statis.
+
+Seaborn: Dibangun di atas Matplotlib untuk visualisasi statistika yang lebih menarik.
+
+Plotly: Untuk membuat visualisasi yang interaktif.
+
+Business Intelligence Tools:
+
+Tableau: Salah satu alat BI paling populer untuk dasbor interaktif.
+
+Power BI: Alternatif kuat dari Microsoft.
+
+4. Machine Learning
+Inti dari data science, yaitu membangun model yang dapat belajar dari data untuk membuat prediksi atau keputusan.
+
+Supervised Learning:
+
+Regresi: Memprediksi nilai kontinu (misalnya, harga rumah). Algoritma: Regresi Linier, Regresi Logistik.
+
+Klasifikasi: Memprediksi kategori (misalnya, spam atau bukan spam). Algoritma: K-Nearest Neighbors (KNN), Support Vector Machines (SVM), Decision Trees, Random Forest.
+
+Unsupervised Learning:
+
+Clustering: Mengelompokkan data yang mirip (misalnya, segmentasi pelanggan). Algoritma: K-Means, DBSCAN.
+
+Pengurangan Dimensi: Menyederhanakan data tanpa kehilangan banyak informasi (misalnya, PCA).
+
+Validasi & Evaluasi Model: Memahami metrik seperti akurasi, presisi, recall, F1-score, dan teknik seperti cross-validation untuk memastikan model bekerja dengan baik.
+
+5. Big Data Technologies (Tingkat Lanjut)
+Ketika data menjadi terlalu besar untuk ditangani oleh satu mesin.
+
+Apache Spark: Framework untuk pemrosesan data terdistribusi skala besar.
+
+Hadoop Ecosystem (HDFS & MapReduce): Teknologi dasar untuk penyimpanan dan pemrosesan data besar.
+
+Cloud Computing Platforms: Familiar dengan layanan data science di:
+
+AWS (Amazon Web Services): S3, EC2, SageMaker.
+
+Google Cloud Platform (GCP): BigQuery, AI Platform.
+
+Microsoft Azure: Azure Machine Learning.
+
+6. Deep Learning (Spesialisasi)
+Sub-bidang machine learning yang berfokus pada jaringan saraf tiruan yang kompleks, sangat efektif untuk data tidak terstruktur.
+
+Frameworks:
+
+TensorFlow: Dikembangkan oleh Google.
+
+PyTorch: Dikembangkan oleh Facebook, populer di kalangan peneliti.
+
+Aplikasi:
+
+Computer Vision (CV): Analisis gambar dan video.
+
+Natural Language Processing (NLP): Memahami dan memproses bahasa manusia.
+
+🤝 Soft Skills (Kemampuan Non-Teknis)
+Keterampilan ini seringkali menjadi pembeda antara data scientist yang baik dan yang luar biasa. Tanpa ini, wawasan teknis yang canggih pun akan sulit memberikan dampak bisnis.
+
+1. Pemecahan Masalah (Problem Solving)
+Kemampuan untuk menerjemahkan masalah bisnis yang ambigu menjadi pertanyaan data yang terstruktur dan dapat dipecahkan.
+
+Berpikir Kritis: Mampu mengevaluasi asumsi, mengidentifikasi variabel kunci, dan memahami batasan dari setiap pendekatan.
+
+Pendekatan Terstruktur: Menggunakan metodologi seperti CRISP-DM (Cross-Industry Standard Process for Data Mining) untuk memastikan proyek berjalan dengan sistematis.
+
+2. Komunikasi & Bercerita (Storytelling)
+Data scientist adalah jembatan antara data teknis dan pemangku kepentingan bisnis.
+
+Komunikasi Verbal & Tulisan: Mampu menjelaskan temuan yang kompleks dengan bahasa yang sederhana dan jelas kepada audiens non-teknis.
+
+Storytelling dengan Data: Bukan hanya menyajikan grafik, tetapi merangkainya menjadi sebuah narasi yang meyakinkan dan mendorong pengambilan keputusan.
+
+3. Keingintahuan & Keinginan Belajar (Curiosity & Lifelong Learning)
+Dunia data terus berkembang pesat. Rasa ingin tahu adalah bahan bakar untuk terus relevan.
+
+Rasa Ingin Tahu Intelektual: Selalu bertanya "mengapa?" dan tidak cepat puas dengan jawaban di permukaan.
+
+Inisiatif Belajar: Aktif mengikuti perkembangan terbaru, membaca paper penelitian, dan mencoba teknologi baru.
+
+4. Wawasan Bisnis (Business Acumen)
+Memahami konteks bisnis di mana Anda bekerja agar analisis yang dilakukan relevan dan memberikan nilai.
+
+Memahami Domain: Mengetahui tujuan, tantangan, dan metrik kesuksesan industri tempat perusahaan beroperasi (misalnya, keuangan, e-commerce, kesehatan).
+
+Fokus pada Dampak: Selalu menghubungkan hasil analisis dengan dampak bisnis yang nyata, seperti peningkatan pendapatan, pengurangan biaya, atau peningkatan kepuasan pelanggan.
+
+5. Kolaborasi & Kerja Tim
+Data science adalah olahraga tim. Anda akan bekerja sama dengan data engineer, analis bisnis, manajer produk, dan tim lainnya.
+
+Kemampuan Mendengar: Memahami kebutuhan dan perspektif dari rekan kerja lain.
+
+Kerja Sama Lintas Fungsi: Mampu berkolaborasi secara efektif dengan individu dari latar belakang teknis dan non-teknis.
+
+Dengan menguasai kombinasi hard skill dan soft skill di atas, Anda akan memiliki fondasi yang sangat kuat untuk membangun karier yang sukses di bidang data science.
