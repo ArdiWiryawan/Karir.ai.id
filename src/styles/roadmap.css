@@ -1,6 +1,8 @@
+/* @tailwindcss */
 /* Roadmap specific styles */
 .roadmap-container {
-  @apply min-h-screen bg-gradient-to-b from-background to-background/95;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background) / 0.95));
 }
 
 .roadmap-header {

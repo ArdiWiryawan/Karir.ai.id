@@ -3,19 +3,40 @@ export interface Resource {
   url: string;
 }
 
+export interface CoreConcept {
+  title: string;
+  description: string;
+}
+
+export interface MasteryGoal {
+  id: string;
+  description: string;
+}
+
+export interface PracticalProject {
+  title: string;
+  description: string;
+  link?: string;
+}
+
 export interface Skill {
   id: string;
   type: 'hard' | 'soft';
   title: string;
-  details: string;
+  coreConcepts: CoreConcept[];
+  masteryGoals: MasteryGoal[];
+  practicalProjects: PracticalProject[];
+  description?: string;
+  status?: 'required' | 'recommended' | 'optional';
   prerequisites?: string[];
-  resources?: string[];
+  resources?: Resource[];
+  subSkills?: Skill[];
 }
 
 export interface Phase {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   skills: Skill[];
 }
 

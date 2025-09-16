@@ -14,11 +14,23 @@ import {
 import { RoadmapSection } from '@/components/ui/roadmap-section';
 import { Skill } from '@/types/blueprint'; // Import Skill type
 
+// Helper function to convert RoadmapItem to Skill
+const convertRoadmapItemToSkill = (item: RoadmapItem): Skill => ({
+  id: item.id,
+  type: 'hard' as const, // Default to hard skill
+  title: item.title,
+  details: item.description || '',
+  description: item.description,
+  status: item.status,
+  resources: item.resourceUrl ? [{ title: 'Resource', url: item.resourceUrl }] : [],
+  subSkills: item.subItems ? item.subItems.map(convertRoadmapItemToSkill) : []
+});
+
 interface RoadmapSection {
   id: string;
   title: string;
   description?: string;
-  skills: Skill[]; // Use Skill type instead of RoadmapItem
+  items: RoadmapItem[];
 }
 
 interface RoadmapItem {
@@ -59,13 +71,12 @@ export default function CareerRoadmap({ profession, sections }: CareerRoadmapPro
 
   // Filter items based on search and status
   const filterItems = (items: Skill[]): Skill[] => {
-    // Since Skill type doesn't have the same properties as RoadmapItem,
-    // we'll need to adjust this function to work with Skill type
     return items.filter(item => {
       const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
         item.details.toLowerCase().includes(searchQuery.toLowerCase());
-      // For now, we'll return all items since Skill doesn't have status property
-      return matchesSearch;
+      const matchesStatus = statusFilter.length === 0 || statusFilter.includes(item.status || 'optional');
+      return matchesSearch && matchesStatus;
     });
   };
 
@@ -242,8 +253,8 @@ export default function CareerRoadmap({ profession, sections }: CareerRoadmapPro
               <RoadmapSection
                 key={section.id}
                 section={{
-                  ...section, 
-                  skills: section.skills || [] as Skill[]
+                  ...section,
+                  skills: (section.items || []).map(convertRoadmapItemToSkill)
                 }}
                 isExpanded={expandedSections.has(section.id)}
                 onToggle={() => toggleSection(section.id)}

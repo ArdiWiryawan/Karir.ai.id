@@ -1,277 +1,103 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import CareerRoadmap from '@/components/CareerRoadmap';
 import BlueprintView from '@/components/BlueprintView';
-import { useLocation } from 'react-router-dom';
-
-interface RoadmapSection {
-  id: string;
-  title: string;
-  description?: string;
-  items: RoadmapItem[];
-}
-
-interface RoadmapItem {
-  id: string;
-  title: string;
-  description?: string;
-  status?: 'required' | 'recommended' | 'optional';
-  resourceUrl?: string;
-  isCompleted?: boolean;
-  subItems?: RoadmapItem[];
-}
+import { futureJobsBlueprints, disappearingJobsBlueprints } from '@/data/comprehensiveCareerBreakdown';
+import { CareerBlueprint } from '@/data/comprehensiveCareerBreakdown';
+import { SkillBlueprint } from '@/types/blueprint';
+import { comprehensiveRoadmaps } from '@/data/comprehensiveRoadmaps';
+import type { Roadmap } from '@/data/skillForecastingTypes';
 
 export default function RoadmapPage() {
-  const { profession } = useParams();
-  const location = useLocation();
+  const { profession } = useParams<{ profession: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [roadmapData, setRoadmapData] = useState<RoadmapSection[]>([]);
-  const [blueprintFromState, setBlueprintFromState] = useState<any | null>(null);
-  const [showInteractive, setShowInteractive] = useState(false);
+  const [blueprint, setBlueprint] = useState<SkillBlueprint | null>(null);
 
-  // If the blueprint was passed via navigation state from SkillBlueprintPage, use it directly
-  useEffect(() => {
-    const state: any = (location && (location as any).state) || {};
-    if (state.blueprint && Array.isArray(state.blueprint.phases)) {
-      const sectionsFromBlueprint: RoadmapSection[] = state.blueprint.phases.map((phase: any) => ({
-        id: phase.id || phase.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+  // helper: slugify profession string
+  const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+  // map CareerBlueprint (data source) -> SkillBlueprint (UI component)
+  const toSkillBlueprint = (bp: CareerBlueprint): SkillBlueprint => {
+    return {
+      profession: bp.profession,
+      meta: {
+        summary: bp.summary,
+        salary: {
+          // Since CareerBlueprint has a single range string, duplicate it as both for display
+          junior: bp.salaryRange,
+          senior: bp.salaryRange
+        },
+        growth: bp.growth,
+        aiRisk: {
+          percentage: bp.aiRisk || 0,
+          level: bp.riskLevel || 'Unknown',
+          description: `Risk level: ${bp.riskLevel}. Timeline: ${bp.timeline}`
+        }
+      },
+      phases: (bp.phases || []).map((phase, idx) => ({
+        id: slugify(phase.title || phase.phase || `phase-${idx+1}`),
+        title: phase.title || phase.phase || `Phase ${idx+1}`,
+        description: phase.objective,
+        skills: (phase.skills || []).map((s, i) => ({
+          id: slugify(`${s.name}-${i}`),
+          type: (s.type.toLowerCase().includes('hard') ? 'hard' : 'soft') as 'hard' | 'soft',
+          title: s.name,
+          details: s.description || (s.concepts && s.concepts.length ? s.concepts.join(', ') : ''),
+          prerequisites: [],
+          resources: s.learningPath ? [{ title: s.learningPath, url: '#' }] : undefined
+        }))
+      }))
+    };
+  }
+
+  // map Roadmap (from comprehensiveRoadmaps) -> SkillBlueprint
+  const toSkillBlueprintFromRoadmap = (rm: Roadmap, slug: string): SkillBlueprint => {
+    const toTitle = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    return {
+      profession: toTitle(slug),
+      meta: {
+        summary: `Roadmap pembelajaran untuk ${toTitle(slug)}`,
+        salary: { junior: 'N/A', senior: 'N/A' },
+        growth: 'N/A',
+        aiRisk: { percentage: 0, level: 'Unknown', description: '' }
+      },
+      phases: (rm.phases || []).map((phase, idx) => ({
+        id: phase.id || `phase-${idx+1}`,
         title: phase.title,
-        description: phase.description || '',
-        items: Array.isArray(phase.skills) ? phase.skills.map((s: any) => ({
-          id: s.id || s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-          title: s.title,
-          description: s.description || '',
-          status: s.status || 'optional',
-          resourceUrl: s.resources && s.resources[0] ? s.resources[0].url : s.resourceUrl || undefined,
-          isCompleted: false,
-          subItems: []
-        })) : []
-      }));
-
-      setRoadmapData(sectionsFromBlueprint);
-      setBlueprintFromState(state.blueprint);
-      setIsLoading(false);
-      return;
-    }
-  }, [location]);
+        description: phase.description,
+        skills: (phase.skills || []).map((s, i) => ({
+          id: s.id || `${i}-${s.name}`,
+          type: (s.type === 'hard' ? 'hard' : 'soft'),
+          title: s.name,
+          details: s.description || ''
+        }))
+      }))
+    };
+  };
 
   useEffect(() => {
     if (profession) {
-      fetchRoadmap(profession);
-    }
-  }, [profession]);
+      const allBlueprints = [...futureJobsBlueprints, ...disappearingJobsBlueprints];
+      const foundBlueprint = allBlueprints.find(
+        (bp) => slugify(bp.profession) === profession
+      );
 
-  const fetchRoadmap = async (professionName: string) => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch('/.netlify/functions/forecast', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userQuery: professionName }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      // If the function returns a structured blueprint object (with phases/skills), map it
-      if (data.prediction && Array.isArray(data.prediction.phases)) {
-        const sectionsFromBlueprint: RoadmapSection[] = data.prediction.phases.map((phase: any) => ({
-          id: phase.id || phase.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-          title: phase.title || 'Phase',
-          description: phase.description || '',
-          items: Array.isArray(phase.skills)
-            ? phase.skills.map((s: any) => ({
-                id: s.id || s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-                title: s.title,
-                description: s.description || '',
-                status: s.status || 'optional',
-                resourceUrl: s.resources && s.resources[0] ? s.resources[0].url : s.resourceUrl || undefined,
-                isCompleted: false,
-                subItems: s.subSkills && Array.isArray(s.subSkills) ? s.subSkills.map((sub: any) => ({
-                  id: sub.id || sub.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-                  title: sub.title,
-                  description: sub.description || '',
-                  status: sub.status || 'optional',
-                })) : []
-              }))
-            : []
-        }));
-
-        setRoadmapData(sectionsFromBlueprint);
+      if (foundBlueprint) {
+        const mapped = toSkillBlueprint(foundBlueprint as CareerBlueprint);
+        setBlueprint(mapped);
       } else {
-        // Fallback: transform markdown/string into default sections
-        const sections = transformToRoadmapSections(data.prediction);
-        setRoadmapData(sections);
+        // Fallback: use comprehensiveRoadmaps (keyed by jobId/slug)
+        const rm: Roadmap | undefined = (comprehensiveRoadmaps as any)[profession];
+        if (rm) {
+          const mapped = toSkillBlueprintFromRoadmap(rm, profession);
+          setBlueprint(mapped);
+        } else {
+          setError(`Roadmap for '${profession}' not found.`);
+        }
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load roadmap');
-    } finally {
       setIsLoading(false);
     }
-  };
-
-  // Transform markdown content into structured roadmap sections
-  const transformToRoadmapSections = (markdownContent: string): RoadmapSection[] => {
-    // Parse markdown content and create sections with unique IDs
-    const createId = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    
-    const sections: RoadmapSection[] = [
-      {
-        id: 'fundamental-skills',
-        title: "Fundamental Skills",
-        items: [
-          {
-            id: 'programming-languages',
-            title: "Programming Languages",
-            status: "required",
-            subItems: [
-              { 
-                id: 'python',
-                title: "Python",
-                description: "Essential for data analysis and machine learning",
-                status: "required",
-                resourceUrl: "https://www.python.org/about/gettingstarted/"
-              },
-              {
-                id: 'sql',
-                title: "SQL",
-                description: "Database querying and data manipulation",
-                status: "required",
-                resourceUrl: "https://www.w3schools.com/sql/default.asp"
-              },
-              {
-                id: 'r-lang',
-                title: "R",
-                description: "Statistical computing and graphics",
-                status: "recommended",
-                resourceUrl: "https://www.r-project.org/about.html"
-              }
-            ]
-          },
-          {
-            id: 'mathematics-statistics',
-            title: "Mathematics & Statistics",
-            status: "required",
-            subItems: [
-              { 
-                id: 'linear-algebra',
-                title: "Linear Algebra",
-                status: "required",
-                description: "Vectors, matrices, and linear transformations",
-                resourceUrl: "https://www.khanacademy.org/math/linear-algebra"
-              },
-              {
-                id: 'calculus',
-                title: "Calculus",
-                status: "required",
-                description: "Derivatives, integrals, and optimization",
-                resourceUrl: "https://www.khanacademy.org/math/calculus-1"
-              },
-              {
-                id: 'probability-statistics',
-                title: "Probability & Statistics",
-                status: "required",
-                description: "Statistical inference and probability theory",
-                resourceUrl: "https://www.khanacademy.org/math/statistics-probability"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'advanced-skills',
-        title: "Advanced Skills",
-        items: [
-          {
-            id: 'machine-learning',
-            title: "Machine Learning",
-            status: "required",
-            subItems: [
-              {
-                id: 'supervised-learning',
-                title: "Supervised Learning",
-                status: "required",
-                description: "Classification and regression techniques",
-                resourceUrl: "https://scikit-learn.org/stable/supervised_learning.html"
-              },
-              {
-                id: 'unsupervised-learning',
-                title: "Unsupervised Learning",
-                status: "required",
-                description: "Clustering and dimensionality reduction",
-                resourceUrl: "https://scikit-learn.org/stable/unsupervised_learning.html"
-              },
-              {
-                id: 'deep-learning',
-                title: "Deep Learning",
-                status: "recommended",
-                description: "Neural networks and deep architectures",
-                resourceUrl: "https://www.deeplearning.ai/"
-              }
-            ]
-          },
-          {
-            id: 'tools-frameworks',
-            title: "Tools & Frameworks",
-            status: "recommended",
-            subItems: [
-              {
-                id: 'tensorflow-pytorch',
-                title: "TensorFlow/PyTorch",
-                status: "recommended",
-                description: "Deep learning frameworks",
-                resourceUrl: "https://www.tensorflow.org/learn"
-              },
-              {
-                id: 'scikit-learn',
-                title: "Scikit-learn",
-                status: "required",
-                description: "Machine learning library",
-                resourceUrl: "https://scikit-learn.org/stable/getting_started.html"
-              },
-              {
-                id: 'pandas-numpy',
-                title: "Pandas & NumPy",
-                status: "required",
-                description: "Data manipulation and numerical computing",
-                resourceUrl: "https://pandas.pydata.org/docs/getting_started/index.html"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'soft-skills',
-        title: "Soft Skills & Business Knowledge",
-        items: [
-          {
-            id: 'communication',
-            title: "Communication",
-            status: "required",
-            description: "Ability to explain complex concepts to non-technical stakeholders",
-            resourceUrl: "https://www.coursera.org/learn/communication-in-the-workplace"
-          },
-          {
-            id: 'business-acumen',
-            title: "Business Acumen",
-            status: "recommended",
-            description: "Understanding business objectives and KPIs",
-            resourceUrl: "https://www.coursera.org/learn/business-acumen"
-          }
-        ]
-      }
-    ];
-
-    return sections;
-  };
+  }, [profession]);
 
   if (isLoading) {
     return (
@@ -290,12 +116,17 @@ export default function RoadmapPage() {
         <div className="text-center text-red-600">
           <h2 className="text-xl font-bold mb-2">Error</h2>
           <p>{error}</p>
-          <button
-            onClick={() => profession && fetchRoadmap(profession)}
-            className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary/90"
-          >
-            Try Again
-          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!blueprint) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold">Roadmap Not Found</h2>
+          <p>We couldn't find a career blueprint for the requested profession.</p>
         </div>
       </div>
     );
@@ -303,19 +134,7 @@ export default function RoadmapPage() {
 
   return (
     <div className="p-4">
-      {/* If we have a blueprint available, show the full blueprint view */}
-      {blueprintFromState ? (
-        <div>
-          <BlueprintView blueprint={blueprintFromState} onOpenInteractive={() => setShowInteractive(true)} />
-          {showInteractive && (
-            <div className="mt-8">
-              <CareerRoadmap profession={profession || 'Career'} sections={roadmapData} />
-            </div>
-          )}
-        </div>
-      ) : (
-        <CareerRoadmap profession={profession || 'Career'} sections={roadmapData} />
-      )}
+      <BlueprintView blueprint={blueprint} />
     </div>
   );
 }

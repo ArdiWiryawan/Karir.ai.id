@@ -490,6 +490,214 @@ export const comprehensiveSkills: Skill[] = [
     importance: 8,
     learnability: 'Sedang',
     timeToLearn: '6-12 bulan'
+  },
+
+  // Data Entry Clerk Skills
+  {
+    id: 'microsoft-office-suite',
+    name: 'Microsoft Office/Google Suite',
+    type: 'hard',
+    category: 'Technical Skills',
+    description: 'Kemampuan menggunakan Word, Excel, dan software pengolah data dasar',
+    importance: 9,
+    learnability: 'Mudah',
+    timeToLearn: '1-3 bulan'
+  },
+  {
+    id: 'data-management-basics',
+    name: 'Data Management Basics',
+    type: 'hard',
+    category: 'Technical Skills',
+    description: 'Teknik pengaturan dan penyimpanan data secara terstruktur',
+    importance: 8,
+    learnability: 'Mudah',
+    timeToLearn: '1-2 bulan'
+  },
+  {
+    id: 'accuracy-attention-detail',
+    name: 'Accuracy & Attention to Detail',
+    type: 'soft',
+    category: 'Soft Skills',
+    description: 'Fokus pada detail untuk memastikan data yang dimasukkan benar',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+  {
+    id: 'basic-automation',
+    name: 'Basic Automation',
+    type: 'hard',
+    category: 'Technical Skills',
+    description: 'Menggunakan macro di Excel dan tools otomasi sederhana',
+    importance: 7,
+    learnability: 'Sedang',
+    timeToLearn: '2-4 bulan'
+  },
+  {
+    id: 'erp-systems-basics',
+    name: 'ERP Systems Basics',
+    type: 'hard',
+    category: 'Technical Skills',
+    description: 'Dasar penggunaan sistem Enterprise Resource Planning',
+    importance: 6,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+
+  // Telemarketer Skills
+  {
+    id: 'sales-techniques',
+    name: 'Sales Techniques',
+    type: 'hard',
+    category: 'Business Skills',
+    description: 'Teknik penjualan, skrip penjualan, dan komunikasi persuasif',
+    importance: 9,
+    learnability: 'Sedang',
+    timeToLearn: '2-4 bulan'
+  },
+  {
+    id: 'crm-software',
+    name: 'CRM Software',
+    type: 'hard',
+    category: 'Technical Skills',
+    description: 'Penggunaan perangkat lunak CRM untuk pelacakan prospek dan follow-up',
+    importance: 8,
+    learnability: 'Mudah',
+    timeToLearn: '1-2 bulan'
+  },
+  {
+    id: 'communication-skills-telemarketing',
+    name: 'Communication Skills',
+    type: 'soft',
+    category: 'Communication',
+    description: 'Keterampilan komunikasi lisan, mendengar aktif, dan negosiasi',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+  {
+    id: 'customer-relationship-management',
+    name: 'Customer Relationship Management',
+    type: 'soft',
+    category: 'Soft Skills',
+    description: 'Membangun dan memelihara hubungan dengan pelanggan',
+    importance: 9,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+  {
+    id: 'negotiation-skills',
+    name: 'Negotiation Skills',
+    type: 'soft',
+    category: 'Soft Skills',
+    description: 'Kemampuan negosiasi dan mengelola penolakan',
+    importance: 8,
+    learnability: 'Sedang',
+    timeToLearn: '2-4 bulan'
+  },
+
+  // Bank Teller Skills
+  {
+    id: 'financial-transactions',
+    name: 'Financial Transactions',
+    type: 'hard',
+    category: 'Business Skills',
+    description: 'Prosedur transaksi tunai, cek, dan transfer',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '2-4 bulan'
+  },
+  {
+    id: 'banking-software',
+    name: 'Banking Software',
+    type: 'hard',
+    category: 'Technical Skills',
+    description: 'Penggunaan software perbankan dan ATMs',
+    importance: 9,
+    learnability: 'Sedang',
+    timeToLearn: '1-3 bulan'
+  },
+  {
+    id: 'customer-service-banking',
+    name: 'Customer Service',
+    type: 'soft',
+    category: 'Soft Skills',
+    description: 'Membangun hubungan dengan nasabah dan menyelesaikan masalah',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+  {
+    id: 'cash-handling',
+    name: 'Cash Handling',
+    type: 'hard',
+    category: 'Technical Skills',
+    description: 'Prosedur penanganan uang tunai dengan akurat',
+    importance: 9,
+    learnability: 'Mudah',
+    timeToLearn: '1-2 bulan'
+  },
+  {
+    id: 'regulatory-compliance-banking',
+    name: 'Regulatory Compliance',
+    type: 'hard',
+    category: 'Business Skills',
+    description: 'Pemahaman regulasi perbankan dan kepatuhan operasional',
+    importance: 8,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+
+  // Content Writer (Entry Level) Skills
+  {
+    id: 'writing-skills',
+    name: 'Writing Skills',
+    type: 'hard',
+    category: 'Communication',
+    description: 'Teknik menulis, tata bahasa, dan storytelling',
+    importance: 10,
+    learnability: 'Sedang',
+    timeToLearn: '3-6 bulan'
+  },
+  {
+    id: 'seo-basics',
+    name: 'SEO Basics',
+    type: 'hard',
+    category: 'Digital Marketing',
+    description: 'Pengenalan kata kunci, optimasi konten, dan meta descriptions',
+    importance: 8,
+    learnability: 'Sedang',
+    timeToLearn: '2-4 bulan'
+  },
+  {
+    id: 'research-skills',
+    name: 'Research Skills',
+    type: 'soft',
+    category: 'Problem Solving',
+    description: 'Kemampuan riset pasar dan tren untuk menyusun konten',
+    importance: 9,
+    learnability: 'Sedang',
+    timeToLearn: '2-4 bulan'
+  },
+  {
+    id: 'content-management-systems',
+    name: 'Content Management Systems',
+    type: 'hard',
+    category: 'Technical Skills',
+    description: 'Penggunaan CMS seperti WordPress dan kalender editorial',
+    importance: 7,
+    learnability: 'Mudah',
+    timeToLearn: '1-2 bulan'
+  },
+  {
+    id: 'grammar-editing',
+    name: 'Grammar & Editing',
+    type: 'hard',
+    category: 'Communication',
+    description: 'Teknik proofreading dan penggunaan tools grammar',
+    importance: 9,
+    learnability: 'Sedang',
+    timeToLearn: '2-4 bulan'
   }
 ];
 
@@ -913,47 +1121,206 @@ export const cybersecurityAnalystRoadmap: Roadmap = {
   id: 'cybersecurity-analyst-roadmap',
   jobId: 'cybersecurity-analyst',
   difficulty: 'Menengah',
-  totalDuration: '6-12 bulan',
+  totalDuration: '12-18 bulan',
   phases: [
     {
       id: 'security-fundamentals',
       title: '🔒 Dasar-dasar Keamanan Informasi',
-      description: 'Memahami konsep fundamental cybersecurity dan threat landscape',
+      description: 'Memahami konsep fundamental cybersecurity, ethical hacking, dan manajemen risiko',
       duration: '2-3 bulan',
       order: 1,
       prerequisites: [],
       skills: [
         comprehensiveSkills.find(s => s.id === 'network-security')!,
-        comprehensiveSkills.find(s => s.id === 'security-frameworks')!
+        comprehensiveSkills.find(s => s.id === 'security-frameworks')!,
+        comprehensiveSkills.find(s => s.id === 'operating-system-security')!,
+        comprehensiveSkills.find(s => s.id === 'risk-management')!
       ],
       materials: [
+        {
+          id: 'cybersecurity-fundamentals-course',
+          title: 'Cybersecurity Fundamentals',
+          type: 'course',
+          provider: 'Coursera',
+          description: 'Pengantar komprehensif tentang konsep keamanan siber',
+          duration: '4 minggu',
+          difficulty: 'Pemula',
+          price: { amount: 0, currency: 'IDR', isFree: true },
+          rating: 4.7
+        },
         comprehensiveLearningMaterials.find(m => m.id === 'cybrary-free-courses')!
       ]
     },
     {
       id: 'threat-analysis-response',
-      title: '🚨 Analisis Ancaman & Incident Response',
-      description: 'Kemampuan mengidentifikasi, menganalisis, dan merespons serangan cyber',
-      duration: '2-3 bulan',
+      title: '🚨 Analisis Ancaman & Manajemen Insiden',
+      description: 'Mengidentifikasi, menganalisis, dan merespons insiden keamanan siber',
+      duration: '3-4 bulan',
       order: 2,
       prerequisites: ['security-fundamentals'],
       skills: [
         comprehensiveSkills.find(s => s.id === 'incident-response')!,
-        comprehensiveSkills.find(s => s.id === 'penetration-testing')!
+        comprehensiveSkills.find(s => s.id === 'penetration-testing')!,
+        comprehensiveSkills.find(s => s.id === 'threat-hunting')!,
+        comprehensiveSkills.find(s => s.id === 'forensic-analysis')!
       ],
       materials: [
-        comprehensiveLearningMaterials.find(m => m.id === 'ethical-hacking-course')!
+        comprehensiveLearningMaterials.find(m => m.id === 'ethical-hacking-course')!,
+        {
+          id: 'incident-response-handbook',
+          title: 'Incident Response & Computer Forensics',
+          type: 'book',
+          provider: 'McGraw-Hill',
+          description: 'Panduan praktis untuk menangani insiden keamanan siber',
+          duration: '4-6 minggu',
+          difficulty: 'Menengah',
+          price: { amount: 750000, currency: 'IDR', isFree: false },
+          rating: 4.6
+        }
       ]
     },
     {
-      id: 'advanced-security-certification',
-      title: '🏆 Sertifikasi & Spesialisasi Lanjutan',
-      description: 'Mendapatkan kredensial profesional dan spesialisasi teknis',
-      duration: '2-6 bulan',
+      id: 'cloud-security',
+      title: '☁️ Keamanan Cloud & Jaringan',
+      description: 'Mengamankan infrastruktur cloud dan jaringan perusahaan',
+      duration: '2-3 bulan',
       order: 3,
       prerequisites: ['threat-analysis-response'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'cloud-security')!,
+        comprehensiveSkills.find(s => s.id === 'network-architecture')!,
+        comprehensiveSkills.find(s => s.id === 'identity-access-management')!
+      ],
+      materials: [
+        {
+          id: 'aws-security-fundamentals',
+          title: 'AWS Security Fundamentals',
+          type: 'course',
+          provider: 'AWS Training',
+          description: 'Dasar-dasar keamanan di lingkungan AWS Cloud',
+          duration: '3 minggu',
+          difficulty: 'Menengah',
+          price: { amount: 0, currency: 'IDR', isFree: true },
+          rating: 4.5
+        },
+        {
+          id: 'azure-security-engineer',
+          title: 'Microsoft Certified: Azure Security Engineer Associate',
+          type: 'certification',
+          provider: 'Microsoft',
+          description: 'Sertifikasi keamanan untuk profesional Azure',
+          duration: '2-3 bulan',
+          difficulty: 'Menengah',
+          price: { amount: 4500000, currency: 'IDR', isFree: false },
+          rating: 4.7
+        }
+      ]
+    },
+    {
+      id: 'security-governance',
+      title: '📜 Tata Kelola & Kepatuhan Keamanan',
+      description: 'Menerapkan kerangka kerja tata kelola dan kepatuhan keamanan',
+      duration: '2-3 bulan',
+      order: 4,
+      prerequisites: ['cloud-security'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'security-audit')!,
+        comprehensiveSkills.find(s => s.id === 'compliance-management')!,
+        comprehensiveSkills.find(s => s.id === 'risk-assessment')!
+      ],
+      materials: [
+        {
+          id: 'iso27001-foundation',
+          title: 'ISO 27001 Foundation',
+          type: 'certification',
+          provider: 'PECB',
+          description: 'Pemahaman mendalam tentang standar keamanan informasi ISO 27001',
+          duration: '2 bulan',
+          difficulty: 'Menengah',
+          price: { amount: 8500000, currency: 'IDR', isFree: false },
+          rating: 4.6
+        },
+        {
+          id: 'gdpr-compliance-guide',
+          title: 'GDPR Compliance Guide',
+          type: 'tutorial',
+          provider: 'EU GDPR',
+          description: 'Panduan komprehensif tentang kepatuhan GDPR',
+          duration: '2-3 minggu',
+          difficulty: 'Menengah',
+          price: { amount: 0, currency: 'IDR', isFree: true },
+          rating: 4.5
+        }
+      ]
+    },
+    {
+      id: 'emerging-technologies',
+      title: '🚀 Teknologi Keamanan Masa Depan',
+      description: 'Menguasai teknologi keamanan terkini seperti AI, IoT, dan blockchain',
+      duration: '2-3 bulan',
+      order: 5,
+      prerequisites: ['security-governance'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'ai-security')!,
+        comprehensiveSkills.find(s => s.id === 'iot-security')!,
+        comprehensiveSkills.find(s => s.id === 'blockchain-security')!
+      ],
+      materials: [
+        {
+          id: 'ai-cybersecurity',
+          title: 'AI for Cybersecurity',
+          type: 'course',
+          provider: 'edX',
+          description: 'Penerapan AI dalam mendeteksi dan mencegah ancaman siber',
+          duration: '6 minggu',
+          difficulty: 'Lanjutan',
+          price: { amount: 1200000, currency: 'IDR', isFree: false },
+          rating: 4.7
+        },
+        {
+          id: 'iot-security-essentials',
+          title: 'IoT Security Essentials',
+          type: 'course',
+          provider: 'Cisco Networking Academy',
+          description: 'Keamanan untuk perangkat Internet of Things',
+          duration: '4 minggu',
+          difficulty: 'Menengah',
+          price: { amount: 0, currency: 'IDR', isFree: true },
+          rating: 4.4
+        }
+      ]
+    },
+    {
+      id: 'advanced-certification',
+      title: '🏆 Sertifikasi Profesional',
+      description: 'Mendapatkan sertifikasi profesional untuk validasi keahlian',
+      duration: '2-3 bulan',
+      order: 6,
+      prerequisites: ['emerging-technologies'],
       skills: [],
       materials: [
+        {
+          id: 'cissp-cert',
+          title: 'Certified Information Systems Security Professional (CISSP)',
+          type: 'certification',
+          provider: '(ISC)²',
+          description: 'Sertifikasi keamanan informasi tingkat lanjut yang diakui global',
+          duration: '3-6 bulan',
+          difficulty: 'Lanjutan',
+          price: { amount: 12000000, currency: 'IDR', isFree: false },
+          rating: 4.8
+        },
+        {
+          id: 'ceh-cert',
+          title: 'Certified Ethical Hacker (CEH)',
+          type: 'certification',
+          provider: 'EC-Council',
+          description: 'Sertifikasi untuk profesional keamanan yang ingin memahami teknik peretasan etis',
+          duration: '2-4 bulan',
+          difficulty: 'Menengah',
+          price: { amount: 8500000, currency: 'IDR', isFree: false },
+          rating: 4.6
+        },
         comprehensiveLearningMaterials.find(m => m.id === 'cissp-certification')!
       ]
     }
@@ -1014,13 +1381,13 @@ export const web3DeveloperRoadmap: Roadmap = {
 export const aiEthicsOfficerRoadmap: Roadmap = {
   id: 'ai-ethics-officer-roadmap',
   jobId: 'ai-ethics-officer',
-  difficulty: 'Menengah',
-  totalDuration: '8-12 bulan',
+  difficulty: 'Lanjutan',
+  totalDuration: '12-18 bulan',
   phases: [
     {
-      id: 'ethics-philosophy-foundation',
-      title: '🤔 Fondasi Etika & Filosofi',
-      description: 'Memahami prinsip-prinsip etika dan filosofi untuk AI development',
+      id: 'ai-ethics-foundation',
+      title: '🧠 Dasar-dasar Etika AI',
+      description: 'Memahami prinsip-prinsip etika dalam pengembangan dan penerapan AI',
       duration: '3-4 bulan',
       order: 1,
       prerequisites: [],
@@ -1318,6 +1685,198 @@ export const ecosystemRestorationSpecialistRoadmap: Roadmap = {
   ]
 };
 
+// Data Entry Clerk Roadmap
+export const dataEntryClerkRoadmap: Roadmap = {
+  id: 'data-entry-clerk-roadmap',
+  jobId: 'data-entry-clerk',
+  difficulty: 'Pemula',
+  totalDuration: '3-6 bulan',
+  phases: [
+    {
+      id: 'office-software-basics',
+      title: '🖥️ Dasar Software Perkantoran',
+      description: 'Mempelajari penggunaan Microsoft Office dan Google Suite untuk pengolahan data',
+      duration: '1-2 bulan',
+      order: 1,
+      prerequisites: [],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'microsoft-office-suite')!,
+        comprehensiveSkills.find(s => s.id === 'data-management-basics')!
+      ],
+      materials: []
+    },
+    {
+      id: 'data-accuracy-efficiency',
+      title: '📊 Akurasi dan Efisiensi Data',
+      description: 'Mengembangkan kemampuan ketelitian dan teknik efisiensi dalam entry data',
+      duration: '1-2 bulan',
+      order: 2,
+      prerequisites: ['office-software-basics'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'accuracy-attention-detail')!,
+        comprehensiveSkills.find(s => s.id === 'basic-automation')!
+      ],
+      materials: []
+    },
+    {
+      id: 'advanced-systems-integration',
+      title: '🔗 Integrasi Sistem Lanjutan',
+      description: 'Mengenal ERP systems dan integrasi data dalam operasional perusahaan',
+      duration: '1-2 bulan',
+      order: 3,
+      prerequisites: ['data-accuracy-efficiency'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'erp-systems-basics')!
+      ],
+      materials: []
+    }
+  ]
+};
+
+// Telemarketer Roadmap
+export const telemarketerRoadmap: Roadmap = {
+  id: 'telemarketer-roadmap',
+  jobId: 'telemarketer',
+  difficulty: 'Pemula',
+  totalDuration: '3-6 bulan',
+  phases: [
+    {
+      id: 'sales-communication-basics',
+      title: '📞 Dasar Komunikasi dan Penjualan',
+      description: 'Mempelajari teknik penjualan dasar dan komunikasi persuasif melalui telepon',
+      duration: '1-2 bulan',
+      order: 1,
+      prerequisites: [],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'sales-techniques')!,
+        comprehensiveSkills.find(s => s.id === 'communication-skills-telemarketing')!
+      ],
+      materials: []
+    },
+    {
+      id: 'crm-customer-relationship',
+      title: '👥 Manajemen Hubungan Pelanggan',
+      description: 'Menggunakan CRM software dan membangun hubungan jangka panjang dengan pelanggan',
+      duration: '1-2 bulan',
+      order: 2,
+      prerequisites: ['sales-communication-basics'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'crm-software')!,
+        comprehensiveSkills.find(s => s.id === 'customer-relationship-management')!
+      ],
+      materials: []
+    },
+    {
+      id: 'negotiation-closure',
+      title: '🤝 Negosiasi dan Penutupan',
+      description: 'Teknik negosiasi lanjutan dan mengelola penolakan untuk meningkatkan konversi',
+      duration: '1-2 bulan',
+      order: 3,
+      prerequisites: ['crm-customer-relationship'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'negotiation-skills')!
+      ],
+      materials: []
+    }
+  ]
+};
+
+// Bank Teller Roadmap
+export const bankTellerRoadmap: Roadmap = {
+  id: 'bank-teller-roadmap',
+  jobId: 'bank-teller',
+  difficulty: 'Pemula',
+  totalDuration: '3-6 bulan',
+  phases: [
+    {
+      id: 'banking-operations-basics',
+      title: '🏦 Dasar Operasional Perbankan',
+      description: 'Mempelajari transaksi keuangan dasar dan penggunaan software perbankan',
+      duration: '1-2 bulan',
+      order: 1,
+      prerequisites: [],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'financial-transactions')!,
+        comprehensiveSkills.find(s => s.id === 'banking-software')!
+      ],
+      materials: []
+    },
+    {
+      id: 'customer-service-cash-handling',
+      title: '💰 Layanan Pelanggan dan Penanganan Uang',
+      description: 'Mengembangkan kemampuan customer service dan penanganan uang tunai yang akurat',
+      duration: '1-2 bulan',
+      order: 2,
+      prerequisites: ['banking-operations-basics'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'customer-service-banking')!,
+        comprehensiveSkills.find(s => s.id === 'cash-handling')!
+      ],
+      materials: []
+    },
+    {
+      id: 'compliance-professionalism',
+      title: '⚖️ Kepatuhan dan Profesionalisme',
+      description: 'Pemahaman regulasi perbankan dan etika kerja dalam layanan keuangan',
+      duration: '1-2 bulan',
+      order: 3,
+      prerequisites: ['customer-service-cash-handling'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'regulatory-compliance-banking')!
+      ],
+      materials: []
+    }
+  ]
+};
+
+// Content Writer (Entry Level) Roadmap
+export const contentWriterEntryLevelRoadmap: Roadmap = {
+  id: 'content-writer-entry-level-roadmap',
+  jobId: 'content-writer-entry-level',
+  difficulty: 'Pemula',
+  totalDuration: '4-8 bulan',
+  phases: [
+    {
+      id: 'writing-fundamentals',
+      title: '✍️ Dasar-dasar Penulisan',
+      description: 'Mempelajari teknik menulis, tata bahasa, dan storytelling dasar',
+      duration: '2-3 bulan',
+      order: 1,
+      prerequisites: [],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'writing-skills')!,
+        comprehensiveSkills.find(s => s.id === 'grammar-editing')!
+      ],
+      materials: []
+    },
+    {
+      id: 'seo-content-optimization',
+      title: '🔍 SEO dan Optimasi Konten',
+      description: 'Pengenalan SEO, riset pasar, dan optimasi konten untuk digital platforms',
+      duration: '1-2 bulan',
+      order: 2,
+      prerequisites: ['writing-fundamentals'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'seo-basics')!,
+        comprehensiveSkills.find(s => s.id === 'research-skills')!
+      ],
+      materials: []
+    },
+    {
+      id: 'content-management-publishing',
+      title: '📝 Manajemen dan Publikasi Konten',
+      description: 'Menggunakan CMS dan strategi distribusi konten untuk berbagai platform',
+      duration: '1-3 bulan',
+      order: 3,
+      prerequisites: ['seo-content-optimization'],
+      skills: [
+        comprehensiveSkills.find(s => s.id === 'content-management-systems')!
+      ],
+      materials: []
+    }
+  ]
+};
+
 // AI Workforce Trainer Roadmap (Berdasarkan dokumen Future Skills 2030)
 export const aiWorkforceTrainerRoadmap: Roadmap = {
   id: 'ai-workforce-trainer-roadmap',
@@ -1438,6 +1997,10 @@ export const comprehensiveRoadmaps: Record<string, Roadmap> = {
   'data-scientist': dataScientistRoadmap,
   'ai-ml-specialist': aiMLSpecialistRoadmap,
   'cybersecurity-analyst': cybersecurityAnalystRoadmap,
+  'data-entry-clerk': dataEntryClerkRoadmap,
+  'telemarketer': telemarketerRoadmap,
+  'bank-teller': bankTellerRoadmap,
+  'content-writer-entry-level': contentWriterEntryLevelRoadmap,
   'web3-developer': web3DeveloperRoadmap,
   'ai-ethics-officer': aiEthicsOfficerRoadmap,
   'wind-turbine-technician': windTurbineTechnicianRoadmap,

@@ -1,4 +1,5 @@
 import { Job, Skill, LearningMaterial } from './skillForecastingTypes';
+import { CoreConcept, MasteryGoal, PracticalProject } from '@/types/blueprint';
 
 // =============================================
 // COMPREHENSIVE CAREER SKILLS BREAKDOWN
@@ -34,10 +35,13 @@ export interface BlueprintSkill {
   name: string;
   importance: number;
   timeToMaster: string;
-  description: string;
-  concepts: string[];
+  description?: string; // Made optional for transition
+  concepts?: string[]; // Made optional for transition
   learningPath?: string;
   aiProofLevel?: number;
+  coreConcepts?: CoreConcept[];
+  masteryGoals?: MasteryGoal[];
+  practicalProjects?: PracticalProject[];
 }
 
 // =============================================
@@ -176,14 +180,14 @@ export const futureJobsBlueprints: CareerBlueprint[] = [
     riskLevel: "Risiko Sangat Rendah",
     salaryRange: "Rp 120-250 juta",
     growth: "Sangat Tinggi",
-    timeline: "2025-2040",
+    timeline: "12-18 bulan",
     summary: "Arsitek ekonomi berbasis kecerdasan buatan. Merancang, membangun, dan menerapkan model ML yang menjadi inti produk dan layanan. Pertumbuhan demand 26% per tahun dengan salary premium hingga 300%.",
     phases: [
       {
-        phase: "FASE 1: FONDASI AI & MACHINE LEARNING",
-        title: "Mathematical & Programming Foundation",
-        duration: "4-6 bulan",
-        objective: "Membangun pemahaman mendalam tentang algoritma dan teori ML",
+        phase: "FASE 1: FONDASI MATEMATIKA & PEMROGRAMAN",
+        title: "Fondasi Matematika & Pemrograman",
+        duration: "3-4 bulan",
+        objective: "Membangun fondasi matematika dan pemrograman yang kuat untuk AI/ML.",
         skills: [
           {
             icon: "🛠️",
@@ -191,84 +195,69 @@ export const futureJobsBlueprints: CareerBlueprint[] = [
             name: "Mathematical Modeling",
             importance: 10,
             timeToMaster: "6-12 bulan",
-            description: "Aljabar linear, kalkulus, statistik inferensial untuk ML algorithms",
-            concepts: ["Linear Algebra", "Calculus", "Statistics", "Optimization Theory"],
-            learningPath: "Mathematics for Machine Learning - Coursera"
+            description: "Menguasai aljabar linear, kalkulus, dan statistik inferensial.",
+            concepts: ["Linear Algebra", "Calculus", "Statistics"]
           },
           {
-            icon: "🛠️", 
+            icon: "🛠️",
             type: "Hard Skill",
-            name: "Python Programming Advanced",
+            name: "Python (Advanced)",
             importance: 10,
             timeToMaster: "4-8 bulan",
-            description: "NumPy, Pandas, Scikit-learn, TensorFlow untuk AI development",
-            concepts: ["Data Structures", "OOP", "ML Libraries", "Code Optimization"],
-            learningPath: "Python Data Science Handbook"
-          },
-          {
-            icon: "🧠",
-            type: "Soft Skill",
-            name: "Structured Problem Solving",
-            importance: 10,
-            timeToMaster: "6-12 bulan",
-            description: "Framework berpikir sistematis untuk complex AI problems",
-            concepts: ["Root Cause Analysis", "Hypothesis Testing", "Systematic Debugging"],
-            aiProofLevel: 95
+            description: "Menggunakan NumPy, Pandas, dan Scikit-learn untuk pengembangan AI.",
+            concepts: ["NumPy", "Pandas", "Scikit-learn"]
           }
         ]
       },
       {
-        phase: "FASE 2: DEEP LEARNING LANJUTAN",
-        title: "Neural Networks & Advanced AI",
-        duration: "4-6 bulan", 
-        objective: "Spesialisasi dalam neural networks dan deep learning frameworks",
+        phase: "FASE 2: MACHINE LEARNING & DEEP LEARNING",
+        title: "Machine Learning & Deep Learning",
+        duration: "4-6 bulan",
+        objective: "Menguasai algoritma machine learning dan arsitektur deep learning.",
         skills: [
+          {
+            icon: "🛠️",
+            type: "Hard Skill",
+            name: "Machine Learning Algorithms",
+            importance: 10,
+            timeToMaster: "6-12 bulan",
+            description: "Menguasai supervised, unsupervised, dan reinforcement learning.",
+            concepts: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning"]
+          },
           {
             icon: "🛠️",
             type: "Hard Skill",
             name: "Deep Learning",
             importance: 10,
             timeToMaster: "6-12 bulan",
-            description: "CNN, RNN, LSTM, Transformers untuk complex pattern recognition",
-            concepts: ["Neural Architecture", "Backpropagation", "Transfer Learning", "Model Optimization"],
-            learningPath: "Deep Learning Specialization - Andrew Ng"
-          },
-          {
-            icon: "🧠",
-            type: "Soft Skill",
-            name: "Creative Innovation",
-            importance: 9,
-            timeToMaster: "8-15 bulan",
-            description: "Kemampuan menciptakan solusi AI yang novel dan breakthrough",
-            concepts: ["Design Thinking", "Innovation Frameworks", "Creative Problem Solving"],
-            aiProofLevel: 90
+            description: "Menggunakan TensorFlow atau PyTorch untuk membangun neural networks.",
+            concepts: ["TensorFlow", "PyTorch", "Neural Networks"]
           }
         ]
       },
       {
-        phase: "FASE 3: PRODUCTION & LEADERSHIP",
-        title: "MLOps & Team Leadership",
+        phase: "FASE 3: SPESIALISASI & MLOps",
+        title: "Spesialisasi & MLOps",
         duration: "3-4 bulan",
-        objective: "Deploy models ke production dan memimpin AI initiatives",
+        objective: "Menguasai spesialisasi seperti NLP atau Computer Vision dan praktik MLOps.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "MLOps & Model Deployment",
-            importance: 8,
-            timeToMaster: "3-6 bulan",
-            description: "Docker, Kubernetes, CI/CD pipelines untuk ML models",
-            concepts: ["Model Versioning", "Automated Testing", "Monitoring", "Scalability"]
+            name: "Natural Language Processing (NLP)",
+            importance: 9,
+            timeToMaster: "6-12 bulan",
+            description: "Mengolah dan menganalisis data teks dengan model seperti Transformers.",
+            concepts: ["NLP", "Transformers"]
           },
           {
-            icon: "🧠",
-            type: "Soft Skill",
-            name: "Technical Leadership",
-            importance: 9,
-            timeToMaster: "12-24 bulan",
-            description: "Memimpin tim AI dan mengkomunikasikan vision ke stakeholders",
-            concepts: ["Team Management", "Strategic Communication", "Technical Mentoring"],
-            aiProofLevel: 95
+            icon: "🛠️",
+            type: "Hard Skill",
+            name: "MLOps",
+            importance: 8,
+            timeToMaster: "4-6 bulan",
+            description: "Mengelola siklus hidup model machine learning dari pengembangan hingga produksi.",
+            concepts: ["Model Deployment", "CI/CD for ML"]
           }
         ]
       }
@@ -287,39 +276,63 @@ export const futureJobsBlueprints: CareerBlueprint[] = [
   },
 
   {
-    profession: "Data Scientist", 
+    profession: "Data Scientist",
     category: "Data & Analytics",
     aiRisk: 12,
     riskLevel: "Risiko Rendah",
-    salaryRange: "Rp 110-180 juta",
+    salaryRange: "Rp 120-200 juta",
     growth: "Sangat Tinggi",
-    timeline: "2025-2040",
-    summary: "Sexiest Job of 21st Century yang menggabungkan mathematics, programming, dan business acumen. AI akan menjadi tools yang memperkuat, bukan menggantikan peran ini.",
+    timeline: "18-24 bulan",
+    summary: "Pekerjaan paling dicari di abad ke-21 yang menggabungkan keahlian matematika, pemrograman, dan bisnis. Dengan roadmap yang diperbarui, Anda akan menguasai teknologi Big Data, Cloud, dan AI tingkat lanjut untuk menjadi pemimpin di industri data.",
     phases: [
       {
-        phase: "FASE 1: MATHEMATICS & STATISTICS",
-        title: "Fondasi Matematis Data Science",
-        duration: "3-6 bulan",
-        objective: "Membangun pemahaman statistik dan matematika yang kuat",
+        phase: "FASE 1: MATHEMATICS & STATISTICS FOUNDATIONS",
+        title: "Fondasi Matematika & Statistik",
+        duration: "3-4 bulan",
+        objective: "Membangun fondasi matematis yang kuat untuk ilmu data.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "Statistika Deskriptif & Inferensial",
+            name: "Statistika Inferensial",
             importance: 10,
             timeToMaster: "3-6 bulan",
-            description: "Mean, median, distribusi, hypothesis testing, A/B testing",
-            concepts: ["Descriptive Statistics", "Probability Distributions", "Hypothesis Testing", "Confidence Intervals"],
-            learningPath: "Statistics and Probability - Khan Academy"
+            coreConcepts: [
+              {
+                title: "Hypothesis Testing",
+                description: "Kerangka kerja statistik untuk menguji asumsi (hipotesis) tentang suatu populasi berdasarkan data sampel."
+              },
+              {
+                title: "A/B Testing",
+                description: "Metode eksperimen untuk membandingkan dua versi (A dan B) untuk menentukan mana yang berkinerja lebih baik."
+              },
+              {
+                title: "Confidence Intervals",
+                description: "Rentang nilai yang kemungkinan besar berisi parameter populasi yang sebenarnya, memberikan ukuran ketidakpastian."
+              }
+            ],
+            masteryGoals: [
+              { id: "ds-si-1", description: "Mampu menjelaskan perbedaan antara hipotesis nol dan hipotesis alternatif." },
+              { id: "ds-si-2", description: "Mampu menghitung dan menginterpretasikan p-value dalam konteks uji hipotesis." },
+              { id: "ds-si-3", description: "Mampu merancang, menjalankan, dan menganalisis hasil A/B test sederhana." },
+              { id: "ds-si-4", description: "Mampu membangun dan menjelaskan arti dari confidence interval 95% untuk mean populasi." }
+            ],
+            practicalProjects: [
+              {
+                title: "Analisis Kampanye Pemasaran",
+                description: "Gunakan A/B testing pada dataset kampanye email untuk menentukan baris subjek mana yang menghasilkan open rate lebih tinggi secara signifikan.",
+                link: "https://www.kaggle.com/datasets/faviovaz/marketing-ab-testing"
+              }
+            ]
           },
           {
             icon: "🛠️",
-            type: "Hard Skill", 
-            name: "Aljabar Linear",
+            type: "Hard Skill",
+            name: "Teori Probabilitas",
             importance: 9,
-            timeToMaster: "4-6 bulan",
-            description: "Vectors, matrices, eigenvalue/eigenvector untuk ML algorithms",
-            concepts: ["Matrix Operations", "Eigenvalues", "Vector Spaces", "Linear Transformations"]
+            timeToMaster: "3-6 bulan",
+            description: "Memahami distribusi probabilitas dan teorema Bayes.",
+            concepts: ["Probability Distributions", "Bayes' Theorem"]
           },
           {
             icon: "🧠",
@@ -327,92 +340,155 @@ export const futureJobsBlueprints: CareerBlueprint[] = [
             name: "Analytical Thinking",
             importance: 10,
             timeToMaster: "6-12 bulan",
-            description: "Kemampuan memecah masalah kompleks menjadi komponen yang dapat dianalisis",
-            concepts: ["Problem Decomposition", "Pattern Recognition", "Logical Reasoning"],
-            aiProofLevel: 90
+            description: "Kemampuan memecah masalah kompleks menjadi komponen yang dapat dianalisis.",
+            concepts: ["Problem Decomposition", "Pattern Recognition"]
           }
         ]
       },
       {
-        phase: "FASE 2: PROGRAMMING & TOOLS",
-        title: "Data Manipulation & Programming",
-        duration: "3-6 bulan",
-        objective: "Menguasai tools untuk data processing dan analysis",
+        phase: "FASE 2: PROGRAMMING & DATA MANIPULATION",
+        title: "Pemrograman & Manipulasi Data",
+        duration: "2-3 bulan",
+        objective: "Menguasai Python dan SQL untuk analisis data.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "Python untuk Data Science",
+            name: "Python (Advanced)",
             importance: 10,
             timeToMaster: "3-6 bulan",
-            description: "Pandas, NumPy, Scikit-learn, Matplotlib untuk data analysis",
-            concepts: ["Data Manipulation", "Statistical Computing", "Visualization", "ML Libraries"],
-            learningPath: "Python Data Science Handbook"
+            description: "Menggunakan Pandas, NumPy, dan Scikit-learn untuk analisis data.",
+            concepts: ["Pandas", "NumPy", "Scikit-learn"]
           },
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "SQL Advanced",
+            name: "SQL (Advanced)",
             importance: 9,
             timeToMaster: "2-4 bulan",
-            description: "Complex queries, JOINs, window functions untuk data extraction",
-            concepts: ["Complex Queries", "Window Functions", "CTEs", "Performance Optimization"]
-          },
-          {
-            icon: "🧠",
-            type: "Soft Skill",
-            name: "Attention to Detail",
-            importance: 9,
-            timeToMaster: "2-4 bulan",
-            description: "Ketelitian dalam data cleaning dan model validation",
-            concepts: ["Quality Assurance", "Error Detection", "Systematic Validation"],
-            aiProofLevel: 85
+            description: "Menguasai query kompleks dan window functions.",
+            concepts: ["Complex Queries", "Window Functions"]
           }
         ]
       },
       {
-        phase: "FASE 3: MACHINE LEARNING & MODELING",
-        title: "Predictive Modeling & ML",
-        duration: "6-12 bulan",
-        objective: "Membangun dan deploy machine learning models",
+        phase: "FASE 3: EXPLORATORY DATA ANALYSIS & VISUALIZATION",
+        title: "Analisis Data Eksploratif & Visualisasi",
+        duration: "2-3 bulan",
+        objective: "Menguasai teknik analisis data dan storytelling dengan visualisasi.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "Machine Learning Algorithms",
-            importance: 10,
-            timeToMaster: "6-12 bulan",
-            description: "Supervised/unsupervised learning, model selection dan tuning",
-            concepts: ["Regression", "Classification", "Clustering", "Model Evaluation"],
-            learningPath: "Machine Learning Course - Andrew Ng"
+            name: "Data Visualization",
+            importance: 8,
+            timeToMaster: "2-4 bulan",
+            description: "Menggunakan Matplotlib, Seaborn, dan Tableau untuk visualisasi data.",
+            concepts: ["Matplotlib", "Seaborn", "Tableau"]
           },
-          {
-            icon: "🧠",
-            type: "Soft Skill",
-            name: "Business Acumen",
-            importance: 10,
-            timeToMaster: "6-12 bulan",
-            description: "Memahami konteks bisnis dan impact dari data-driven decisions",
-            concepts: ["Business Context", "ROI Analysis", "Strategic Thinking"],
-            aiProofLevel: 90
-          }
-        ]
-      },
-      {
-        phase: "FASE 4: COMMUNICATION & IMPACT",
-        title: "Data Storytelling & Business Impact",
-        duration: "2-4 bulan",
-        objective: "Mengkomunikasikan insights untuk business decisions",
-        skills: [
           {
             icon: "🧠",
             type: "Soft Skill",
             name: "Data Storytelling",
             importance: 10,
             timeToMaster: "4-8 bulan",
-            description: "Menyampaikan insights data dalam narasi yang compelling",
-            concepts: ["Narrative Structure", "Visual Communication", "Audience Adaptation"],
-            aiProofLevel: 95
+            description: "Menyampaikan wawasan data dalam narasi yang menarik.",
+            concepts: ["Narrative Structure", "Visual Communication"]
+          }
+        ]
+      },
+      {
+        phase: "FASE 4: MACHINE LEARNING & MODEL BUILDING",
+        title: "Machine Learning & Pembuatan Model",
+        duration: "3-4 bulan",
+        objective: "Menguasai algoritma supervised dan unsupervised learning.",
+        skills: [
+          {
+            icon: "🛠️",
+            type: "Hard Skill",
+            name: "Supervised Learning",
+            importance: 10,
+            timeToMaster: "4-8 bulan",
+            description: "Menguasai algoritma regresi, klasifikasi, dan ensemble.",
+            concepts: ["Regression", "Classification", "Ensemble Methods"]
+          },
+          {
+            icon: "🛠️",
+            type: "Hard Skill",
+            name: "Unsupervised Learning",
+            importance: 8,
+            timeToMaster: "3-6 bulan",
+            description: "Menguasai clustering dan dimensionality reduction.",
+            concepts: ["Clustering", "Dimensionality Reduction"]
+          }
+        ]
+      },
+      {
+        phase: "FASE 5: BIG DATA & CLOUD TECHNOLOGIES",
+        title: "Big Data & Teknologi Cloud",
+        duration: "3-4 bulan",
+        objective: "Mengolah data dalam skala besar dengan teknologi cloud.",
+        skills: [
+          {
+            icon: "🛠️",
+            type: "Hard Skill",
+            name: "Big Data Processing",
+            importance: 8,
+            timeToMaster: "4-6 bulan",
+            description: "Menggunakan Apache Spark untuk pemrosesan data terdistribusi.",
+            concepts: ["Apache Spark", "Distributed Computing"]
+          },
+          {
+            icon: "🛠️",
+            type: "Hard Skill",
+            name: "Cloud Computing",
+            importance: 8,
+            timeToMaster: "3-5 bulan",
+            description: "Menggunakan AWS atau GCP untuk pipeline data.",
+            concepts: ["AWS", "GCP", "Data Pipelines"]
+          }
+        ]
+      },
+      {
+        phase: "FASE 6: ADVANCED MACHINE LEARNING & AI",
+        title: "Machine Learning Lanjutan & AI",
+        duration: "4-5 bulan",
+        objective: "Menguasai teknik machine learning lanjutan dan deep learning.",
+        skills: [
+          {
+            icon: "🛠️",
+            type: "Hard Skill",
+            name: "Deep Learning",
+            importance: 9,
+            timeToMaster: "6-12 bulan",
+            description: "Menggunakan TensorFlow atau PyTorch untuk neural networks.",
+            concepts: ["TensorFlow", "PyTorch", "Neural Networks"]
+          },
+          {
+            icon: "🛠️",
+            type: "Hard Skill",
+            name: "MLOps",
+            importance: 8,
+            timeToMaster: "4-6 bulan",
+            description: "Mengelola siklus hidup model machine learning.",
+            concepts: ["Model Deployment", "CI/CD for ML"]
+          }
+        ]
+      },
+      {
+        phase: "FASE 7: BUSINESS APPLICATION & COMMUNICATION",
+        title: "Aplikasi Bisnis & Komunikasi",
+        duration: "3-4 bulan",
+        objective: "Mengaplikasikan ilmu data untuk menyelesaikan masalah bisnis nyata.",
+        skills: [
+          {
+            icon: "🧠",
+            type: "Soft Skill",
+            name: "Business Acumen",
+            importance: 9,
+            timeToMaster: "6-12 bulan",
+            description: "Memahami konteks bisnis dan dampak dari keputusan berbasis data.",
+            concepts: ["Business Context", "ROI Analysis"]
           },
           {
             icon: "🧠",
@@ -420,23 +496,22 @@ export const futureJobsBlueprints: CareerBlueprint[] = [
             name: "Stakeholder Management",
             importance: 8,
             timeToMaster: "6-12 bulan",
-            description: "Mengelola ekspektasi dan requirements dari berbagai stakeholder",
-            concepts: ["Expectation Management", "Cross-functional Communication", "Influence Without Authority"],
-            aiProofLevel: 90
+            description: "Mengelola ekspektasi dan persyaratan dari berbagai pemangku kepentingan.",
+            concepts: ["Expectation Management", "Cross-functional Communication"]
           }
         ]
       }
     ],
     keyInsights: [
-      "Disebut 'Sexiest Job of 21st Century' oleh Harvard Business Review",
-      "Pertumbuhan job 22% dari 2020-2030 (5x lebih cepat dari rata-rata)",
-      "Menggabungkan mathematics, programming, dan business acumen",
-      "AI akan menjadi tools yang memperkuat, bukan menggantikan"
+      "Disebut 'Pekerjaan Paling Dicari Abad ke-21' oleh Harvard Business Review.",
+      "Pertumbuhan pekerjaan 22% dari 2020-2030 (5x lebih cepat dari rata-rata).",
+      "Menggabungkan keahlian matematika, pemrograman, dan bisnis.",
+      "AI akan menjadi alat yang memperkuat, bukan menggantikan."
     ],
     marketDrivers: [
-      "Data-driven decision making menjadi standard",
-      "Big data explosion across all industries",
-      "Need for AI ethics dan explainable AI"
+      "Pengambilan keputusan berbasis data menjadi standar.",
+      "Ledakan Big Data di semua industri.",
+      "Kebutuhan akan etika AI dan AI yang dapat dijelaskan."
     ]
   },
 
@@ -625,7 +700,7 @@ export const futureJobsBlueprints: CareerBlueprint[] = [
     riskLevel: "Risiko Sangat Rendah",
     salaryRange: "Rp 105-300 juta",
     growth: "Sangat Tinggi",
-    timeline: "2025-2040", 
+    timeline: "2025-2040",
     summary: "Guardian moral AI development. Mengembangkan framework etika dan audit untuk memastikan AI dikembangkan secara bertanggung jawab. 75% eksekutif memandang etika sebagai competitive advantage.",
     phases: [
       {

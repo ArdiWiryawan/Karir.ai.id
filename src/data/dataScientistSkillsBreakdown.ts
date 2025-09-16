@@ -543,8 +543,8 @@ export const dataScientistLearningMaterials: LearningMaterial[] = [
     description: 'Komunikasi efektif dengan data dan visualization best practices',
     duration: '4-6 minggu',
     difficulty: 'Menengah',
-    price: { amount: 2000000, currency: 'IDR', isFree: false },
-    rating: 4.7
+    price: { amount: 450000, currency: 'IDR', isFree: false },
+    rating: 4.5
   }
 ];
 
@@ -552,7 +552,7 @@ export const dataScientistLearningMaterials: LearningMaterial[] = [
 export const comprehensiveDataScientistRoadmap: Roadmap = {
   id: 'data-scientist-roadmap',
   jobId: 'data-scientist',
-  totalDuration: '12-18 bulan',
+  totalDuration: '18-24 bulan',
   difficulty: 'Lanjutan',
   phases: [
     {
@@ -629,20 +629,123 @@ export const comprehensiveDataScientistRoadmap: Roadmap = {
       prerequisites: ['ds-phase-3-analysis']
     },
     {
-      id: 'ds-phase-5-business-application',
-      title: 'Business Application & Communication',
-      description: 'Mengaplikasikan data science untuk business problems',
-      duration: '2-4 bulan',
+      id: 'ds-phase-5-big-data',
+      title: 'Big Data & Cloud Technologies',
+      description: 'Mengolah data dalam skala besar dengan teknologi cloud',
+      duration: '3-4 bulan',
       order: 5,
+      skills: [
+        dataScientistHardSkills.find(s => s.id === 'ds-big-data-processing')!,
+        dataScientistHardSkills.find(s => s.id === 'ds-cloud-computing')!,
+        dataScientistHardSkills.find(s => s.id === 'ds-distributed-systems')!,
+        dataScientistSoftSkills.find(s => s.id === 'ds-problem-solving')!
+      ],
+      materials: [
+        {
+          id: 'aws-big-data-specialty',
+          title: 'AWS Certified Data Analytics - Specialty',
+          type: 'certification',
+          provider: 'AWS',
+          description: 'Sertifikasi untuk profesional big data di AWS',
+          duration: '3-4 bulan',
+          difficulty: 'Lanjutan',
+          price: { amount: 300, currency: 'USD', isFree: false },
+          rating: 4.7
+        },
+        {
+          id: 'apache-spark-guide',
+          title: 'Learning Spark',
+          type: 'book',
+          provider: 'O\'Reilly',
+          description: 'Panduan komprehensif untuk Apache Spark',
+          duration: '4-6 minggu',
+          difficulty: 'Menengah',
+          price: { amount: 500000, currency: 'IDR', isFree: false },
+          rating: 4.6
+        }
+      ],
+      prerequisites: ['ds-phase-4-machine-learning']
+    },
+    {
+      id: 'ds-phase-6-advanced-ml',
+      title: 'Advanced Machine Learning & AI',
+      description: 'Menguasai teknik machine learning lanjutan dan deep learning',
+      duration: '4-5 bulan',
+      order: 6,
+      skills: [
+        dataScientistHardSkills.find(s => s.id === 'ds-deep-learning')!,
+        dataScientistHardSkills.find(s => s.id === 'ds-natural-language-processing')!,
+        dataScientistHardSkills.find(s => s.id === 'ds-computer-vision')!,
+        dataScientistHardSkills.find(s => s.id === 'ds-mlops')!,
+        dataScientistSoftSkills.find(s => s.id === 'ds-critical-thinking')!
+      ],
+      materials: [
+        {
+          id: 'deep-learning-specialization',
+          title: 'Deep Learning Specialization',
+          type: 'course',
+          provider: 'deeplearning.ai',
+          description: 'Kursus komprehensif tentang deep learning oleh Andrew Ng',
+          duration: '4 bulan',
+          difficulty: 'Lanjutan',
+          price: { amount: 2000000, currency: 'IDR', isFree: false },
+          rating: 4.8
+        },
+        {
+          id: 'nlp-with-transformers',
+          title: 'Natural Language Processing with Transformers',
+          type: 'book',
+          provider: 'O\'Reilly',
+          description: 'Panduan praktis untuk NLP dengan arsitektur transformer',
+          duration: '6-8 minggu',
+          difficulty: 'Lanjutan',
+          price: { amount: 650000, currency: 'IDR', isFree: false },
+          rating: 4.7
+        }
+      ],
+      prerequisites: ['ds-phase-5-big-data']
+    },
+    {
+      id: 'ds-phase-7-business-application',
+      title: 'Business Application & Communication',
+      description: 'Mengaplikasikan data science untuk menyelesaikan masalah bisnis nyata',
+      duration: '3-4 bulan',
+      order: 7,
       skills: [
         dataScientistHardSkills.find(s => s.id === 'ds-business-intelligence')!,
         dataScientistHardSkills.find(s => s.id === 'ds-model-deployment')!,
+        dataScientistHardSkills.find(s => s.id === 'ds-data-governance')!,
         dataScientistSoftSkills.find(s => s.id === 'ds-business-acumen')!,
         dataScientistSoftSkills.find(s => s.id === 'ds-technical-communication')!,
-        dataScientistSoftSkills.find(s => s.id === 'ds-stakeholder-management')!
+        dataScientistSoftSkills.find(s => s.id === 'ds-stakeholder-management')!,
+        dataScientistSoftSkills.find(s => s.id === 'ds-data-storytelling')!,
+        dataScientistSoftSkills.find(s => s.id === 'ds-project-management')!
       ],
-      materials: [],
-      prerequisites: ['ds-phase-4-machine-learning']
+      materials: [
+        {
+          id: 'data-science-for-business',
+          title: 'Data Science for Business',
+          type: 'book',
+          provider: 'O\'Reilly',
+          description: 'Memahami bagaimana menerapkan data science dalam konteks bisnis',
+          duration: '4-6 minggu',
+          difficulty: 'Menengah',
+          price: { amount: 450000, currency: 'IDR', isFree: false },
+          rating: 4.5
+        },
+        {
+          id: 'mlops-fundamentals',
+          title: 'MLOps Fundamentals',
+          type: 'course',
+          provider: 'Coursera',
+          description: 'Mempelajari praktik terbaik untuk mengoperasionalkan model ML',
+          duration: '1 bulan',
+          difficulty: 'Menengah',
+          price: { amount: 0, currency: 'IDR', isFree: true },
+          rating: 4.6
+        }
+      ],
+      prerequisites: ['ds-phase-6-advanced-ml']
     }
   ]
 };
@@ -670,7 +773,7 @@ export const dataScientistSkillsSummary = {
   }
 };
 
-export default {
+export const dataScientistBreakdown = {
   hardSkills: dataScientistHardSkills,
   softSkills: dataScientistSoftSkills,
   allSkills: allDataScientistSkills,
@@ -678,3 +781,5 @@ export default {
   roadmap: comprehensiveDataScientistRoadmap,
   summary: dataScientistSkillsSummary
 };
+
+export default dataScientistBreakdown;
