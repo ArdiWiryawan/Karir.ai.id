@@ -20,6 +20,8 @@ import TransitionPaths from "./pages/features/TransitionPaths";
 import DynamicSkillBlueprint from "./pages/DynamicSkillBlueprint";
 import Auth from "./pages/Auth";
 import CareerBlueprints from "./pages/CareerBlueprints";
+import SkillBlueprintPage from "./pages/SkillBlueprintPage";
+import TestSkillBlueprint from "./pages/TestSkillBlueprint";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,8 @@ const App = () => (
             <Route path="/features/transition-paths" element={<TransitionPaths />} />
             <Route path="/dynamic-skill-blueprint" element={<DynamicSkillBlueprint />} />
             <Route path="/career-blueprints" element={<CareerBlueprints />} />
+            <Route path="/blueprint/:profession" element={<SkillBlueprintPage />} />
+            <Route path="/test-skill-blueprint" element={<TestSkillBlueprint />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

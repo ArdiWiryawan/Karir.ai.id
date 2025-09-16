@@ -64,6 +64,59 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/d923cb59-09b8-4a20-b33e-ddec93537efd) and click on Share -> Publish.
 
+## How to Test the Skill Blueprint Feature
+
+To test the new Skill Blueprint feature:
+
+1. Start the development server:
+   ```sh
+   npm run dev
+   ```
+
+2. Visit the test page at `/test-skill-blueprint`
+
+3. Enter a profession (e.g., "Data Scientist") and click "View Career Blueprint"
+
+4. The page will display an AI-generated career blueprint for that profession
+
+## API Endpoints
+
+### Netlify Function: `/api/forecast`
+
+**Method**: POST
+**Content-Type**: application/json
+
+**Request Body**:
+```json
+{
+  "userQuery": "Data Scientist"
+}
+```
+
+**Response**:
+```json
+{
+  "prediction": "# Career Blueprint Markdown...",
+  "timestamp": "2023-06-15T10:30:00Z"
+}
+```
+
+## Components
+
+### SkillBlueprintPage
+
+Located at `src/pages/SkillBlueprintPage.tsx`, this component:
+- Fetches career blueprint data from the Netlify function
+- Displays the data using ReactMarkdown for proper formatting
+- Includes loading states and error handling
+- Is accessible at `/skill-blueprint?profession=...`
+
+### TestSkillBlueprint
+
+Located at `src/pages/TestSkillBlueprint.tsx`, this component:
+- Provides a simple form to test the skill blueprint feature
+- Accessible at `/test-skill-blueprint`
+
 ## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!

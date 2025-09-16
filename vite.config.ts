@@ -8,14 +8,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "0.0.0.0",
     port: 5000,
-    strictPort: true,
-    origin: "http://0.0.0.0:5000",
-    allowedHosts: "all",
-    hmr: {
-      port: 5000,
-      clientPort: 443
+    host: true,
+    strictPort: false,
+    middlewareMode: false,
+    proxy: {
+      '/.netlify/functions': {
+        target: 'http://localhost:9999',
+        changeOrigin: true,
+        secure: false
+      }
     }
   },
   preview: {

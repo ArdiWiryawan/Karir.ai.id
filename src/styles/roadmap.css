@@ -1,0 +1,141 @@
+/* Roadmap specific styles */
+.roadmap-container {
+  @apply min-h-screen bg-gradient-to-b from-background to-background/95;
+}
+
+.roadmap-header {
+  @apply sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b z-50 
+         transition-all duration-200 ease-in-out shadow-sm;
+}
+
+.roadmap-search {
+  @apply relative w-full max-w-2xl mx-auto;
+}
+
+.roadmap-search input {
+  @apply pl-10 pr-10 h-12 rounded-full bg-muted/50 border-muted-foreground/20 
+         focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200;
+}
+
+.roadmap-search .search-icon {
+  @apply absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground;
+}
+
+.roadmap-filters {
+  @apply flex items-center gap-2 mt-4 flex-wrap;
+}
+
+.roadmap-section {
+  @apply rounded-lg border border-muted bg-card/50 backdrop-blur-sm 
+         transition-all duration-200 hover:bg-card/80 mb-6;
+}
+
+.roadmap-section-header {
+  @apply flex items-center gap-3 p-4 cursor-pointer select-none;
+}
+
+.roadmap-section-content {
+  @apply pl-8 pr-4 pb-4;
+}
+
+.roadmap-item {
+  @apply relative flex items-start gap-4 p-4 rounded-lg border border-transparent
+         transition-all duration-200 hover:border-muted-foreground/10 hover:bg-muted/30;
+}
+
+.roadmap-item::before {
+  @apply absolute left-[-1.625rem] top-1/2 -translate-y-1/2
+         w-3 h-3 rounded-full border-2 border-muted-foreground/50 bg-background
+         transition-all duration-200;
+  content: "";
+}
+
+.roadmap-item.completed::before {
+  @apply border-primary bg-primary scale-110;
+}
+
+.roadmap-progress-bar {
+  @apply h-2 rounded-full bg-muted overflow-hidden;
+}
+
+.roadmap-progress-value {
+  @apply h-full bg-primary transition-all duration-500 ease-out;
+}
+
+.roadmap-status-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.roadmap-status-badge.required {
+  @apply bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300;
+}
+
+.roadmap-status-badge.recommended {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300;
+}
+
+.roadmap-status-badge.optional {
+  @apply bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300;
+}
+
+.roadmap-resource-link {
+  @apply inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80
+         transition-colors duration-200 mt-2;
+}
+
+/* Animation classes */
+.section-enter {
+  @apply opacity-0 -translate-y-4;
+}
+
+.section-enter-active {
+  @apply opacity-100 translate-y-0 transition-all duration-300 ease-out;
+}
+
+.section-exit {
+  @apply opacity-100 translate-y-0;
+}
+
+.section-exit-active {
+  @apply opacity-0 -translate-y-4 transition-all duration-300 ease-in;
+}
+
+.item-enter {
+  @apply opacity-0 -translate-x-4;
+}
+
+.item-enter-active {
+  @apply opacity-100 translate-x-0 transition-all duration-200 ease-out;
+}
+
+.item-exit {
+  @apply opacity-100 translate-x-0;
+}
+
+.item-exit-active {
+  @apply opacity-0 -translate-x-4 transition-all duration-200 ease-in;
+}
+
+/* Dark mode adjustments */
+.dark .roadmap-section {
+  @apply bg-card/10;
+}
+
+.dark .roadmap-item:hover {
+  @apply bg-muted/10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .roadmap-header {
+    @apply px-4;
+  }
+
+  .roadmap-search input {
+    @apply text-sm;
+  }
+
+  .roadmap-filters {
+    @apply overflow-x-auto pb-2;
+  }
+}
