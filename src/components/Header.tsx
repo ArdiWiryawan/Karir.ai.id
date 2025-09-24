@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Brain, Menu, User, LogOut } from "lucide-react";
+import { Brain, Menu, User, LogOut, Settings } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -89,6 +89,12 @@ const Header = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
+                    <DropdownMenuItem asChild>
+                      <Link to="/profile" className="flex items-center">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Profile Settings
+                      </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
                       <LogOut className="w-4 h-4 mr-2" />
                       Sign Out
@@ -165,8 +171,18 @@ const Header = () => {
                       <div className="px-2 py-1 text-sm text-muted-foreground">
                         {user.user_metadata?.full_name || user.email}
                       </div>
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
+                        className="justify-start"
+                        asChild
+                      >
+                        <Link to="/profile">
+                          <Settings className="w-4 h-4 mr-2" />
+                          Profile Settings
+                        </Link>
+                      </Button>
+                      <Button
+                        variant="ghost"
                         className="justify-start text-destructive hover:text-destructive"
                         onClick={handleSignOut}
                       >

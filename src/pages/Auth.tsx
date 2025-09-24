@@ -15,13 +15,20 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const { signIn, signUp, signInWithProvider, user } = useAuth();
+  const [mode, setMode] = useState<'signin' | 'signup' | 'recovery'>('signin');
+  const { signIn, signUp, signInWithProvider, resetPassword, updatePassword, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       navigate('/');
+    }
+
+    // Check for recovery mode in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'recovery') {
+      setMode('recovery');
     }
   }, [user, navigate]);
 
@@ -74,9 +81,9 @@ const Auth = () => {
 
   const handleSocialLogin = async (provider: 'google' | 'github' | 'twitter') => {
     setIsLoading(true);
-    
+
     const { error } = await signInWithProvider(provider);
-    
+
     if (error) {
       toast({
         title: "Social login failed",
@@ -84,7 +91,53 @@ const Auth = () => {
         variant: "destructive",
       });
     }
-    
+
+    setIsLoading(false);
+  };
+
+  const handlePasswordReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const { error } = await resetPassword(email);
+
+    if (error) {
+      toast({
+        title: "Password reset failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Password reset email sent",
+        description: "Please check your email for password reset instructions.",
+      });
+      setMode('signin');
+    }
+
+    setIsLoading(false);
+  };
+
+  const handlePasswordUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const { error } = await updatePassword(password);
+
+    if (error) {
+      toast({
+        title: "Password update failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Password updated",
+        description: "Your password has been successfully updated.",
+      });
+      setMode('signin');
+    }
+
     setIsLoading(false);
   };
 
@@ -112,10 +165,10 @@ const Auth = () => {
           </CardHeader>
           
           <CardContent>
-            <Tabs defaultValue="signin" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="signin">Sign In</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <Tabs defaultValue={mode} className="w-full">
+              <TabsList className={mode === 'recovery' ? "grid w-full grid-cols-1" : "grid w-full grid-cols-2"}>
+                <TabsTrigger value="signin" onClick={() => setMode('signin')}>Sign In</TabsTrigger>
+                <TabsTrigger value="signup" onClick={() => setMode('signup')}>Sign Up</TabsTrigger>
               </TabsList>
               
               <TabsContent value="signin" className="space-y-4">
@@ -144,13 +197,23 @@ const Auth = () => {
                     />
                   </div>
                   
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full"
                     disabled={isLoading}
                   >
                     {isLoading ? "Signing in..." : "Sign In"}
                   </Button>
+
+                  <div className="text-center mt-4">
+                    <button
+                      type="button"
+                      onClick={() => setMode('recovery')}
+                      className="text-sm text-muted-foreground hover:text-foreground underline"
+                    >
+                      Forgot your password?
+                    </button>
+                  </div>
                 </form>
               </TabsContent>
               
@@ -198,6 +261,40 @@ const Auth = () => {
                   >
                     {isLoading ? "Creating account..." : "Create Account"}
                   </Button>
+                </form>
+              </TabsContent>
+
+              <TabsContent value="recovery" className="space-y-4">
+                <form onSubmit={handlePasswordReset} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="recovery-email">Email</Label>
+                    <Input
+                      id="recovery-email"
+                      type="email"
+                      placeholder="Enter your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Sending..." : "Send Reset Email"}
+                  </Button>
+
+                  <div className="text-center mt-4">
+                    <button
+                      type="button"
+                      onClick={() => setMode('signin')}
+                      className="text-sm text-muted-foreground hover:text-foreground underline"
+                    >
+                      Back to Sign In
+                    </button>
+                  </div>
                 </form>
               </TabsContent>
             </Tabs>

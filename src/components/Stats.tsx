@@ -96,7 +96,7 @@ const Stats = () => {
             dirancang khusus untuk menghadapi revolusi AI di Indonesia."
           </blockquote>
           <div className="mt-6 text-sm text-muted-foreground">
-            — Tim Karir.AI, dengan kolaborasi Helios 2.0 Conversion Strategist
+            — Seluruh tim Karir AI
           </div>
         </div>
       </div>

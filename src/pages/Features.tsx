@@ -8,25 +8,6 @@ const FeaturesPage = () => {
     <div className="min-h-screen">
       <Header />
       <main className="pt-20">
-        {/* Hero Section */}
-        <section className="py-24 bg-gradient-subtle">
-          <div className="container mx-auto px-4 text-center">
-            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-6">
-              Fitur Revolusioner
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Teknologi AI untuk{" "}
-              <span className="bg-gradient-hero bg-clip-text text-transparent">
-                Masa Depan Kariermu
-              </span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
-              Klik pada setiap fitur untuk melihat detail lengkap bagaimana teknologi AI kami 
-              membantu mempersiapkan karier masa depan Anda di era revolusi AI.
-            </p>
-          </div>
-        </section>
-
         {/* Features Section */}
         <Features />
 

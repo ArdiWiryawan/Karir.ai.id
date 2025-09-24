@@ -119,7 +119,7 @@ const Features = () => {
         {/* Bottom CTA */}
         <div className="text-center mt-16">
           <p className="text-lg text-muted-foreground mb-6">
-            Dengan PRD ini, Karir.AI tidak hanya akan menjadi platform karier terbaik di Indonesia—
+            Dengan ini, Karir.AI tidak hanya akan menjadi platform karier terbaik di Indonesia—
             <br />
             <strong className="text-primary">tapi juga contoh global bagaimana teknologi bisa mempersiapkan talenta muda menghadapi revolusi AI.</strong>
           </p>

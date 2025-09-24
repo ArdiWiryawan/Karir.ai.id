@@ -23,7 +23,7 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4" />
-                Jakarta, Indonesia
+                Surabaya, Indonesia
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
@@ -31,7 +31,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4" />
-                +62 21 1234 5678
+                +62 895 1786 8917
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-border/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm text-muted-foreground">
-            © 2024 Karir.AI. Mempersiapkan masa depan karier Indonesia.
+            © 2025 Karir.AI. Mempersiapkan masa depan karier Indonesia.
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>

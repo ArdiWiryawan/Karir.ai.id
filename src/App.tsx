@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -19,6 +20,7 @@ import AICoPilot from "./pages/features/AICoPilot";
 import TransitionPaths from "./pages/features/TransitionPaths";
 import DynamicSkillBlueprint from "./pages/DynamicSkillBlueprint";
 import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 import CareerBlueprints from "./pages/CareerBlueprints";
 import SkillBlueprintPage from "./pages/SkillBlueprintPage";
 import TestSkillBlueprint from "./pages/TestSkillBlueprint";
@@ -37,6 +39,11 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
             <Route path="/features" element={<Features />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/pricing" element={<Pricing />} />
