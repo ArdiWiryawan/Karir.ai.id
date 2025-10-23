@@ -42,7 +42,7 @@ export default function RoadmapPage() {
           id: slugify(`${s.name}-${i}`),
           type: (s.type.toLowerCase().includes('hard') ? 'hard' : 'soft') as 'hard' | 'soft',
           title: s.name,
-          details: s.description || (s.concepts && s.concepts.length ? s.concepts.join(', ') : ''),
+          details: [s.description || (s.concepts && s.concepts.length ? s.concepts.join(', ') : '')].filter(d => d),
           prerequisites: [],
           resources: s.learningPath ? [{ title: s.learningPath, url: '#' }] : undefined
         }))
@@ -69,7 +69,7 @@ export default function RoadmapPage() {
           id: s.id || `${i}-${s.name}`,
           type: (s.type === 'hard' ? 'hard' : 'soft'),
           title: s.name,
-          details: s.description || ''
+          details: s.description ? [s.description] : []
         }))
       }))
     };

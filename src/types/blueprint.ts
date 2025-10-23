@@ -23,10 +23,11 @@ export interface Skill {
   id: string;
   type: 'hard' | 'soft';
   title: string;
-  coreConcepts: CoreConcept[];
-  masteryGoals: MasteryGoal[];
-  practicalProjects: PracticalProject[];
+  coreConcepts?: CoreConcept[];
+  masteryGoals?: MasteryGoal[];
+  practicalProjects?: PracticalProject[];
   description?: string;
+  details?: string[];
   status?: 'required' | 'recommended' | 'optional';
   prerequisites?: string[];
   resources?: Resource[];
@@ -37,6 +38,7 @@ export interface Phase {
   id: string;
   title: string;
   description?: string;
+  duration?: string;
   skills: Skill[];
 }
 
