@@ -28,7 +28,7 @@ All colors MUST be HSL.
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   }
 
-  /* Custom typography scale for better hierarchy */
+  /* Custom typography scale for better hierarchy & accessibility */
   .text-display {
     font-size: clamp(2.5rem, 8vw, 6rem);
     font-weight: 800;
@@ -54,6 +54,14 @@ All colors MUST be HSL.
     font-size: 1.125rem;
     line-height: 1.6;
     font-weight: 400;
+  }
+
+  /* Mobile-optimized typography (minimum 16px for body) */
+  @media (max-width: 640px) {
+    body {
+      font-size: 16px;
+      line-height: 1.6;
+    }
   }
 
   :root {

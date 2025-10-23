@@ -15,6 +15,7 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
+  const [step, setStep] = useState<1 | 2>(1); // Progressive onboarding step
   const [mode, setMode] = useState<'signin' | 'signup' | 'recovery'>('signin');
   const { signIn, signUp, signInWithProvider, resetPassword, updatePassword, user } = useAuth();
   const { toast } = useToast();
@@ -56,13 +57,23 @@ const Auth = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Step 1: Validate email & password only
+    if (step === 1) {
+      if (email && password) {
+        setStep(2);
+      }
+      return;
+    }
+
+    // Step 2: Create account
     setIsLoading(true);
 
     const { error } = await signUp(email, password, fullName);
     
     if (error) {
       toast({
-        title: "Sign up failed",
+        title: "Pendaftaran gagal",
         description: error.message,
         variant: "destructive",
       });
@@ -70,9 +81,10 @@ const Auth = () => {
       setEmail('');
       setPassword('');
       setFullName('');
+      setStep(1);
       toast({
-        title: "Account created!",
-        description: "Please check your email to verify your account.",
+        title: "Akun berhasil dibuat!",
+        description: "Silakan cek email Anda untuk verifikasi akun.",
       });
     }
     
@@ -218,49 +230,92 @@ const Auth = () => {
               </TabsContent>
               
               <TabsContent value="signup" className="space-y-4">
+                {/* Progress Indicator */}
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <div className={`h-2 w-16 rounded-full transition-colors ${step >= 1 ? 'bg-primary' : 'bg-muted'}`} />
+                  <div className={`h-2 w-16 rounded-full transition-colors ${step >= 2 ? 'bg-primary' : 'bg-muted'}`} />
+                </div>
+                
                 <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-name">Full Name</Label>
-                    <Input
-                      id="signup-name"
-                      type="text"
-                      placeholder="Enter your full name"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
-                    <Input
-                      id="signup-email"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
-                    <Input
-                      id="signup-password"
-                      type="password"
-                      placeholder="Create a password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  
-                  <Button 
-                    type="submit" 
-                    className="w-full"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Creating account..." : "Create Account"}
-                  </Button>
+                  {step === 1 ? (
+                    <>
+                      <div className="space-y-2">
+                        <Label htmlFor="signup-email">Email</Label>
+                        <Input
+                          id="signup-email"
+                          type="email"
+                          placeholder="nama@email.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          aria-describedby="email-help"
+                        />
+                        <p id="email-help" className="text-xs text-muted-foreground">
+                          Gunakan email aktif Anda untuk verifikasi
+                        </p>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="signup-password">Password</Label>
+                        <Input
+                          id="signup-password"
+                          type="password"
+                          placeholder="Minimal 6 karakter"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                          minLength={6}
+                          aria-describedby="password-help"
+                        />
+                        <p id="password-help" className="text-xs text-muted-foreground">
+                          Minimal 6 karakter untuk keamanan akun Anda
+                        </p>
+                      </div>
+                      
+                      <Button 
+                        type="submit" 
+                        className="w-full"
+                        disabled={!email || !password || password.length < 6}
+                      >
+                        Lanjutkan
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <div className="space-y-2">
+                        <Label htmlFor="signup-name">Nama Lengkap (Opsional)</Label>
+                        <Input
+                          id="signup-name"
+                          type="text"
+                          placeholder="Nama lengkap Anda"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          aria-describedby="name-help"
+                        />
+                        <p id="name-help" className="text-xs text-muted-foreground">
+                          Membantu kami mempersonalisasi pengalaman Anda
+                        </p>
+                      </div>
+                      
+                      <div className="flex gap-2">
+                        <Button 
+                          type="button"
+                          variant="outline"
+                          onClick={() => setStep(1)}
+                          className="flex-1"
+                        >
+                          Kembali
+                        </Button>
+                        <Button 
+                          type="submit" 
+                          className="flex-1"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? "Membuat akun..." : "Buat Akun"}
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </form>
               </TabsContent>
 

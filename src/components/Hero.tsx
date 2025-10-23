@@ -22,16 +22,19 @@ const Hero = () => {
               7,28 Juta Talenta Muda Siap Era AI
             </Badge>
             
-            {/* Headline */}
+            {/* Headline - Clear Value Proposition */}
             <div className="space-y-4">
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                Khawatir Skill-mu{" "}
+                Dapatkan Panggilan Interview{" "}
                 <span className="bg-gradient-hero bg-clip-text text-transparent">
-                  Digantikan AI?
+                  2x Lebih Cepat
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-                Kami Punya Roadmap 5 Tahun untuk Tetap Relevan.
+              <p className="text-xl md:text-2xl text-foreground/80 font-medium">
+                Optimalkan CV Anda dengan AI & Kuasai Skill Masa Depan
+              </p>
+              <p className="text-base text-muted-foreground">
+                Untuk fresh graduates, career changers & profesional muda yang ingin tetap relevan di era AI
               </p>
             </div>
             
@@ -59,30 +62,56 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="group">
-                Mulai Roadmap Masa Depan (Gratis)
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            {/* CTA Buttons - Prioritized & Clear */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <Button 
+                variant="hero" 
+                size="lg" 
+                className="group min-w-[200px] h-14 text-lg font-semibold shadow-future hover:shadow-ai-glow"
+                aria-label="Mulai analisis CV gratis"
+              >
+                Coba Gratis — Unggah CV
+                <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="future" size="lg">
-                <Brain className="w-5 h-5 mr-2" />
-                Analisis AI Impact Score
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="h-14 text-base border-2"
+                aria-label="Lihat demo produk"
+              >
+                Lihat Demo
               </Button>
             </div>
             
-            {/* Social Proof */}
-            <div className="flex items-center gap-4 pt-6">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full bg-gradient-hero border-2 border-background"
-                  />
-                ))}
+            {/* Microcopy untuk mengurangi friction */}
+            <p className="text-sm text-muted-foreground italic">
+              💡 Tidak yakin mulai dari mana? Dapatkan rekomendasi jalur karier yang dipersonalisasi — gratis!
+            </p>
+            
+            {/* Enhanced Social Proof & Trust Signals */}
+            <div className="space-y-4 pt-6">
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-2">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className="w-10 h-10 rounded-full bg-gradient-hero border-2 border-background"
+                    />
+                  ))}
+                </div>
+                <div className="text-sm">
+                  <strong className="text-foreground text-base">12.470+ pengguna</strong>
+                  <p className="text-muted-foreground">telah meningkatkan peluang interview mereka</p>
+                </div>
               </div>
-              <div className="text-sm text-muted-foreground">
-                <strong className="text-foreground">1.247 pengguna</strong> sepertimu meningkatkan kesiapan AI hari ini
+              
+              {/* Privacy Assurance */}
+              <div className="flex items-start gap-2 text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
+                <span className="text-primary">🔒</span>
+                <p>
+                  <strong className="text-foreground">Data Anda aman.</strong> CV Anda terenkripsi end-to-end dan hanya digunakan untuk analisis.{" "}
+                  <a href="/privacy" className="text-primary hover:underline">Lihat kebijakan privasi</a>
+                </p>
               </div>
             </div>
           </div>
