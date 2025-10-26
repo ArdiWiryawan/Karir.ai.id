@@ -1042,7 +1042,7 @@ export const comprehensiveLearningMaterials: LearningMaterial[] = [
 // DETAILED ROADMAPS FOR EACH PROFESSION
 // =============================================
 
-// Data Scientist Roadmap - menggunakan breakdown komprehensif
+// Data Scientist Roadmap - menggunakan breakdown komprehensif yang telah diperbaharui
 export const dataScientistRoadmap: Roadmap = comprehensiveDataScientistRoadmap;
 
 // AI/ML Specialist Roadmap

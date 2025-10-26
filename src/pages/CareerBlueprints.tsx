@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CareerBlueprintCard from "@/components/CareerBlueprintCard";
@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { allCareerBlueprints, CareerBlueprint } from "@/data/comprehensiveCareerBreakdown";
-import { Search, Filter, TrendingUp, AlertTriangle } from "lucide-react";
+import { CareerBlueprint } from "@/data/comprehensiveCareerBreakdown";
+import { Search, Filter, TrendingUp, AlertTriangle, Loader2 } from "lucide-react";
 
 const CareerBlueprints = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,13 +17,48 @@ const CareerBlueprints = () => {
   const [selectedRiskLevel, setSelectedRiskLevel] = useState("all");
   const [selectedBlueprint, setSelectedBlueprint] = useState<CareerBlueprint | null>(null);
   const [showDetail, setShowDetail] = useState(false);
+  const [blueprints, setBlueprints] = useState<CareerBlueprint[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch blueprints from API
+  useEffect(() => {
+    const fetchBlueprints = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/.netlify/functions/forecast', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userQuery: 'all' }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch blueprints');
+        }
+
+        const data = await response.json();
+        // Handle both single blueprint and array of blueprints
+        const blueprintData = Array.isArray(data.prediction) ? data.prediction : [data.prediction];
+        setBlueprints(blueprintData);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+        console.error('Error fetching blueprints:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlueprints();
+  }, []);
 
   // Get unique categories and risk levels
-  const categories = Array.from(new Set(allCareerBlueprints.map(b => b.category)));
-  const riskLevels = Array.from(new Set(allCareerBlueprints.map(b => b.riskLevel)));
+  const categories = Array.from(new Set(blueprints.map(b => b.category)));
+  const riskLevels = Array.from(new Set(blueprints.map(b => b.riskLevel)));
 
   // Filter blueprints
-  const filteredBlueprints = allCareerBlueprints.filter(blueprint => {
+  const filteredBlueprints = blueprints.filter(blueprint => {
     const matchesSearch = blueprint.profession.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          blueprint.category.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "all" || blueprint.category === selectedCategory;
@@ -45,6 +80,41 @@ const CareerBlueprints = () => {
     // Navigate to assessment or learning platform
     console.log("Starting learning path for:", selectedBlueprint?.profession);
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-20">
+          <div className="container mx-auto px-4 py-24 text-center">
+            <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
+            <p className="text-lg text-muted-foreground">Loading career blueprints...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-20">
+          <div className="container mx-auto px-4 py-24 text-center">
+            <AlertTriangle className="w-8 h-8 text-red-500 mx-auto mb-4" />
+            <p className="text-lg text-red-500 mb-4">Error: {error}</p>
+            <Button onClick={() => window.location.reload()}>
+              Try Again
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
@@ -172,7 +242,7 @@ const CareerBlueprints = () => {
             <div className="grid md:grid-cols-4 gap-8">
               <div className="p-6">
                 <div className="text-4xl font-bold text-primary mb-2">
-                  {allCareerBlueprints.length}
+                  {blueprints.length}
                 </div>
                 <div className="text-lg font-semibold mb-2">Total Profesi</div>
                 <p className="text-muted-foreground">Dianalisis secara komprehensif</p>

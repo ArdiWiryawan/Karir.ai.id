@@ -280,238 +280,785 @@ export const futureJobsBlueprints: CareerBlueprint[] = [
     category: "Data & Analytics",
     aiRisk: 12,
     riskLevel: "Risiko Rendah",
-    salaryRange: "Rp 120-200 juta",
+    salaryRange: "Rp 10 - 25 Juta",
     growth: "Sangat Tinggi",
-    timeline: "18-24 bulan",
-    summary: "Pekerjaan paling dicari di abad ke-21 yang menggabungkan keahlian matematika, pemrograman, dan bisnis. Dengan roadmap yang diperbarui, Anda akan menguasai teknologi Big Data, Cloud, dan AI tingkat lanjut untuk menjadi pemimpin di industri data.",
+    timeline: "18-24 minggu",
+    summary: "Jadilah arsitek data di era AI. Data Scientist adalah salah satu profesi paling dicari di abad ke-21, yang menggabungkan keahlian statistika, pemrograman, dan wawasan bisnis untuk mengubah data mentah menjadi keputusan strategis. Dengan roadmap yang telah disempurnakan ini, Anda akan dibimbing dari dasar hingga mahir, menguasai teknologi Big Data, Cloud, dan Machine Learning untuk menjadi talenta yang siap menghadapi masa depan dan memimpin industri.",
     phases: [
       {
-        phase: "FASE 1: MATHEMATICS & STATISTICS FOUNDATIONS",
-        title: "Fondasi Matematika & Statistik",
-        duration: "3-4 bulan",
-        objective: "Membangun fondasi matematis yang kuat untuk ilmu data.",
+        phase: "FASE 1: FONDASI KUANTITATIF & ANALITIS",
+        title: "Fondasi Kuantitatif & Analitis",
+        duration: "4-6 minggu",
+        objective: "Membangun fondasi matematis dan pola pikir analitis yang kokoh, yang merupakan tulang punggung dari setiap keputusan berbasis data.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "Statistika Inferensial",
-            importance: 10,
-            timeToMaster: "3-6 bulan",
+            name: "Statistika Terapan & Probabilitas",
+            importance: 9,
+            timeToMaster: "4-6 minggu",
+            description: "Statistika deskriptif vs inferensial, teori probabilitas & distribusi, uji hipotesis (A/B Testing), regresi & korelasi untuk analisis data dan pemodelan prediktif",
+            concepts: ["Statistika Deskriptif vs Inferensial", "Teori Probabilitas & Distribusi", "Uji Hipotesis (A/B Testing)", "Regresi & Korelasi"],
             coreConcepts: [
               {
-                title: "Hypothesis Testing",
-                description: "Kerangka kerja statistik untuk menguji asumsi (hipotesis) tentang suatu populasi berdasarkan data sampel."
+                title: "Statistika Deskriptif vs Inferensial",
+                description: "Deskriptif merangkum data yang ada (mean, median), sementara Inferensial menggunakan sampel untuk membuat kesimpulan tentang populasi yang lebih besar (uji hipotesis)"
               },
               {
-                title: "A/B Testing",
-                description: "Metode eksperimen untuk membandingkan dua versi (A dan B) untuk menentukan mana yang berkinerja lebih baik."
+                title: "Teori Probabilitas & Distribusi",
+                description: "Memahami kemungkinan terjadinya suatu peristiwa dan bagaimana data tersebar (misalnya, Distribusi Normal), yang menjadi dasar pemodelan prediktif"
               },
               {
-                title: "Confidence Intervals",
-                description: "Rentang nilai yang kemungkinan besar berisi parameter populasi yang sebenarnya, memberikan ukuran ketidakpastian."
+                title: "Uji Hipotesis (A/B Testing)",
+                description: "Kerangka kerja formal untuk menguji apakah suatu hipotesis (misalnya, 'desain baru meningkatkan konversi') benar secara statistik, bukan karena kebetulan semata"
+              },
+              {
+                title: "Regresi & Korelasi",
+                description: "Memahami dan mengukur kekuatan hubungan antara dua variabel atau lebih (korelasi) serta memodelkan hubungan tersebut untuk prediksi (regresi)"
               }
             ],
             masteryGoals: [
-              { id: "ds-si-1", description: "Mampu menjelaskan perbedaan antara hipotesis nol dan hipotesis alternatif." },
-              { id: "ds-si-2", description: "Mampu menghitung dan menginterpretasikan p-value dalam konteks uji hipotesis." },
-              { id: "ds-si-3", description: "Mampu merancang, menjalankan, dan menganalisis hasil A/B test sederhana." },
-              { id: "ds-si-4", description: "Mampu membangun dan menjelaskan arti dari confidence interval 95% untuk mean populasi." }
+              {
+                id: "beginner-stats",
+                description: "Hitung ukuran tendensi sentral (mean, median, modus) dan sebaran (standar deviasi, rentang) menggunakan Python/Excel"
+              },
+              {
+                id: "intermediate-stats",
+                description: "Terapkan uji hipotesis (uji-t) pada dataset nyata untuk membandingkan dua kelompok, misalnya, efektivitas dua kampanye iklan yang berbeda"
+              },
+              {
+                id: "advanced-stats",
+                description: "Rancang dan analisis eksperimen A/B testing dari awal hingga akhir, termasuk penentuan ukuran sampel dan analisis power"
+              }
             ],
             practicalProjects: [
               {
-                title: "Analisis Kampanye Pemasaran",
-                description: "Gunakan A/B testing pada dataset kampanye email untuk menentukan baris subjek mana yang menghasilkan open rate lebih tinggi secara signifikan.",
-                link: "https://www.kaggle.com/datasets/faviovaz/marketing-ab-testing"
+                title: "Analisis Signifikansi Statistik pada A/B Test Website",
+                description: "Diberikan dataset hasil A/B test perubahan warna tombol di situs e-commerce, gunakan uji-t untuk menentukan apakah perubahan desain tersebut memiliki dampak yang signifikan secara statistik terhadap tingkat konversi. Tulis laporan singkat yang menjelaskan hasilnya untuk manajer produk."
+              },
+              {
+                title: "Analisis Korelasi Harga Properti",
+                description: "Gunakan dataset properti untuk menganalisis korelasi antara berbagai fitur (luas bangunan, jumlah kamar tidur, jarak ke pusat kota) dan harga jual. Buat visualisasi scatter plot untuk menunjukkan hubungan yang paling kuat dan jelaskan temuan Anda."
               }
-            ]
-          },
-          {
-            icon: "🛠️",
-            type: "Hard Skill",
-            name: "Teori Probabilitas",
-            importance: 9,
-            timeToMaster: "3-6 bulan",
-            description: "Memahami distribusi probabilitas dan teorema Bayes.",
-            concepts: ["Probability Distributions", "Bayes' Theorem"]
+            ],
+            aiProofLevel: 85
           },
           {
             icon: "🧠",
             type: "Soft Skill",
             name: "Analytical Thinking",
             importance: 10,
-            timeToMaster: "6-12 bulan",
-            description: "Kemampuan memecah masalah kompleks menjadi komponen yang dapat dianalisis.",
-            concepts: ["Problem Decomposition", "Pattern Recognition"]
+            timeToMaster: "Berkelanjutan",
+            description: "Dekomposisi masalah, identifikasi pola, berpikir kritis, inferensi logis untuk memecahkan masalah bisnis dengan data",
+            concepts: ["Dekomposisi Masalah", "Identifikasi Pola", "Berpikir Kritis", "Inferensi Logis"],
+            coreConcepts: [
+              {
+                title: "Dekomposisi Masalah",
+                description: "Kemampuan memecah masalah bisnis yang besar dan ambigu menjadi pertanyaan-pertanyaan yang lebih kecil dan dapat diuji dengan data"
+              },
+              {
+                title: "Identifikasi Pola",
+                description: "Melihat melampaui angka mentah untuk mengenali tren, anomali, atau hubungan tersembunyi di dalam data yang tidak terlihat secara kasat mata"
+              },
+              {
+                title: "Berpikir Kritis",
+                description: "Mengevaluasi validitas data dan asumsi secara kritis, serta mempertanyakan hasil analisis untuk menghindari kesimpulan yang salah atau bias"
+              },
+              {
+                title: "Inferensi Logis",
+                description: "Menarik kesimpulan yang beralasan dan dapat dipertahankan dari bukti data yang ada, serta mengkomunikasikan keterbatasan dari kesimpulan tersebut"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-analytical",
+                description: "Ambil sebuah masalah (misalnya, 'Mengapa penjualan turun bulan lalu?') dan tuliskan 5 pertanyaan spesifik yang dapat dijawab dengan data"
+              },
+              {
+                id: "intermediate-analytical",
+                description: "Diberikan sebuah dataset, identifikasi potensi bias (misalnya, bias seleksi, data yang tidak lengkap) yang dapat memengaruhi analisis"
+              },
+              {
+                id: "advanced-analytical",
+                description: "Evaluasi sebuah studi kasus analisis data dan identifikasi kekuatan serta kelemahan metodologinya"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Analisis Penurunan Keterlibatan Pengguna",
+                description: "Anda adalah seorang analis di sebuah aplikasi media sosial yang melihat penurunan waktu rata-rata pengguna sebesar 15%. Dekomposisi masalah ini menjadi beberapa hipotesis (misalnya, bug teknis, pembaruan UI yang buruk, kampanye kompetitor). Buatlah rencana analisis untuk memvalidasi setiap hipotesis."
+              },
+              {
+                title: "Studi Kasus Kritis dari Berita",
+                description: "Cari sebuah artikel berita yang menggunakan data untuk mendukung klaimnya. Lakukan analisis kritis terhadap visualisasi dan interpretasi data yang disajikan. Tulis sebuah ulasan singkat yang menyoroti apakah kesimpulan yang ditarik valid dan apa saja potensi bias yang mungkin ada."
+              }
+            ],
+            aiProofLevel: 95
           }
         ]
       },
       {
-        phase: "FASE 2: PROGRAMMING & DATA MANIPULATION",
+        phase: "FASE 2: PEMROGRAMAN & MANIPULASI DATA",
         title: "Pemrograman & Manipulasi Data",
-        duration: "2-3 bulan",
-        objective: "Menguasai Python dan SQL untuk analisis data.",
+        duration: "4 minggu",
+        objective: "Menguasai alat fundamental—Python dan SQL—untuk mengambil, membersihkan, dan mengubah data mentah menjadi format yang siap dianalisis.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "Python (Advanced)",
+            name: "Python untuk Analisis Data",
             importance: 10,
-            timeToMaster: "3-6 bulan",
-            description: "Menggunakan Pandas, NumPy, dan Scikit-learn untuk analisis data.",
-            concepts: ["Pandas", "NumPy", "Scikit-learn"]
+            timeToMaster: "4 minggu",
+            description: "Struktur data Pandas, data wrangling/munging, operasi join & merge, otomatisasi dengan fungsi untuk manipulasi dan analisis data",
+            concepts: ["Struktur Data Pandas", "Data Wrangling/Munging", "Operasi Join & Merge", "Otomatisasi dengan Fungsi"],
+            coreConcepts: [
+              {
+                title: "Struktur Data Pandas",
+                description: "Menguasai DataFrame sebagai struktur data utama untuk data tabular, memungkinkan operasi pemfilteran, pengurutan, dan agregasi yang efisien"
+              },
+              {
+                title: "Data Wrangling/Munging",
+                description: "Proses membersihkan dan mengubah data mentah yang tidak terstruktur atau berantakan menjadi format yang bersih dan terorganisir untuk analisis"
+              },
+              {
+                title: "Operasi Join & Merge",
+                description: "Menggabungkan beberapa dataset menjadi satu berdasarkan kolom atau kunci yang sama, sebuah tugas fundamental dalam analisis data dunia nyata"
+              },
+              {
+                title: "Otomatisasi dengan Fungsi",
+                description: "Menulis fungsi kustom untuk melakukan tugas-tugas yang berulang, membuat alur kerja analisis Anda menjadi efisien, dapat direproduksi, dan bebas dari kesalahan"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-python",
+                description: "Lakukan operasi dasar pada DataFrame Pandas: memilih kolom, memfilter baris berdasarkan kondisi, dan menangani nilai yang hilang (dropna, fillna)"
+              },
+              {
+                id: "intermediate-python",
+                description: "Lakukan agregasi data menggunakan groupby() untuk menghitung statistik ringkasan (misalnya, total penjualan per kategori produk)"
+              },
+              {
+                id: "advanced-python",
+                description: "Terapkan fungsi kustom pada kolom DataFrame menggunakan metode .apply() dan lakukan operasi time series dasar"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Analisis dan Pembersihan Data Transaksi E-commerce",
+                description: "Gunakan Pandas untuk membersihkan dataset transaksi yang berisi data duplikat, nilai yang hilang, dan format yang tidak konsisten. Setelah pembersihan, hitung metrik bisnis utama seperti total pendapatan, jumlah pelanggan unik, dan produk terlaris."
+              },
+              {
+                title: "Analisis Data Cuaca Historis",
+                description: "Ambil dataset cuaca historis dan gunakan Pandas untuk menjawab pertanyaan seperti 'Bulan apa yang rata-rata paling panas?' dan 'Berapa jumlah hari hujan dalam setahun?'. Lakukan operasi groupby dan agregasi untuk menemukan jawabannya."
+              }
+            ],
+            aiProofLevel: 70
           },
           {
             icon: "🛠️",
             type: "Hard Skill",
             name: "SQL (Advanced)",
+            importance: 10,
+            timeToMaster: "3 minggu",
+            description: "Advanced JOINs, subqueries & CTEs, window functions, agregasi & grouping untuk query data skala besar",
+            concepts: ["Advanced JOINs", "Subqueries & CTEs", "Window Functions", "Agregasi & Grouping"],
+            coreConcepts: [
+              {
+                title: "Advanced JOINs",
+                description: "Menguasai berbagai jenis JOIN (INNER, LEFT, RIGHT, FULL OUTER) untuk menggabungkan data dari beberapa tabel secara akurat"
+              },
+              {
+                title: "Subqueries & CTEs",
+                description: "Menggunakan subquery atau CTE untuk memecah kueri yang kompleks menjadi langkah-langkah logis yang lebih kecil dan mudah dibaca"
+              },
+              {
+                title: "Window Functions",
+                description: "Melakukan perhitungan pada sekelompok baris yang terkait dengan baris saat ini (misalnya, menghitung rata-rata bergerak atau peringkat)"
+              },
+              {
+                title: "Agregasi & Grouping",
+                description: "Menggunakan fungsi agregat (COUNT, SUM, AVG) dengan klausa GROUP BY dan HAVING untuk merangkum data dan menjawab pertanyaan bisnis"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-sql",
+                description: "Tulis kueri SELECT dengan klausa WHERE, GROUP BY, dan ORDER BY pada satu tabel"
+              },
+              {
+                id: "intermediate-sql",
+                description: "Tulis kueri yang menggunakan subquery di dalam klausa WHERE atau FROM dan gunakan CTE (WITH clause)"
+              },
+              {
+                id: "advanced-sql",
+                description: "Terapkan window functions seperti ROW_NUMBER(), RANK(), LEAD(), dan LAG() untuk analisis peringkat dan perbandingan"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Analisis Perilaku Pengguna di Platform Musik",
+                description: "Dengan menggunakan database skema bintang (tabel fakta dan dimensi), tulis kueri SQL untuk menemukan 10 artis yang paling sering didengarkan dan identifikasi pengguna yang paling aktif berdasarkan jumlah lagu yang diputar dalam sebulan terakhir."
+              },
+              {
+                title: "Menghitung Pertumbuhan Pendapatan Bulanan",
+                description: "Gunakan dataset transaksi untuk menulis kueri SQL dengan CTE dan window functions untuk menghitung pertumbuhan pendapatan dari bulan ke bulan (Month-over-Month growth). Visualisasikan hasilnya untuk menunjukkan tren pertumbuhan bisnis."
+              }
+            ],
+            aiProofLevel: 75
+          },
+          {
+            icon: "🧠",
+            type: "Soft Skill",
+            name: "Attention to Detail",
             importance: 9,
             timeToMaster: "2-4 bulan",
-            description: "Menguasai query kompleks dan window functions.",
-            concepts: ["Complex Queries", "Window Functions"]
+            description: "Ketelitian dalam data analysis dan model validation untuk memastikan accuracy",
+            concepts: ["Data Validation", "Error Detection", "Quality Assurance", "Precision Focus"],
+            aiProofLevel: 90
           }
         ]
       },
       {
-        phase: "FASE 3: EXPLORATORY DATA ANALYSIS & VISUALIZATION",
-        title: "Analisis Data Eksploratif & Visualisasi",
-        duration: "2-3 bulan",
-        objective: "Menguasai teknik analisis data dan storytelling dengan visualisasi.",
+        phase: "FASE 3: ANALISIS EKSPLORATIF & KOMUNIKASI WAWASAN",
+        title: "Analisis Eksploratif & Komunikasi Wawasan",
+        duration: "3 minggu",
+        objective: "Mengubah data yang telah dibersihkan menjadi wawasan yang dapat dipahami dan mengkomunikasikannya secara efektif melalui visualisasi dan narasi.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "Data Visualization",
-            importance: 8,
-            timeToMaster: "2-4 bulan",
-            description: "Menggunakan Matplotlib, Seaborn, dan Tableau untuk visualisasi data.",
-            concepts: ["Matplotlib", "Seaborn", "Tableau"]
+            name: "Visualisasi & Penceritaan Data (Storytelling)",
+            importance: 9,
+            timeToMaster: "3 minggu",
+            description: "Memilih visualisasi yang tepat, prinsip desain visual, struktur narasi data, dashboard interaktif untuk komunikasi wawasan bisnis",
+            concepts: ["Memilih Visualisasi yang Tepat", "Prinsip Desain Visual", "Struktur Narasi Data", "Dashboard Interaktif"],
+            coreConcepts: [
+              {
+                title: "Memilih Visualisasi yang Tepat",
+                description: "Mengetahui kapan harus menggunakan grafik batang (perbandingan), grafik garis (tren waktu), diagram sebar (hubungan), atau peta panas (kepadatan)"
+              },
+              {
+                title: "Prinsip Desain Visual",
+                description: "Menerapkan prinsip-prinsip seperti memaksimalkan data-ink ratio dan mengurangi chart junk untuk menciptakan visualisasi yang bersih dan efektif"
+              },
+              {
+                title: "Struktur Narasi Data",
+                description: "Membangun cerita yang memiliki awal (konteks masalah), tengah (analisis dan temuan), dan akhir (kesimpulan dan rekomendasi)"
+              },
+              {
+                title: "Dashboard Interaktif",
+                description: "Menggunakan alat seperti Tableau atau Power BI untuk membuat dasbor yang memungkinkan pemangku kepentingan menjelajahi data sendiri"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-viz",
+                description: "Buat grafik statis yang jelas dan berlabel baik (diagram batang, garis, sebar) menggunakan Matplotlib & Seaborn di Python"
+              },
+              {
+                id: "intermediate-viz",
+                description: "Bangun sebuah dashboard interaktif sederhana di Tableau Public atau Power BI yang terdiri dari 2-3 visualisasi yang saling terhubung"
+              },
+              {
+                id: "advanced-viz",
+                description: "Rancang sebuah 'data story' yang lengkap, dari identifikasi masalah bisnis hingga presentasi akhir yang meyakinkan"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Dashboard Penjualan E-commerce Global",
+                description: "Gunakan dataset penjualan global untuk membuat dashboard interaktif di Tableau Public. Dashboard harus menampilkan total penjualan berdasarkan negara (peta), tren penjualan dari waktu ke waktu (grafik garis), dan performa kategori produk (grafik batang)."
+              },
+              {
+                title: "Presentasi 'Storytelling' tentang Faktor Kesuksesan Film",
+                description: "Analisis dataset film (misalnya, dari IMDb) dan buat presentasi naratif 5 slide yang menjawab pertanyaan: 'Apa faktor yang paling berkorelasi dengan rating film yang tinggi?'. Gunakan visualisasi untuk mendukung argumen Anda."
+              }
+            ],
+            aiProofLevel: 80
           },
           {
             icon: "🧠",
             type: "Soft Skill",
             name: "Data Storytelling",
             importance: 10,
-            timeToMaster: "4-8 bulan",
-            description: "Menyampaikan wawasan data dalam narasi yang menarik.",
-            concepts: ["Narrative Structure", "Visual Communication"]
+            timeToMaster: "Berkelanjutan",
+            description: "Struktur narasi data, komunikasi untuk audiens non-teknis, mengelola ekspektasi, empati terhadap pemangku kepentingan, mempengaruhi keputusan dengan data",
+            concepts: ["Struktur Narasi Data", "Komunikasi untuk Audiens Non-Teknis", "Mengelola Ekspektasi", "Mempengaruhi Keputusan dengan Data"],
+            aiProofLevel: 95
           }
         ]
       },
       {
-        phase: "FASE 4: MACHINE LEARNING & MODEL BUILDING",
-        title: "Machine Learning & Pembuatan Model",
-        duration: "3-4 bulan",
-        objective: "Menguasai algoritma supervised dan unsupervised learning.",
+        phase: "FASE 4: DASAR-DASAR MACHINE LEARNING",
+        title: "Dasar-Dasar Machine Learning",
+        duration: "4 minggu",
+        objective: "Masuk ke inti ilmu data dengan membangun dan mengevaluasi model prediktif untuk memecahkan masalah klasifikasi dan regresi.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
             name: "Supervised Learning",
             importance: 10,
-            timeToMaster: "4-8 bulan",
-            description: "Menguasai algoritma regresi, klasifikasi, dan ensemble.",
-            concepts: ["Regression", "Classification", "Ensemble Methods"]
+            timeToMaster: "4 minggu",
+            description: "Klasifikasi vs regresi, proses training-validation-test, metrik evaluasi, overfitting & underfitting untuk model prediktif",
+            concepts: ["Klasifikasi vs Regresi", "Proses Training-Validation-Test", "Metrik Evaluasi", "Overfitting & Underfitting"],
+            coreConcepts: [
+              {
+                title: "Klasifikasi vs Regresi",
+                description: "Klasifikasi memprediksi label kategori (misalnya, 'kucing' atau 'anjing'), sementara regresi memprediksi nilai numerik kontinu (misalnya, harga rumah)"
+              },
+              {
+                title: "Proses Training-Validation-Test",
+                description: "Membagi data menjadi tiga set: untuk melatih model (training), untuk menyetel parameter model (validation), dan untuk menguji performa akhir (test)"
+              },
+              {
+                title: "Metrik Evaluasi",
+                description: "Memilih metrik yang tepat untuk mengevaluasi model, seperti Akurasi dan F1-Score untuk klasifikasi, atau Mean Absolute Error (MAE) untuk regresi"
+              },
+              {
+                title: "Overfitting & Underfitting",
+                description: "Memahami masalah umum di mana model terlalu menghafal data training (overfitting) atau terlalu sederhana untuk menangkap pola (underfitting)"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-ml",
+                description: "Latih model regresi linear dan regresi logistik sederhana menggunakan scikit-learn"
+              },
+              {
+                id: "intermediate-ml",
+                description: "Terapkan algoritma yang lebih canggih seperti Decision Trees, Random Forests, dan Support Vector Machines (SVM)"
+              },
+              {
+                id: "advanced-ml",
+                description: "Lakukan penyetelan hyperparameter (misalnya, menggunakan GridSearchCV) untuk menemukan konfigurasi model yang optimal"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Prediksi Kelangsungan Hidup Penumpang Titanic",
+                description: "Gunakan dataset Titanic yang terkenal untuk membangun model klasifikasi biner yang memprediksi apakah seorang penumpang akan selamat atau tidak berdasarkan fitur seperti usia, jenis kelamin, dan kelas tiket. Bandingkan performa setidaknya dua algoritma yang berbeda."
+              },
+              {
+                title: "Model Prediksi Harga Rumah",
+                description: "Bangun sebuah model regresi menggunakan dataset properti untuk memprediksi harga jual rumah. Lakukan feature engineering sederhana (misalnya, membuat fitur baru dari yang sudah ada) dan evaluasi model Anda menggunakan metrik R-squared."
+              }
+            ],
+            aiProofLevel: 60
           },
           {
             icon: "🛠️",
             type: "Hard Skill",
             name: "Unsupervised Learning",
-            importance: 8,
-            timeToMaster: "3-6 bulan",
-            description: "Menguasai clustering dan dimensionality reduction.",
-            concepts: ["Clustering", "Dimensionality Reduction"]
+            importance: 7,
+            timeToMaster: "2 minggu",
+            description: "Clustering (pengelompokan), algoritma K-Means, dimensionality reduction (PCA), association rule mining untuk pola data tersembunyi",
+            concepts: ["Clustering (Pengelompokan)", "Algoritma K-Means", "Dimensionality Reduction (PCA)", "Association Rule Mining"],
+            coreConcepts: [
+              {
+                title: "Clustering (Pengelompokan)",
+                description: "Teknik untuk mengelompokkan titik data yang serupa ke dalam cluster-cluster berdasarkan karakteristiknya, tanpa menggunakan label yang sudah ada"
+              },
+              {
+                title: "Algoritma K-Means",
+                description: "Salah satu algoritma clustering yang paling populer, yang bertujuan untuk mempartisi data ke dalam 'K' jumlah cluster yang telah ditentukan"
+              },
+              {
+                title: "Dimensionality Reduction (PCA)",
+                description: "Teknik seperti Principal Component Analysis (PCA) yang digunakan untuk mengurangi jumlah variabel dalam dataset sambil mempertahankan informasi"
+              },
+              {
+                title: "Association Rule Mining",
+                description: "Menemukan aturan asosiasi yang menarik antar item dalam dataset besar, seperti 'pelanggan yang membeli roti juga cenderung membeli susu'"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-unsupervised",
+                description: "Pahami konsep dasar clustering dan kapan harus menggunakannya, serta terapkan algoritma K-Means pada dataset 2D sederhana"
+              },
+              {
+                id: "intermediate-unsupervised",
+                description: "Gunakan 'metode siku' (elbow method) untuk menentukan jumlah cluster (K) yang optimal untuk K-Means"
+              },
+              {
+                id: "advanced-unsupervised",
+                description: "Terapkan algoritma clustering yang lebih canggih seperti DBSCAN dan interpretasikan hasil clustering dalam konteks bisnis"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Segmentasi Pelanggan Mall",
+                description: "Gunakan dataset pelanggan mall yang berisi usia, pendapatan tahunan, dan skor pengeluaran untuk menerapkan K-Means clustering. Identifikasi dan visualisasikan segmen pelanggan yang berbeda (misalnya, 'hemat tapi sering', 'boros tapi jarang')."
+              },
+              {
+                title: "Pengurangan Dimensi untuk Visualisasi Gambar Tulisan Tangan",
+                description: "Ambil dataset gambar tulisan tangan MNIST, yang memiliki 784 dimensi (piksel). Terapkan PCA untuk mengurangi dimensinya menjadi hanya 2 komponen utama. Buat scatter plot dari 2 komponen ini dengan warna berdasarkan label angka aslinya."
+              }
+            ],
+            aiProofLevel: 65
+          },
+          {
+            icon: "🧠",
+            type: "Soft Skill",
+            name: "Critical Thinking",
+            importance: 9,
+            timeToMaster: "6-12 bulan",
+            description: "Evaluasi objektif terhadap informasi dan asumsi dalam data analysis",
+            concepts: ["Evaluasi Validitas Data", "Pertanyaan Asumsi", "Analisis Kritis", "Pengecekan Bias"],
+            aiProofLevel: 95
           }
         ]
       },
       {
-        phase: "FASE 5: BIG DATA & CLOUD TECHNOLOGIES",
+        phase: "FASE 5: BIG DATA & TEKNOLOGI CLOUD",
         title: "Big Data & Teknologi Cloud",
-        duration: "3-4 bulan",
-        objective: "Mengolah data dalam skala besar dengan teknologi cloud.",
+        duration: "3 minggu",
+        objective: "Meningkatkan skala kemampuan Anda dengan belajar mengolah data yang terlalu besar untuk satu mesin menggunakan alat Big Data dan platform cloud.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
             name: "Big Data Processing",
-            importance: 8,
-            timeToMaster: "4-6 bulan",
-            description: "Menggunakan Apache Spark untuk pemrosesan data terdistribusi.",
-            concepts: ["Apache Spark", "Distributed Computing"]
+            importance: 7,
+            timeToMaster: "3 minggu",
+            description: "Tiga V (Volume, Velocity, Variety), pemrosesan terdistribusi, ekosistem Hadoop & Spark, querying data di skala besar",
+            concepts: ["Tiga V (Volume, Velocity, Variety)", "Pemrosesan Terdistribusi", "Ekosistem Hadoop & Spark", "Querying Data di Skala Besar"],
+            coreConcepts: [
+              {
+                title: "Tiga V (Volume, Velocity, Variety)",
+                description: "Karakteristik utama Big Data: Volume (jumlah data yang sangat besar), Velocity (kecepatan data dihasilkan), dan Variety (berbagai jenis data)"
+              },
+              {
+                title: "Pemrosesan Terdistribusi",
+                description: "Konsep memecah tugas komputasi besar menjadi bagian-bagian kecil dan mendistribusikannya ke banyak komputer (cluster) untuk diproses secara paralel"
+              },
+              {
+                title: "Ekosistem Hadoop & Spark",
+                description: "Hadoop adalah kerangka kerja asli untuk penyimpanan terdistribusi (HDFS) dan pemrosesan (MapReduce). Spark adalah evolusi yang lebih cepat dan fleksibel"
+              },
+              {
+                title: "Querying Data di Skala Besar",
+                description: "Menggunakan alat seperti Hive atau Spark SQL untuk menulis kueri mirip SQL yang dapat dieksekusi pada dataset berukuran terabyte atau petabyte"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-bigdata",
+                description: "Pahami perbedaan arsitektur antara komputasi mesin tunggal dan komputasi terdistribusi"
+              },
+              {
+                id: "intermediate-bigdata",
+                description: "Gunakan PySpark (antarmuka Python untuk Spark) untuk melakukan operasi manipulasi data pada file besar secara lokal"
+              },
+              {
+                id: "advanced-bigdata",
+                description: "Rancang sebuah pipeline data batch sederhana di Spark yang membaca data mentah, melakukan transformasi, dan menulis hasilnya"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Analisis Log Web Server dengan PySpark",
+                description: "Diberikan file log web server berukuran besar, gunakan PySpark untuk memproses data ini dan mengekstrak wawasan. Jawab pertanyaan seperti 'Alamat IP mana yang paling sering mengunjungi situs?' dan 'Halaman mana yang paling populer?'."
+              },
+              {
+                title: "Querying Dataset Penerbangan Skala Besar",
+                description: "Gunakan dataset publik tentang data penerbangan (jutaan baris) yang disimpan dalam format Parquet. Gunakan Spark SQL di lingkungan seperti Databricks Community Edition untuk menemukan bandara tersibuk dan maskapai dengan penundaan rata-rata terlama."
+              }
+            ],
+            aiProofLevel: 50
           },
           {
             icon: "🛠️",
             type: "Hard Skill",
             name: "Cloud Computing",
             importance: 8,
-            timeToMaster: "3-5 bulan",
-            description: "Menggunakan AWS atau GCP untuk pipeline data.",
-            concepts: ["AWS", "GCP", "Data Pipelines"]
+            timeToMaster: "2 minggu",
+            description: "IaaS, PaaS, SaaS, penyimpanan cloud (Object Storage), komputasi sesuai permintaan, managed AI/ML services",
+            concepts: ["IaaS, PaaS, SaaS", "Penyimpanan Cloud (Object Storage)", "Komputasi Sesuai Permintaan", "Managed AI/ML Services"],
+            coreConcepts: [
+              {
+                title: "IaaS, PaaS, SaaS",
+                description: "Tiga model layanan cloud utama. IaaS (Infrastructure as a Service) menyediakan komputasi dasar (misalnya, AWS EC2). PaaS (Platform as a Service) menyediakan platform untuk membangun aplikasi (misalnya, Heroku). SaaS (Software as a Service) menyediakan aplikasi siap pakai (misalnya, Gmail)"
+              },
+              {
+                title: "Penyimpanan Cloud (Object Storage)",
+                description: "Memahami layanan seperti Amazon S3 atau Google Cloud Storage sebagai cara yang skalabel dan hemat biaya untuk menyimpan data dalam jumlah besar"
+              },
+              {
+                title: "Komputasi Sesuai Permintaan",
+                description: "Kemampuan untuk menyewa dan menjalankan mesin virtual (server) dengan berbagai ukuran dan kekuatan dalam hitungan menit, dan hanya membayar untuk apa yang digunakan"
+              },
+              {
+                title: "Managed AI/ML Services",
+                description: "Memanfaatkan layanan AI/ML yang dikelola oleh penyedia cloud (misalnya, Google AI Platform, Amazon SageMaker) untuk melatih dan men-deploy model machine learning"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-cloud",
+                description: "Buat akun gratis di salah satu penyedia cloud utama (AWS, GCP, atau Azure) dan unggah file menggunakan layanan object storage"
+              },
+              {
+                id: "intermediate-cloud",
+                description: "Luncurkan dan konfigurasikan sebuah mesin virtual Linux sederhana (misalnya, t2.micro di AWS EC2)"
+              },
+              {
+                id: "advanced-cloud",
+                description: "Gunakan platform notebook yang dikelola cloud seperti Google Colab atau Amazon SageMaker Studio Lab untuk melatih model machine learning"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Hosting Dataset di Cloud Storage",
+                description: "Ambil dataset berukuran sedang (misalnya, 1-2 GB) dan unggah ke bucket Amazon S3 atau Google Cloud Storage. Konfigurasikan izin aksesnya agar dapat diakses secara publik (hanya baca) dan bagikan tautan untuk mengunduhnya."
+              },
+              {
+                title: "Melatih Model di Google Colab dengan GPU",
+                description: "Gunakan Google Colab untuk melatih sebuah model klasifikasi gambar sederhana pada dataset seperti CIFAR-10. Manfaatkan fitur akselerator GPU gratis yang disediakan Colab untuk mempercepat proses pelatihan secara signifikan."
+              }
+            ],
+            aiProofLevel: 55
           }
         ]
       },
       {
-        phase: "FASE 6: ADVANCED MACHINE LEARNING & AI",
+        phase: "FASE 6: MACHINE LEARNING LANJUTAN & AI",
         title: "Machine Learning Lanjutan & AI",
-        duration: "4-5 bulan",
-        objective: "Menguasai teknik machine learning lanjutan dan deep learning.",
+        duration: "4 minggu",
+        objective: "Menyelami teknik-teknik canggih yang menjadi ujung tombak inovasi AI saat ini, dari Deep Learning hingga praktik operasionalisasi model.",
         skills: [
           {
             icon: "🛠️",
             type: "Hard Skill",
             name: "Deep Learning",
-            importance: 9,
-            timeToMaster: "6-12 bulan",
-            description: "Menggunakan TensorFlow atau PyTorch untuk neural networks.",
-            concepts: ["TensorFlow", "PyTorch", "Neural Networks"]
+            importance: 8,
+            timeToMaster: "4 minggu",
+            description: "Artificial Neural Networks (ANN), Convolutional Neural Networks (CNN), Recurrent Neural Networks (RNN) & Transformers, transfer learning",
+            concepts: ["Artificial Neural Networks (ANN)", "Convolutional Neural Networks (CNN)", "Recurrent Neural Networks (RNN) & Transformers", "Transfer Learning"],
+            coreConcepts: [
+              {
+                title: "Artificial Neural Networks (ANN)",
+                description: "Model yang terinspirasi dari otak manusia, terdiri dari lapisan-lapisan neuron yang saling terhubung untuk mempelajari pola yang kompleks dari data"
+              },
+              {
+                title: "Convolutional Neural Networks (CNN)",
+                description: "Arsitektur khusus untuk data gambar, yang menggunakan filter convolutional untuk secara otomatis mendeteksi fitur seperti tepi, bentuk, dan objek"
+              },
+              {
+                title: "Recurrent Neural Networks (RNN) & Transformers",
+                description: "Arsitektur untuk data sekuensial seperti teks atau time series. RNN memproses data secara berurutan, sementara arsitektur Transformer menggunakan mekanisme self-attention"
+              },
+              {
+                title: "Transfer Learning",
+                description: "Teknik yang sangat kuat di mana sebuah model yang telah dilatih pada dataset raksasa diadaptasi (fine-tuned) untuk tugas spesifik dengan data yang jauh lebih sedikit"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-deeplearning",
+                description: "Bangun dan latih sebuah Jaringan Saraf Tiruan sederhana untuk data tabular menggunakan Keras"
+              },
+              {
+                id: "intermediate-deeplearning",
+                description: "Terapkan model CNN yang telah dilatih sebelumnya (pre-trained model) seperti VGG16 atau ResNet menggunakan transfer learning"
+              },
+              {
+                id: "advanced-deeplearning",
+                description: "Bangun model CNN dari awal untuk masalah klasifikasi gambar yang lebih kompleks dan terapkan arsitektur Transformer untuk tugas NLP"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Klasifikasi Gambar Anjing vs. Kucing",
+                description: "Gunakan teknik transfer learning dengan model CNN yang sudah ada (misalnya, MobileNetV2) untuk membangun pengklasifikasi gambar yang sangat akurat untuk membedakan antara gambar anjing dan kucing. Latih model pada dataset kustom yang Anda kumpulkan atau unduh."
+              },
+              {
+                title: "Analisis Sentimen Ulasan Produk dengan Transformer",
+                description: "Manfaatkan model Transformer yang telah dilatih sebelumnya dari Hugging Face (seperti BERT) untuk melakukan analisis sentimen pada dataset ulasan produk Amazon. Bandingkan hasilnya dengan model machine learning klasik dan tunjukkan peningkatan akurasi yang signifikan."
+              }
+            ],
+            aiProofLevel: 40
           },
           {
             icon: "🛠️",
             type: "Hard Skill",
-            name: "MLOps",
-            importance: 8,
-            timeToMaster: "4-6 bulan",
-            description: "Mengelola siklus hidup model machine learning.",
-            concepts: ["Model Deployment", "CI/CD for ML"]
+            name: "MLOps (Machine Learning Operations)",
+            importance: 7,
+            timeToMaster: "3 minggu",
+            description: "Siklus hidup ML, deployment model, version control untuk data & model, pemantauan & retraining untuk operationalisasi model",
+            concepts: ["Siklus Hidup ML", "Deployment Model", "Version Control untuk Data & Model", "Pemantauan & Retraining"],
+            coreConcepts: [
+              {
+                title: "Siklus Hidup ML",
+                description: "Memahami bahwa proyek ML bukan hanya tentang melatih model, tetapi seluruh siklus hidup dari pengumpulan data, pelatihan, evaluasi, deployment, hingga pemantauan"
+              },
+              {
+                title: "Deployment Model",
+                description: "Proses mengambil model ML yang telah dilatih dan membuatnya tersedia untuk digunakan oleh aplikasi lain, biasanya melalui REST API"
+              },
+              {
+                title: "Version Control untuk Data & Model",
+                description: "Menggunakan alat seperti DVC (Data Version Control) dan Git untuk melacak perubahan pada data dan model, sama seperti melacak perubahan pada kode"
+              },
+              {
+                title: "Pemantauan & Retraining",
+                description: "Memantau performa model di produksi untuk mendeteksi model drift (penurunan performa seiring waktu) dan memiliki strategi untuk melatih ulang model"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-mlops",
+                description: "Simpan dan muat kembali model scikit-learn yang telah dilatih menggunakan pickle atau joblib"
+              },
+              {
+                id: "intermediate-mlops",
+                description: "Bangun sebuah API web sederhana menggunakan Flask atau FastAPI untuk men-deploy model scikit-learn Anda secara lokal"
+              },
+              {
+                id: "advanced-mlops",
+                description: "Gunakan alat experiment tracking seperti MLflow atau Weights & Biases untuk mencatat parameter, metrik, dan artefak dari berbagai proses pelatihan"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Deploy Model Prediksi Harga Rumah sebagai API",
+                description: "Ambil model regresi harga rumah yang telah Anda buat sebelumnya. Bungkus model tersebut dalam sebuah API web menggunakan Flask atau FastAPI. Buat endpoint /predict yang menerima fitur rumah dalam format JSON dan mengembalikan prediksi harga."
+              },
+              {
+                title: "Menggunakan MLflow untuk Melacak Eksperimen",
+                description: "Latih beberapa versi model klasifikasi (misalnya, dengan hyperparameter yang berbeda). Gunakan MLflow untuk secara otomatis mencatat parameter, metrik performa (akurasi, F1-score), dan model yang telah dilatih untuk setiap eksperimen. Bandingkan hasilnya menggunakan UI MLflow."
+              }
+            ],
+            aiProofLevel: 45
           }
         ]
       },
       {
-        phase: "FASE 7: BUSINESS APPLICATION & COMMUNICATION",
+        phase: "FASE 7: APLIKASI BISNIS & KOMUNIKASI",
         title: "Aplikasi Bisnis & Komunikasi",
-        duration: "3-4 bulan",
-        objective: "Mengaplikasikan ilmu data untuk menyelesaikan masalah bisnis nyata.",
+        duration: "3 minggu",
+        objective: "Menjembatani kesenjangan antara analisis teknis dan dampak bisnis nyata dengan mengasah ketajaman bisnis dan kemampuan mempengaruhi pemangku kepentingan.",
         skills: [
           {
-            icon: "🧠",
-            type: "Soft Skill",
+            icon: "🛠️",
+            type: "Hard Skill",
             name: "Business Acumen",
             importance: 9,
-            timeToMaster: "6-12 bulan",
-            description: "Memahami konteks bisnis dan dampak dari keputusan berbasis data.",
-            concepts: ["Business Context", "ROI Analysis"]
+            timeToMaster: "Berkelanjutan",
+            description: "Menerjemahkan masalah bisnis ke masalah data, fokus pada ROI, pemahaman metrik bisnis kunci, pengetahuan domain industri",
+            concepts: ["Menerjemahkan Masalah Bisnis ke Masalah Data", "Fokus pada ROI", "Pemahaman Metrik Bisnis Kunci", "Pengetahuan Domain"],
+            coreConcepts: [
+              {
+                title: "Menerjemahkan Masalah Bisnis ke Masalah Data",
+                description: "Kemampuan untuk mengambil tujuan bisnis yang luas (misalnya, 'tingkatkan retensi pelanggan') dan menerjemahkannya menjadi masalah machine learning yang terdefinisi dengan baik"
+              },
+              {
+                title: "Fokus pada ROI",
+                description: "Memahami bahwa keberhasilan proyek data tidak diukur oleh akurasi model, tetapi oleh dampak bisnis yang dihasilkannya (peningkatan pendapatan, pengurangan biaya)"
+              },
+              {
+                title: "Pemahaman Metrik Bisnis Kunci",
+                description: "Mengetahui dan memahami metrik yang penting bagi bisnis, seperti Customer Lifetime Value (CLV), Customer Acquisition Cost (CAC), dan Churn Rate"
+              },
+              {
+                title: "Pengetahuan Domain",
+                description: "Memiliki pemahaman dasar tentang industri tempat Anda bekerja (misalnya, e-commerce, keuangan, kesehatan) untuk memberikan konteks pada analisis Anda"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-business",
+                description: "Pilih sebuah perusahaan publik dan baca laporan tahunannya. Identifikasi metrik utama yang mereka gunakan untuk mengukur kesuksesan"
+              },
+              {
+                id: "intermediate-business",
+                description: "Buat sebuah 'pohon metrik' (metric tree) untuk sebuah tujuan bisnis, memecahnya menjadi metrik-metrik pendorong yang dapat diukur"
+              },
+              {
+                id: "advanced-business",
+                description: "Kembangkan sebuah proposal proyek data lengkap yang mencakup definisi masalah, metrik keberhasilan, data yang dibutuhkan, dan estimasi dampak bisnis"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Proposal Proyek untuk Mengurangi Churn Pelanggan",
+                description: "Bayangkan Anda adalah Data Scientist di sebuah perusahaan telekomunikasi. Tulis proposal 1 halaman yang menguraikan proyek untuk membangun model prediksi churn. Jelaskan masalah bisnisnya, bagaimana model ML dapat membantu, data apa yang dibutuhkan, dan bagaimana Anda akan mengukur keberhasilan proyek."
+              },
+              {
+                title: "Analisis Bisnis dari Studi Kasus Publik",
+                description: "Pilih studi kasus bisnis yang terkenal (misalnya, kebangkitan Netflix, kejatuhan Blockbuster). Identifikasi metrik-metrik kunci yang relevan dan jelaskan bagaimana keputusan berbasis data (atau ketiadaannya) memainkan peran penting dalam hasil akhir perusahaan tersebut."
+              }
+            ],
+            aiProofLevel: 85
           },
           {
             icon: "🧠",
             type: "Soft Skill",
             name: "Stakeholder Management",
-            importance: 8,
-            timeToMaster: "6-12 bulan",
-            description: "Mengelola ekspektasi dan persyaratan dari berbagai pemangku kepentingan.",
-            concepts: ["Expectation Management", "Cross-functional Communication"]
+            importance: 10,
+            timeToMaster: "Berkelanjutan",
+            description: "Komunikasi untuk audiens non-teknis, mengelola ekspektasi, empati terhadap pemangku kepentingan, mempengaruhi keputusan dengan data",
+            concepts: ["Komunikasi untuk Audiens Non-Teknis", "Mengelola Ekspektasi", "Empati terhadap Pemangku Kepentingan", "Mempengaruhi Keputusan dengan Data"],
+            coreConcepts: [
+              {
+                title: "Komunikasi untuk Audiens Non-Teknis",
+                description: "Kemampuan untuk menjelaskan temuan teknis yang kompleks dalam bahasa yang sederhana dan berorientasi pada bisnis, fokus pada 'apa artinya ini bagi kita'"
+              },
+              {
+                title: "Mengelola Ekspektasi",
+                description: "Secara proaktif berkomunikasi tentang kemajuan, tantangan, dan keterbatasan proyek data untuk membangun kepercayaan dan menghindari kesalahpahaman"
+              },
+              {
+                title: "Empati terhadap Pemangku Kepentingan",
+                description: "Memahami tujuan, kebutuhan, dan kekhawatiran dari berbagai pemangku kepentingan (misalnya, tim pemasaran, produk, eksekutif) dan menyesuaikan komunikasi"
+              },
+              {
+                title: "Mempengaruhi Keputusan dengan Data",
+                description: "Menggunakan data dan visualisasi tidak hanya untuk melaporkan, tetapi untuk membangun argumen yang meyakinkan dan mendorong pengambilan keputusan"
+              }
+            ],
+            masteryGoals: [
+              {
+                id: "beginner-stakeholder",
+                description: "Ambil sebuah analisis teknis dan tulis ringkasan email satu paragraf yang ditujukan untuk manajer non-teknis, fokus pada wawasan utama dan implikasinya"
+              },
+              {
+                id: "intermediate-stakeholder",
+                description: "Buat sebuah presentasi singkat (3-5 slide) dari hasil proyek data, yang dirancang khusus untuk audiens eksekutif yang sibuk"
+              },
+              {
+                id: "advanced-stakeholder",
+                description: "Pimpin sebuah pertemuan mock-up di mana Anda mempresentasikan temuan proyek dan memfasilitasi diskusi untuk mencapai konsensus"
+              }
+            ],
+            practicalProjects: [
+              {
+                title: "Presentasi Hasil A/B Test untuk Tim Pemasaran",
+                description: "Berdasarkan hasil proyek A/B test Anda sebelumnya, buat sebuah dek presentasi 5 slide yang ditujukan untuk Kepala Pemasaran. Hindari jargon statistik; sebaliknya, fokus pada cerita: 'Apa yang kita uji, apa yang kita pelajari, dan apa rekomendasi kita selanjutnya?'."
+              },
+              {
+                title: "Simulasi Negosiasi Proyek",
+                description: "Tulis sebuah skrip dialog singkat atau rekam video bermain peran di mana seorang Data Scientist bernegosiasi dengan seorang Manajer Produk mengenai ruang lingkup proyek. Tunjukkan bagaimana Data Scientist mengelola ekspektasi Manajer Produk mengenai apa yang mungkin dan tidak mungkin dilakukan."
+              }
+            ],
+            aiProofLevel: 95
           }
         ]
       }
     ],
     keyInsights: [
-      "Disebut 'Pekerjaan Paling Dicari Abad ke-21' oleh Harvard Business Review.",
-      "Pertumbuhan pekerjaan 22% dari 2020-2030 (5x lebih cepat dari rata-rata).",
-      "Menggabungkan keahlian matematika, pemrograman, dan bisnis.",
-      "AI akan menjadi alat yang memperkuat, bukan menggantikan."
+      "Data Scientist adalah salah satu profesi paling dicari di abad ke-21, yang menggabungkan keahlian statistika, pemrograman, dan wawasan bisnis untuk mengubah data mentah menjadi keputusan strategis.",
+      "Dengan roadmap yang telah disempurnakan ini, Anda akan dibimbing dari dasar hingga mahir, menguasai teknologi Big Data, Cloud, dan Machine Learning untuk menjadi talenta yang siap menghadapi masa depan.",
+      "Peran Data Scientist tidak tergantikan oleh AI, melainkan diaugmentasi. AI menjadi alat bantu (co-pilot) yang kuat, sehingga fokus pekerjaan bergeser ke pemecahan masalah yang kompleks, pemikiran kritis, dan komunikasi strategis.",
+      "Gaji berkisar antara Rp 10 - 25 Juta per bulan dengan prospek karir yang sangat tinggi dan risiko otomatisasi AI yang rendah."
     ],
     marketDrivers: [
-      "Pengambilan keputusan berbasis data menjadi standar.",
-      "Ledakan Big Data di semua industri.",
-      "Kebutuhan akan etika AI dan AI yang dapat dijelaskan."
+      "Pengambilan keputusan berbasis data menjadi standar di semua industri",
+      "Ledakan Big Data di era digital transformation",
+      "Kebutuhan akan etika AI dan AI yang dapat dijelaskan (explainable AI)",
+      "Integrasi AI sebagai co-pilot untuk meningkatkan produktivitas Data Scientist"
     ]
   },
 

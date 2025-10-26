@@ -8,9 +8,20 @@ export interface CoreConcept {
   description: string;
 }
 
-export interface MasteryGoal {
+export interface MasteryLevel {
+  pemula: string[];
+  menengah: string[];
+  mahir: string[];
+}
+
+export interface ProjectPortfolio {
   id: string;
+  title: string;
   description: string;
+  difficulty: string;
+  duration: string;
+  technologies: string[];
+  deliverables: string[];
 }
 
 export interface PracticalProject {
@@ -19,13 +30,19 @@ export interface PracticalProject {
   link?: string;
 }
 
+export interface DetailedSkillBreakdown {
+  konsepInti: string[];
+  jalurPenguasaan: MasteryLevel;
+  proyekPortofolio: ProjectPortfolio[];
+}
+
 export interface Skill {
   id: string;
   type: 'hard' | 'soft';
   title: string;
-  coreConcepts: CoreConcept[];
-  masteryGoals: MasteryGoal[];
-  practicalProjects: PracticalProject[];
+  coreConcepts?: CoreConcept[];
+  masteryGoals?: string[];
+  practicalProjects?: PracticalProject[];
   description?: string;
   status?: 'required' | 'recommended' | 'optional';
   prerequisites?: string[];
