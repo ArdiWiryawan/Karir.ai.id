@@ -19,6 +19,14 @@ import { allJobs, jobsByCategory, futureJobs, disappearingJobs, jobSeparation } 
 import { assessmentQuestions, categoryWeights } from "@/data/assessmentQuestions";
 import { Job, AssessmentResult, JobMatch, JobCategory } from "@/data/skillForecastingTypes";
 import completeJobs from "@/data/completeJobsData";
+import { HeroSection } from "@/components/skill-forecasting/HeroSection";
+import { ForecastLoadingState } from "@/components/skill-forecasting/ForecastLoadingState";
+import { AccessibleChart } from "@/components/skill-forecasting/AccessibleChart";
+import { ActionableInsights } from "@/components/skill-forecasting/ActionableInsights";
+import { InlineExplainer, ConfidenceIntervalExplainer, AIImpactScoreExplainer } from "@/components/skill-forecasting/InlineExplainer";
+import { InteractiveDemoSection } from "@/components/skill-forecasting/InteractiveDemoSection";
+import { MethodologySection } from "@/components/skill-forecasting/MethodologySection";
+import { UseCaseCards } from "@/components/skill-forecasting/UseCaseCards";
 
 const features = [
   {
@@ -1145,8 +1153,7 @@ const SkillForecasting = () => {
   );
 
   return (
-    <TooltipProvider>
-      <div className="min-h-screen bg-gradient-future">
+    <div className="min-h-screen bg-gradient-future">
       <Header />
       <main className="pt-20 relative overflow-hidden">
         {/* Background Effects */}
@@ -1183,20 +1190,20 @@ const SkillForecasting = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-hero hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-future text-base font-semibold px-8 py-6 h-auto min-h-[48px] min-w-[160px]"
-                    onClick={simulateLoading}
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-hero hover:opacity-90 transition-all duration-300 hover:scale-105 shadow-future text-base font-semibold px-8 py-6 h-auto"
+                    onClick={handleStartForecasting}
                     data-testid="button-start-forecasting"
                   >
                     <Zap className="w-5 h-5 mr-2" />
-                    Coba Sekarang
+                    Coba Prediksi Gratis
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="hover-lift border-primary/20 hover:border-primary/40 text-base font-medium px-8 py-6 h-auto min-h-[48px] min-w-[160px]"
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="hover-lift border-primary/20 hover:border-primary/40 text-base font-medium px-8 py-6 h-auto"
                   >
                     <PlayCircle className="w-5 h-5 mr-2" />
                     Lihat Demo
@@ -1217,9 +1224,6 @@ const SkillForecasting = () => {
                     <Bot className="w-4 h-4 text-secondary" />
                     <span>AI Terbaru</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>500+ organisasi • 10,000+ laporan dibuat • data terakhir: 2025-10-01</span>
-                  </div>
                 </div>
               </div>
               
@@ -1239,9 +1243,6 @@ const SkillForecasting = () => {
                           <CardDescription className="text-sm">
                             Risiko tergantikan AI per profesi
                           </CardDescription>
-                          <div className="text-xs text-muted-foreground mt-1">
-                            Dataset: JobPostings Corpus (50K+) • Last updated: 2025-10-01 • Model: Forecast v1.3
-                          </div>
                         </div>
                       </div>
                       <Badge className="bg-primary/10 text-primary border-primary/20 text-xs font-medium">
@@ -1251,74 +1252,38 @@ const SkillForecasting = () => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {aiImpactData.map((item, index) => (
-                      <div
-                        key={index}
-                        className="group p-3 sm:p-4 rounded-lg hover:bg-primary/5 active:bg-primary/10 transition-all duration-300 focus-within:ring-2 focus-within:ring-primary touch-manipulation"
-                        tabIndex={0}
-                        role="button"
-                        aria-label={`AI Impact Score untuk ${item.profession}: ${item.risk}% dengan confidence interval ${item.ci[0]}-${item.ci[1]}%. Tekan Enter untuk melihat detail.`}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            // Handle keyboard activation
-                          }
-                        }}
-                        onClick={() => {
-                          // Handle click
-                        }}
-                        style={{ minHeight: '44px' }}
-                      >
+                      <div key={index} className="group p-3 rounded-lg hover:bg-primary/5 transition-all duration-300">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-sm font-medium group-hover:text-primary transition-colors">
                             {item.profession}
                           </span>
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold" style={{ color: item.color }}>
+                            <span className={`text-sm font-bold ${item.color}`}>
                               {item.risk}%
                             </span>
-                            <div
-                              className="w-3 h-3 rounded-sm border-2 border-white"
-                              style={{
-                                backgroundColor: item.color,
-                                clipPath: item.shape === 'circle' ? 'circle()' :
-                                         item.shape === 'square' ? 'none' :
-                                         item.shape === 'triangle' ? 'polygon(50% 0%, 0% 100%, 100% 100%)' :
-                                         'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'
-                              }}
-                            />
+                            {item.risk > 70 ? (
+                              <AlertTriangle className="w-4 h-4 text-destructive" />
+                            ) : item.risk > 40 ? (
+                              <Clock className="w-4 h-4 text-orange-500" />
+                            ) : (
+                              <Shield className="w-4 h-4 text-secondary" />
+                            )}
                           </div>
                         </div>
                         <div className="relative">
                           <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                            {/* Prediction ribbon (confidence interval) */}
-                            <div
-                              className="h-full opacity-30"
-                              style={{
-                                backgroundColor: item.color,
-                                width: `${(item.ci[1] - item.ci[0])}%`,
-                                marginLeft: `${item.ci[0]}%`
-                              }}
-                            />
-                            {/* Median line */}
-                            <div
-                              className="absolute top-0 h-full w-0.5"
-                              style={{
-                                backgroundColor: item.color,
-                                left: `${item.risk}%`
+                            <div 
+                              className={`h-full transition-all duration-1000 ${
+                                item.risk > 70 ? 'bg-gradient-to-r from-destructive to-red-400' : 
+                                item.risk > 40 ? 'bg-gradient-to-r from-orange-500 to-yellow-400' : 
+                                'bg-gradient-to-r from-secondary to-green-400'
+                              }`}
+                              style={{ 
+                                width: `${item.risk}%`,
+                                animationDelay: `${index * 0.2}s`
                               }}
                             />
                           </div>
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-                          <Tooltip>
-                            <TooltipTrigger>
-                              <span className="underline cursor-help">CI</span>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Confidence Interval: Rentang estimasi akurasi model (75% confidence)</p>
-                            </TooltipContent>
-                          </Tooltip>
-                          : {item.ci[0]}-{item.ci[1]}%
                         </div>
                       </div>
                     ))}
@@ -1331,32 +1296,6 @@ const SkillForecasting = () => {
                       <p className="text-xs text-muted-foreground leading-relaxed">
                         Data diperbarui real-time berdasarkan tren automation dan analisis 50.000+ job posting Indonesia.
                       </p>
-                    </div>
-
-                    {/* Legend */}
-                    <div className="mt-4 flex flex-wrap gap-4 text-xs">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#1B9E77' }}></div>
-                        <span>Rendah (0-20%)</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#7570B3' }}></div>
-                        <span>Sedang (21-50%)</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#D95F02' }}></div>
-                        <span>Tinggi (51-100%)</span>
-                      </div>
-                    </div>
-
-                    {/* Data Table Toggle */}
-                    <div className="mt-4 flex items-center justify-between">
-                      <Button variant="outline" size="sm">
-                        Lihat Tabel Data
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        Export CSV
-                      </Button>
                     </div>
                   </CardContent>
                 </Card>

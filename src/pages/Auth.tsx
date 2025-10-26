@@ -16,6 +16,7 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
+  const [step, setStep] = useState<1 | 2>(1); // Progressive onboarding step
   const [mode, setMode] = useState<'signin' | 'signup' | 'recovery'>('signin');
   const [onboardingStep, setOnboardingStep] = useState<'auth' | 'profile' | 'preferences'>('auth');
   const [userRole, setUserRole] = useState<'student' | 'hr' | 'career-switcher' | ''>('');
@@ -61,13 +62,23 @@ const Auth = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Step 1: Validate email & password only
+    if (step === 1) {
+      if (email && password) {
+        setStep(2);
+      }
+      return;
+    }
+
+    // Step 2: Create account
     setIsLoading(true);
 
     const { error } = await signUp(email, password, fullName);
     
     if (error) {
       toast({
-        title: "Sign up failed",
+        title: "Pendaftaran gagal",
         description: error.message,
         variant: "destructive",
       });
@@ -75,10 +86,9 @@ const Auth = () => {
       setEmail('');
       setPassword('');
       setFullName('');
-      setOnboardingStep('profile');
       toast({
         title: "Account created!",
-        description: "Let's complete your profile to personalize your experience.",
+        description: "Please check your email to verify your account.",
       });
     }
     
@@ -448,6 +458,12 @@ const Auth = () => {
               </TabsContent>
               
               <TabsContent value="signup" className="space-y-4">
+                {/* Progress Indicator */}
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <div className={`h-2 w-16 rounded-full transition-colors ${step >= 1 ? 'bg-primary' : 'bg-muted'}`} />
+                  <div className={`h-2 w-16 rounded-full transition-colors ${step >= 2 ? 'bg-primary' : 'bg-muted'}`} />
+                </div>
+                
                 <form onSubmit={handleSignUp} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="signup-name">Full Name</Label>
@@ -459,7 +475,7 @@ const Auth = () => {
                       onChange={(e) => setFullName(e.target.value)}
                     />
                   </div>
-
+                  
                   <div className="space-y-2">
                     <Label htmlFor="signup-email">Email</Label>
                     <Input
@@ -471,25 +487,21 @@ const Auth = () => {
                       required
                     />
                   </div>
-
+                  
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Password</Label>
                     <Input
                       id="signup-password"
                       type="password"
-                      placeholder="Create a password (min 8 characters)"
+                      placeholder="Create a password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
                   </div>
-
-                  <div className="text-xs text-muted-foreground">
-                    🔒 By creating an account, you agree to our privacy policy. Your data is encrypted and only used for personalization.
-                  </div>
-
-                  <Button
-                    type="submit"
+                  
+                  <Button 
+                    type="submit" 
                     className="w-full"
                     disabled={isLoading}
                   >

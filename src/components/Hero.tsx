@@ -59,16 +59,16 @@ const Hero = () => {
               7,28 Juta Talenta Muda Siap Era AI
             </Badge>
             
-            {/* Headline */}
+            {/* Headline - Clear Value Proposition */}
             <div className="space-y-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                Khawatir Skill-mu{" "}
                 <span className="bg-gradient-hero bg-clip-text text-transparent">
-                  Prediksi Kebutuhan Skill 6–12 Bulan
-                </span>{" "}
-                untuk Industri Indonesia — Akurasi Model ~75%
+                  Digantikan AI?
+                </span>
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium">
-                Untuk HR & L&D: Rencanakan rekrutmen dan upskilling dengan data pasar real-time.
+              <p className="text-xl md:text-2xl text-muted-foreground font-medium">
+                Kami Punya Roadmap 5 Tahun untuk Tetap Relevan.
               </p>
             </div>
             
@@ -97,125 +97,46 @@ const Hero = () => {
             </div>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4" role="group" aria-label="Primary actions">
-              <Button
-                variant="hero"
-                size="lg"
-                className="group font-semibold px-6 sm:px-8 py-4 sm:py-6 min-h-[48px] min-w-[160px] text-base sm:text-lg bg-[#0B63E6] text-white hover:bg-[#0B63E6]/90 touch-manipulation"
-                aria-label="Start your career roadmap for free"
-                onClick={() => {/* navigation logic */}}
-              >
-                <span className="block sm:hidden">Mulai Gratis</span>
-                <span className="hidden sm:block">Mulai Roadmap Masa Depan (Gratis)</span>
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform ml-2" aria-hidden="true" />
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button variant="hero" size="lg" className="group">
+                Mulai Roadmap Masa Depan (Gratis)
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="px-4 sm:px-6 py-4 sm:py-6 min-h-[48px] text-sm sm:text-base touch-manipulation"
-                  aria-label="Analyze AI impact on your career"
-                  onClick={() => {/* navigation logic */}}
-                >
-                  <Brain className="w-4 h-4 sm:w-5 sm:h-5 mr-2" aria-hidden="true" />
-                  <span className="block sm:hidden">AI Analysis</span>
-                  <span className="hidden sm:block">Analisis AI Impact Score</span>
-                </Button>
-                <PricingModal />
-              </div>
-            </div>
-
-            {/* Interactive Mini-Preview */}
-            <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl max-w-2xl mx-auto" role="region" aria-labelledby="preview-title">
-              <div className="text-center mb-4">
-                <h3 id="preview-title" className="text-base sm:text-lg font-semibold mb-2">🎯 Try Interactive Preview</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-4 px-2">
-                  Enter your role or major to see instant career insights
-                </p>
-                <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto" role="group" aria-label="Career preview input">
-                  <Input
-                    placeholder="e.g., Data Scientist, HR Manager..."
-                    value={previewRole}
-                    onChange={(e) => setPreviewRole(e.target.value)}
-                    className="flex-1 min-h-[44px] text-base"
-                    aria-label="Enter your job role or field of study"
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter') {
-                        setShowPreview(true);
-                      }
-                    }}
-                  />
-                  <Button
-                    size="sm"
-                    onClick={() => setShowPreview(true)}
-                    disabled={!previewRole.trim()}
-                    aria-label="Show career preview for entered role"
-                    className="min-h-[44px] px-4 touch-manipulation"
-                  >
-                    <Eye className="w-4 h-4 sm:mr-2" aria-hidden="true" />
-                    <span className="hidden sm:inline">Preview</span>
-                  </Button>
-                </div>
-              </div>
-
-              {showPreview && previewRole.trim() && (
-                <div className="animate-fade-in-up">
-                  <div className="text-center mb-4">
-                    <Badge variant="secondary" className="mb-2">Quick Insights for {previewRole}</Badge>
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="text-center p-3 bg-primary/5 rounded-lg">
-                      <div className="text-sm font-medium">Top Skills</div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {getPreviewResult().topSkills.slice(0, 2).join(', ')}
-                      </div>
-                    </div>
-                    <div className="text-center p-3 bg-secondary/5 rounded-lg">
-                      <div className="text-sm font-medium">Avg Salary</div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {getPreviewResult().avgSalary}
-                      </div>
-                    </div>
-                    <div className="text-center p-3 bg-accent/5 rounded-lg">
-                      <div className="text-sm font-medium">AI Risk</div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {getPreviewResult().aiRisk}
-                      </div>
-                    </div>
-                    <div className="text-center p-3 bg-primary/5 rounded-lg">
-                      <div className="text-sm font-medium">Trend</div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {getPreviewResult().trend}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-center mt-4">
-                    <Button variant="outline" size="sm">
-                      Get Full Report
-                      <ChevronRight className="w-3 h-3 ml-1" />
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Trust Strip */}
-            <div className="flex items-center gap-4 pt-6 border-t border-border/50 text-sm text-muted-foreground">
-              <span>500+ organisasi • 10,000+ laporan dibuat • data terakhir: 2025-10-01</span>
+              <Button variant="future" size="lg">
+                <Brain className="w-5 h-5 mr-2" />
+                Analisis AI Impact Score
+              </Button>
             </div>
             
-            {/* Social Proof */}
-            <div className="flex items-center gap-4 pt-6">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full bg-gradient-hero border-2 border-background"
-                  />
-                ))}
+            {/* Microcopy untuk mengurangi friction */}
+            <p className="text-sm text-muted-foreground italic">
+              💡 Tidak yakin mulai dari mana? Dapatkan rekomendasi jalur karier yang dipersonalisasi — gratis!
+            </p>
+            
+            {/* Enhanced Social Proof & Trust Signals */}
+            <div className="space-y-4 pt-6">
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-2">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className="w-10 h-10 rounded-full bg-gradient-hero border-2 border-background"
+                    />
+                  ))}
+                </div>
+                <div className="text-sm">
+                  <strong className="text-foreground text-base">12.470+ pengguna</strong>
+                  <p className="text-muted-foreground">telah meningkatkan peluang interview mereka</p>
+                </div>
               </div>
-              <div className="text-sm text-muted-foreground">
-                <strong className="text-foreground">1.247 pengguna</strong> sepertimu meningkatkan kesiapan AI hari ini
+              
+              {/* Privacy Assurance */}
+              <div className="flex items-start gap-2 text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
+                <span className="text-primary">🔒</span>
+                <p>
+                  <strong className="text-foreground">Data Anda aman.</strong> CV Anda terenkripsi end-to-end dan hanya digunakan untuk analisis.{" "}
+                  <a href="/privacy" className="text-primary hover:underline">Lihat kebijakan privasi</a>
+                </p>
               </div>
             </div>
           </div>

@@ -19,7 +19,7 @@ const convertRoadmapItemToSkill = (item: RoadmapItem): Skill => ({
   id: item.id,
   type: 'hard' as const, // Default to hard skill
   title: item.title,
-  details: item.description || '',
+  details: item.description ? [item.description] : [],
   description: item.description,
   status: item.status,
   resources: item.resourceUrl ? [{ title: 'Resource', url: item.resourceUrl }] : [],
@@ -74,7 +74,7 @@ export default function CareerRoadmap({ profession, sections }: CareerRoadmapPro
     return items.filter(item => {
       const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        item.details.toLowerCase().includes(searchQuery.toLowerCase());
+        (item.details && item.details.some(d => d.toLowerCase().includes(searchQuery.toLowerCase())));
       const matchesStatus = statusFilter.length === 0 || statusFilter.includes(item.status || 'optional');
       return matchesSearch && matchesStatus;
     });
