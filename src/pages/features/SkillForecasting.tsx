@@ -19,14 +19,6 @@ import { allJobs, jobsByCategory, futureJobs, disappearingJobs, jobSeparation } 
 import { assessmentQuestions, categoryWeights } from "@/data/assessmentQuestions";
 import { Job, AssessmentResult, JobMatch, JobCategory } from "@/data/skillForecastingTypes";
 import completeJobs from "@/data/completeJobsData";
-import { HeroSection } from "@/components/skill-forecasting/HeroSection";
-import { ForecastLoadingState } from "@/components/skill-forecasting/ForecastLoadingState";
-import { AccessibleChart } from "@/components/skill-forecasting/AccessibleChart";
-import { ActionableInsights } from "@/components/skill-forecasting/ActionableInsights";
-import { InlineExplainer, ConfidenceIntervalExplainer, AIImpactScoreExplainer } from "@/components/skill-forecasting/InlineExplainer";
-import { InteractiveDemoSection } from "@/components/skill-forecasting/InteractiveDemoSection";
-import { MethodologySection } from "@/components/skill-forecasting/MethodologySection";
-import { UseCaseCards } from "@/components/skill-forecasting/UseCaseCards";
 
 const features = [
   {
@@ -1555,7 +1547,6 @@ const SkillForecasting = () => {
       <Footer />
       <LoadingModal />
     </div>
-    </TooltipProvider>
   );
 };
 

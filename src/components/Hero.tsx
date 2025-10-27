@@ -59,16 +59,16 @@ const Hero = () => {
               7,28 Juta Talenta Muda Siap Era AI
             </Badge>
             
-            {/* Headline - Clear Value Proposition */}
+            {/* Headline */}
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                Khawatir Skill-mu{" "}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="bg-gradient-hero bg-clip-text text-transparent">
-                  Digantikan AI?
-                </span>
+                  Prediksi Kebutuhan Skill 6–12 Bulan
+                </span>{" "}
+                untuk Industri Indonesia — Akurasi Model ~75%
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-                Kami Punya Roadmap 5 Tahun untuk Tetap Relevan.
+              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium">
+                Untuk HR & L&D: Rencanakan rekrutmen dan upskilling dengan data pasar real-time.
               </p>
             </div>
             
