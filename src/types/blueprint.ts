@@ -8,32 +8,15 @@ export interface CoreConcept {
   description: string;
 }
 
-export interface MasteryLevel {
-  pemula: string[];
-  menengah: string[];
-  mahir: string[];
-}
-
-export interface ProjectPortfolio {
+export interface MasteryGoal {
   id: string;
-  title: string;
   description: string;
-  difficulty: string;
-  duration: string;
-  technologies: string[];
-  deliverables: string[];
 }
 
 export interface PracticalProject {
   title: string;
   description: string;
   link?: string;
-}
-
-export interface DetailedSkillBreakdown {
-  konsepInti: string[];
-  jalurPenguasaan: MasteryLevel;
-  proyekPortofolio: ProjectPortfolio[];
 }
 
 export interface Skill {
@@ -44,7 +27,6 @@ export interface Skill {
   masteryGoals: MasteryGoal[];
   practicalProjects: PracticalProject[];
   description?: string;
-  details?: string[];
   status?: 'required' | 'recommended' | 'optional';
   prerequisites?: string[];
   resources?: Resource[];
@@ -55,7 +37,6 @@ export interface Phase {
   id: string;
   title: string;
   description?: string;
-  duration?: string;
   skills: Skill[];
 }
 

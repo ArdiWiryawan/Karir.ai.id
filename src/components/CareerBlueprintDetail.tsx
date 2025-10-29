@@ -187,80 +187,18 @@ const CareerBlueprintDetail = ({ blueprint, onStartLearning }: CareerBlueprintDe
                         </p>
 
                         {/* Core Concepts */}
-                        {skill.coreConcepts && skill.coreConcepts.length > 0 && (
-                          <div className="mb-4">
-                            <div className="text-sm font-semibold text-primary mb-2 flex items-center gap-2">
-                              <Lightbulb className="w-4 h-4" />
-                              Konsep Inti
-                            </div>
-                            <div className="space-y-2">
-                              {skill.coreConcepts.map((concept, conceptIndex) => (
-                                <div key={conceptIndex} className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                                  <div className="font-medium text-blue-900 text-sm mb-1">
-                                    {concept.title}
-                                  </div>
-                                  <div className="text-xs text-blue-700">
-                                    {concept.description}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
+                        <div className="mb-3">
+                          <div className="text-xs font-medium text-muted-foreground mb-2">
+                            Konsep Kunci:
                           </div>
-                        )}
-
-                        {/* Mastery Path */}
-                        {skill.masteryGoals && skill.masteryGoals.length > 0 && (
-                          <div className="mb-4">
-                            <div className="text-sm font-semibold text-green-600 mb-2 flex items-center gap-2">
-                              <Target className="w-4 h-4" />
-                              Jalur Penguasaan
-                            </div>
-                            <div className="space-y-2">
-                              {skill.masteryGoals.map((goal, goalIndex) => (
-                                <div key={goalIndex} className="flex items-start gap-2">
-                                  <div className="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" />
-                                  <div className="text-sm text-gray-700">
-                                    {goal.description}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
+                          <div className="flex flex-wrap gap-1">
+                            {skill.concepts.map((concept, conceptIndex) => (
+                              <Badge key={conceptIndex} variant="secondary" className="text-xs">
+                                {concept}
+                              </Badge>
+                            ))}
                           </div>
-                        )}
-
-                        {/* Portfolio Projects */}
-                        {skill.practicalProjects && skill.practicalProjects.length > 0 && (
-                          <div className="mb-4">
-                            <div className="text-sm font-semibold text-purple-600 mb-2 flex items-center gap-2">
-                              <Star className="w-4 h-4" />
-                              Proyek Portofolio
-                            </div>
-                            <div className="space-y-3">
-                              {skill.practicalProjects.map((project, projectIndex) => (
-                                <div key={projectIndex} className="bg-purple-50 border border-purple-200 rounded-lg p-3">
-                                  <div className="font-medium text-purple-900 text-sm mb-1">
-                                    {project.title}
-                                  </div>
-                                  <div className="text-xs text-purple-700 mb-2">
-                                    {project.description}
-                                  </div>
-                                  {project.link && (
-                                    <div className="text-xs">
-                                      <a
-                                        href={project.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-purple-600 hover:text-purple-800 underline"
-                                      >
-                                        Lihat Proyek →
-                                      </a>
-                                    </div>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+                        </div>
 
                         {/* Learning Path */}
                         {skill.learningPath && (

@@ -1,46 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, ChevronRight, Sparkles, Target, TrendingUp, Zap, Eye, Crown } from "lucide-react";
-import { useState } from "react";
-import PricingModal from "@/components/PricingModal";
+import { Brain, ChevronRight, Sparkles, Target, TrendingUp } from "lucide-react";
 
 const Hero = () => {
   const heroImage = "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-  const [previewRole, setPreviewRole] = useState('');
-  const [showPreview, setShowPreview] = useState(false);
-
-  const previewData = {
-    'data scientist': {
-      topSkills: ['Python', 'Machine Learning', 'SQL'],
-      avgSalary: 'Rp 15-25 juta',
-      aiRisk: 'Low (15%)',
-      trend: '📈 Growing 45%'
-    },
-    'hr manager': {
-      topSkills: ['Talent Management', 'Recruitment', 'Employee Relations'],
-      avgSalary: 'Rp 12-20 juta',
-      aiRisk: 'Medium (35%)',
-      trend: '📈 Growing 25%'
-    },
-    'software engineer': {
-      topSkills: ['JavaScript', 'React', 'Node.js'],
-      avgSalary: 'Rp 18-30 juta',
-      aiRisk: 'Medium (40%)',
-      trend: '📈 Growing 35%'
-    }
-  };
-
-  const getPreviewResult = () => {
-    const role = previewRole.toLowerCase();
-    for (const [key, data] of Object.entries(previewData)) {
-      if (role.includes(key) || key.includes(role)) {
-        return data;
-      }
-    }
-    return previewData['data scientist']; // default
-  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-future">
@@ -61,14 +24,14 @@ const Hero = () => {
             
             {/* Headline */}
             <div className="space-y-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                Khawatir Skill-mu{" "}
                 <span className="bg-gradient-hero bg-clip-text text-transparent">
-                  Prediksi Kebutuhan Skill 6–12 Bulan
-                </span>{" "}
-                untuk Industri Indonesia — Akurasi Model ~75%
+                  Digantikan AI?
+                </span>
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium">
-                Untuk HR & L&D: Rencanakan rekrutmen dan upskilling dengan data pasar real-time.
+              <p className="text-xl md:text-2xl text-muted-foreground font-medium">
+                Kami Punya Roadmap 5 Tahun untuk Tetap Relevan.
               </p>
             </div>
             
@@ -108,35 +71,18 @@ const Hero = () => {
               </Button>
             </div>
             
-            {/* Microcopy untuk mengurangi friction */}
-            <p className="text-sm text-muted-foreground italic">
-              💡 Tidak yakin mulai dari mana? Dapatkan rekomendasi jalur karier yang dipersonalisasi — gratis!
-            </p>
-            
-            {/* Enhanced Social Proof & Trust Signals */}
-            <div className="space-y-4 pt-6">
-              <div className="flex items-center gap-4">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="w-10 h-10 rounded-full bg-gradient-hero border-2 border-background"
-                    />
-                  ))}
-                </div>
-                <div className="text-sm">
-                  <strong className="text-foreground text-base">12.470+ pengguna</strong>
-                  <p className="text-muted-foreground">telah meningkatkan peluang interview mereka</p>
-                </div>
+            {/* Social Proof */}
+            <div className="flex items-center gap-4 pt-6">
+              <div className="flex -space-x-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="w-8 h-8 rounded-full bg-gradient-hero border-2 border-background"
+                  />
+                ))}
               </div>
-              
-              {/* Privacy Assurance */}
-              <div className="flex items-start gap-2 text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
-                <span className="text-primary">🔒</span>
-                <p>
-                  <strong className="text-foreground">Data Anda aman.</strong> CV Anda terenkripsi end-to-end dan hanya digunakan untuk analisis.{" "}
-                  <a href="/privacy" className="text-primary hover:underline">Lihat kebijakan privasi</a>
-                </p>
+              <div className="text-sm text-muted-foreground">
+                <strong className="text-foreground">1.247 pengguna</strong> sepertimu meningkatkan kesiapan AI hari ini
               </div>
             </div>
           </div>

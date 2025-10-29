@@ -51,17 +51,17 @@ const CTA = () => {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-6 text-lg group shadow-xl min-h-[48px] min-w-[160px]"
+            <Button 
+              size="lg" 
+              className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-6 text-lg group shadow-xl"
             >
               Mulai Roadmap Masa Depan Sekarang
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button
-              variant="outline"
+            <Button 
+              variant="outline" 
               size="lg"
-              className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-6 text-lg min-h-[48px] min-w-[160px]"
+              className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-8 py-6 text-lg"
             >
               <Users className="w-5 h-5 mr-2" />
               Lihat Success Stories

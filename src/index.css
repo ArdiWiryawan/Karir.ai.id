@@ -1,11 +1,10 @@
-/*! @tailwindcss v3.4.0 | https://tailwindcss.com/docs/installation */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
-@import './styles/roadmap.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import './styles/roadmap.css';
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
@@ -29,7 +28,7 @@ All colors MUST be HSL.
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   }
 
-  /* Custom typography scale for better hierarchy & accessibility */
+  /* Custom typography scale for better hierarchy */
   .text-display {
     font-size: clamp(2.5rem, 8vw, 6rem);
     font-weight: 800;
@@ -55,14 +54,6 @@ All colors MUST be HSL.
     font-size: 1.125rem;
     line-height: 1.6;
     font-weight: 400;
-  }
-
-  /* Mobile-optimized typography (minimum 16px for body) */
-  @media (max-width: 640px) {
-    body {
-      font-size: 16px;
-      line-height: 1.6;
-    }
   }
 
   :root {
