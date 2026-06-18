@@ -1,126 +1,90 @@
-# Welcome to your Lovable project
+# Karir.ai.id 🤖
+> **AI-Powered Career Forecasting & Skill Blueprint Generator**
 
-## Project info
+[![Status](https://img.shields.io/badge/Status-Prototype-yellow?style=for-the-badge)](https://github.com/ArdiWiryawan/Karir.ai.id)
+[![Stack](https://img.shields.io/badge/Stack-React_/_TypeScript_/_Vite-blue?style=for-the-badge&logo=react)](https://react.dev/)
+[![Styling](https://img.shields.io/badge/Styling-Tailwind_CSS_/_shadcn--ui-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
 
-**URL**: https://lovable.dev/projects/d923cb59-09b8-4a20-b33e-ddec93537efd
+Karir.ai.id is an AI-powered Career-Tech platform built to empower the next generation of Indonesian professionals. By combining predictive artificial intelligence with a modern, responsive web application, the platform generates comprehensive career forecasts and step-by-step learning roadmaps (Skill Blueprints) for any target profession.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🌟 Key Features
 
-**Use Lovable**
+### 📈 1. Interactive Skill Blueprint Generator
+- Generates tailored, structured career blueprints dynamically based on user-supplied professions.
+- Accessible at `/skill-blueprint`, rendering markdown outputs using **ReactMarkdown** with proper heading hierarchies and inline checklists.
+- Incorporates loading indicator screens and validation triggers.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d923cb59-09b8-4a20-b33e-ddec93537efd) and start prompting.
+### 🔌 2. Serverless API Integrations (Netlify Functions)
+- Features a serverless endpoint at `/api/forecast` to handle processing queries securely.
+- Manages dynamic queries and structures responses, outputting comprehensive prediction profiles containing:
+  - Career path difficulty assessments.
+  - Market demands and projected salary trends.
+  - Interactive learning checkmarks.
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🧪 3. Live Test Bed & Playground
+- Includes a testing interface at `/test-skill-blueprint` to validate API responses in real-time.
+- Supports validation of form elements, allowing developers and product teams to test model responses instantly.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Tech Stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Frontend Core**: React 18, TypeScript, Vite (build tool)
+- **Styling & Components**: Tailwind CSS, shadcn-ui, Lucide Icons
+- **Markdown Renderer**: ReactMarkdown
+- **Backend Support**: Netlify Functions (Serverless Node.js endpoints)
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## 📂 Project Structure
+```text
+Karir.ai.id/
+├── api/
+│   └── forecast.ts         # Netlify serverless function endpoint
+├── src/
+│   ├── components/         # Reusable UI components (buttons, input fields)
+│   ├── pages/
+│   │   ├── SkillBlueprintPage.tsx   # Core blueprint renderer
+│   │   └── TestSkillBlueprint.tsx   # Live testing playground
+│   ├── App.tsx             # Application router and layout config
+│   └── main.tsx            # React root mount point
+└── README.md               # Project documentation
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🚀 Installation & Local Running
 
-**Use GitHub Codespaces**
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ArdiWiryawan/Karir.ai.id.git
+   cd Karir.ai.id
+   ```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+2. **Install all dependencies:**
+   ```bash
+   npm install
+   ```
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/d923cb59-09b8-4a20-b33e-ddec93537efd) and click on Share -> Publish.
-
-## How to Test the Skill Blueprint Feature
-
-To test the new Skill Blueprint feature:
-
-1. Start the development server:
-   ```sh
+3. **Start the local Vite dev server:**
+   ```bash
    npm run dev
    ```
 
-2. Visit the test page at `/test-skill-blueprint`
+4. **Access the application:**
+   Navigate to the local URL (usually `http://localhost:5173`) in your browser.
+   - Test Page: `http://localhost:5173/test-skill-blueprint`
+   - Blueprint Page: `http://localhost:5173/skill-blueprint?profession=Developer`
 
-3. Enter a profession (e.g., "Data Scientist") and click "View Career Blueprint"
+---
 
-4. The page will display an AI-generated career blueprint for that profession
+## 🧠 Technical Learnings
+- **Markdown Parsing**: Handled sanitizing and rendering nested markdown strings inside React components safely.
+- **Serverless API Design**: Structured serverless handler functions in TypeScript to manage POST requests, parse JSON bodies, and return CORS-compliant responses.
 
-## API Endpoints
+---
 
-### Netlify Function: `/api/forecast`
-
-**Method**: POST
-**Content-Type**: application/json
-
-**Request Body**:
-```json
-{
-  "userQuery": "Data Scientist"
-}
-```
-
-**Response**:
-```json
-{
-  "prediction": "# Career Blueprint Markdown...",
-  "timestamp": "2023-06-15T10:30:00Z"
-}
-```
-
-## Components
-
-### SkillBlueprintPage
-
-Located at `src/pages/SkillBlueprintPage.tsx`, this component:
-- Fetches career blueprint data from the Netlify function
-- Displays the data using ReactMarkdown for proper formatting
-- Includes loading states and error handling
-- Is accessible at `/skill-blueprint?profession=...`
-
-### TestSkillBlueprint
-
-Located at `src/pages/TestSkillBlueprint.tsx`, this component:
-- Provides a simple form to test the skill blueprint feature
-- Accessible at `/test-skill-blueprint`
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📄 License
+This project is open-source and licensed under the [MIT License](LICENSE).
